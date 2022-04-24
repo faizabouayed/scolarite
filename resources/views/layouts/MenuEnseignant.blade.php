@@ -6,18 +6,34 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>Melody Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="vendors/iconfonts/font-awesome/css/all.min.css">
+  <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/css/vendor.bundle.addons.css') }}" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/iconfonts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/../../css/Profile-CSS.css">
+
+  <!--<link rel="stylesheet" href="vendors/iconfonts/font-awesome/css/all.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+   <link href="../../css/Profile-CSS.css" rel="stylesheet" id="bootstrap-css">-->
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- endinject -->
-  <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/css/style.css">
+
+  <!--<link rel="stylesheet" href="css/style.css">-->
   <!-- endinject -->
-  <link rel="shortcut icon" href="http://www.urbanui.com/" />
+  <link rel="shortcut icon" type="text/css" href="{{URL::to('/')}}/www.urbanui.com">
+
+  <!--<link rel="shortcut icon" href="http://www.urbanui.com/" />-->
 </head>
 <body>
   <div class="container-scroller">
@@ -302,6 +318,12 @@
             <a class="nav-link" href="/modules">
               <i class="fa fa-list-alt menu-icon"></i>
              <span class="menu-title">Modules</span> 
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/calendrier">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Calendrier</span> 
             </a>
           </li>
           <!-----------------------------User-------------->

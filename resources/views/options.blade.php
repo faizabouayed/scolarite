@@ -51,8 +51,8 @@
 
                                     <i class="fa fa-eye text-primary"></i>View
                                   </button></a>
-                                  <button class="btn btn-light">
-                                    <i class="fa fa-edit text-sucess"></i>Edit
+                                 <button class="btn btn-light" id="show">
+                                    <i class="fa fa-edit text-success "></i>Edit
                                   </button>
                                   <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
@@ -72,8 +72,8 @@
                                   <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>View
                                   </button>
-                                   <button class="btn btn-light">
-                                    <i class="fa fa-edit text-sucess"></i>Edit
+                                  <button class="btn btn-light" id="show">
+                                    <i class="fa fa-edit text-success "></i>Edit
                                   </button>
                                   <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
@@ -427,6 +427,8 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="../../js/data-table.js"></script>
+    <script src="../../js/avgrundEns.js"></script>
+
   <!-- End custom js for this page-->
 @endsection
 

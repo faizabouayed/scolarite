@@ -2,6 +2,7 @@
 @Section('content')
 
 
+
      <!-- partial -->
 
       <div class="main-panel">          
@@ -32,7 +33,7 @@
                             <tr class="bg-primary text-white">
                                 <th>Module</th>
                                 <th>Option</th>
-                                <th>Promo</th>
+                                <th>Code</th>
                                 <th>Semestre</th>
                                 
                                 <th>Status</th>
@@ -40,12 +41,12 @@
                             </tr>
                           </thead>
                           <tbody>
+                             @foreach($mo as $f)
                             <tr>
-                                <td>Bases de données</td>
-                                <td>SIC</td>
-                                <td>2018/2023</td>
-                                <td>S1</td>
-                               
+                                <td>{{$f->libelle}}</td>
+                                <td>{{$f->libelle_opt}}</td>
+                                <td>{{$f->code}}</td>
+                                <td>{{$f->semestre}}</td>
                                 <td>
                                   <label class="badge badge-info">
                                   <i class="fa fa-print btn-icon-append"></i>  
@@ -59,12 +60,13 @@
                                  <!-- <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Supprimer
                                   </button> -->
-                                    <a href="/notes"><button class="btn btn-light">
+                                    <a href="{{ URL::to('notes/'.$f->id_mod) }}"><button class="btn btn-light">
                                     <i class="fa fa-edit text-success"></i>  Notes
                                   </button> </a>
                                 </td>
                             </tr>
-                           
+                             @endforeach
+
                            <!-- <tr>
                                 <td>WD-69</td>
                                 <td>John</td>

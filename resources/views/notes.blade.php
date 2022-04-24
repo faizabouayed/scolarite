@@ -20,13 +20,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Modules</h4>
-                  <!-- <div class="row grid-margin">
-                    <div class="col-12">
-                      <div class="alert alert-warning" role="alert">
-                         <!-- <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-                      </div>
-                    </div>
-                  </div>  -->
+                 
 
                   <div class="row">
                     <div class="col-12">
@@ -45,23 +39,34 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                                <td>Berrahma</td>
-                                <td>Djazia</td>
-                                <td>12/07/1999</td>
-                                <td>14</td>
-                               
-                                <td> </td>
+                            @foreach($f as $F)
+                             <tr>
+                                <td>{{$F->nom}}</td>
+                                <td>{{$F->prenom}}</td>
+                                <td>{{$F->date_de_naissance}}</td>
+                                
+
+                                <td>{{$F->note}}</td>
+                                 @foreach($f3 as $F3)
+                                
+                                <td> {{$F3->note}}</td>
+
+                                @endforeach
+
+                               @foreach($f2 as $F2)
                                 <td class="text-right">
-                                  
+                                  {{$F2->note}}
                                 </td>
+                                @endforeach -->
+                               
                                 <td> 
                                    <button class="btn btn-light">
                                     <i class="fa fa-edit text-success"></i>Modifier Note
                                    </button>
 
                                 </td>
-                            </tr>
+                            </tr> 
+                            @endforeach
                            
                            <!-- <tr>
                                 <td>WD-69</td>

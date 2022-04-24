@@ -6,35 +6,24 @@
 <head>
   <!----------------profil------------->
    <link href="../../css/Profile-CSS.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   
 </head>
-      <!-- partial -->
-      <!-- partial:../../partials/_sidebar.html -->
-      
-      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
         </div>
         <!-- content-wrapper ends -->
          <div class="page-header">
             <h3 class="page-title">
-              Orders
+              
             </h3>
             <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb breadcrumb-custom">
-                          <li class="breadcrumb-item"><a href="#">User</a></li>
-                        <li class="breadcrumb-item"><a href="#">Enseignants</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><span>Profil</span></li>
-                      </ol>
-            </nav>
-           <!-- <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Sample pages</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+                <li class="breadcrumb-item"><a href="#">Enseignants</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profil</li>
               </ol>
-            </nav>-->
+            </nav>
           </div>
        
 <!------ Include the above in your HEAD tag ---------->
@@ -52,67 +41,59 @@
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
-                                    <h5>
-                                        Kshiti Ghelani
+                                  
+                              
+                                    <h5>hhhhhhhh
                                     </h5>
-                                    <h6>
-                                        Web Developer and Designer
+                                    <h6>ffffffffffff
                                     </h6>
                                     <p class="proile-rating">RANKINGS : <span>8/10</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profil</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Module</a>
-                                </li>
-                            </ul>
+                                
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Affecter Module"/>
+                        <button type="button" class="btn btn-inverse-warning btn-fw">Affecter Module</button>
+
+                      <!--  <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Affecter Module"/>-->
                     </div>
                 </div>
+                <br><br><br>
                 <div class="row">
-                    <div class="col-md-4">
+                    
                         <div class="profile-work">
-                            <p>WORK LINK</p>
-                            <a href="">Website Link</a><br/>
-                            <a href="">Bootsnipp Profile</a><br/>
-                            <a href="">Bootply Profile</a>
-                            <p>SKILLS</p>
-                            <a href="">Web Designer</a><br/>
-                            <a href="">Web Developer</a><br/>
-                            <a href="">WordPress</a><br/>
-                            <a href="">WooCommerce</a><br/>
-                            <a href="">PHP, .Net</a><br/>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="fa fa-user"></i>Info</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Modules</a>
+                                </li>
+                            </ul>
+                                              <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <!--<div class="col-md-6">
                                                 <label>User Id</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p>Kshiti123</p>
-                                            </div>
+                                            </div>-->
                                         </div>
+             
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Nom</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Kshiti Ghelani</p>
+                                                <p>aaauuuuuuuuuu</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Prenom</label>
+                                                <label>prenom</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>kshitighelani@gmail.com</p>
+                                                <p>eeeee</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -120,47 +101,65 @@
                                                 <label>Date de naissance</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>123 456 7890</p>
+                                                <p>1999</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Garde</label>
+                                                <label>Grade</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Web Developer and Designer</p>
+                                                <p>A</p>
                                             </div>
                                         </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    </form>
+                                                                          
+                        </div>  
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="row">
-                    <div class="table-sorter-wrapper col-lg-12 table-responsive">
-                      <table id="sortable-table-2" class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Code</th>
-                            <th class="sortStyle">Libelle<i class="fa fa-angle-down"></i></th>
-                            <th class="sortStyle">Promo<i class="fa fa-angle-down"></i></th>
-                            <th class="sortStyle">Option<i class="fa fa-angle-down"></i></th>
-                           
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>SIC 231</td>
-                            <td>Develepement d'applicationt Web</td>
-                            <td>2021-2022</td>
-                            <td>Master 1</td>
-                            
-                          </tr>                         
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                 
+                             <div class="table-sorter-wrapper col-lg-12 table-responsive">
+                               <table id="sortable-table-2" class="table table-striped">
+                                 <thead>
+                                    <tr>
+                                      <th>Code</th>
+                                      <th class="sortStyle">Libelle<i class="fa fa-angle-down"></i></th>
+                                      <th class="sortStyle">Promo<i class="fa fa-angle-down"></i></th>
+                                      <th class="sortStyle">Option<i class="fa fa-angle-down"></i></th>
+                                      <th class="sortStyle">Action<i class="fa fa-angle-down"></i></th>
+
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td>SIC 231</td>
+                                       <td>Develepement d'applicationt Web</td>
+                                       <td>2021-2022</td>
+                                       <td>Master 1</td>
+                                       <td>
+                                        <button class="btn btn-light" onclick="window.location.href='/Profile-Ens';">
+                                          <i class="fa fa-eye text-primary"></i>
+                                        </button>
+                                        <button class="btn btn-light" id="show">
+                                           <i class="fa fa-edit text-success "></i>
+                                        </button>
+                                        <button class="btn btn-light" onclick="showSwal('warning-message-and-cancel')">
+                                           <i class="fa fa-times text-danger"></i>
+                                        </button>
+                                 
+                                        </td>
+
+                                    </tr>                         
+                                 </tbody>
+                               </table>
+                             </div>
+                             </div>
+                            </div>                
+                        </div>
+                       </div>
+                    
                 </div>
             </form>           
-        </div>
+    </div>
         <!-- partial:../../partials/_footer.html -->
       
         <!-- partial -->

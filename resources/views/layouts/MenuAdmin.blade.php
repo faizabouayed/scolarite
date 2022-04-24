@@ -6,19 +6,34 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>Melody Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="vendors/iconfonts/font-awesome/css/all.min.css">
+  <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/css/vendor.bundle.addons.css') }}" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/iconfonts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/../../css/Profile-CSS.css">
+
+  <!--<link rel="stylesheet" href="vendors/iconfonts/font-awesome/css/all.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
-
+   <link href="../../css/Profile-CSS.css" rel="stylesheet" id="bootstrap-css">-->
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- endinject -->
-  <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/css/style.css">
+
+  <!--<link rel="stylesheet" href="css/style.css">-->
   <!-- endinject -->
-  <link rel="shortcut icon" href="http://www.urbanui.com/" />
+  <link rel="shortcut icon" type="text/css" href="{{URL::to('/')}}/www.urbanui.com">
+
+  <!--<link rel="shortcut icon" href="http://www.urbanui.com/" />-->
 </head>
 <body>
   <div class="container-scroller">
@@ -338,9 +353,9 @@
         </ul>
       </nav>
      
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="vendors/js/vendor.bundle.base.js"></script>
   <script src="vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
@@ -354,6 +369,17 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
+    <script src="../../js/file-upload.js"></script>
+  <script src="../../js/typeahead.js"></script>
+  <script src="../../js/select2.js"></script>
+  <!--<script src="{{ asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ asset('frontend/js/bootstrap5.bundle.min.js')}}"></script>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/ajax.js"></script>
+
+
+    @yield('script')
 </body>
 
 
