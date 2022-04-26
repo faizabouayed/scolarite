@@ -8,9 +8,9 @@
     <!--  All snippets are MIT license http://bootdey.com/license -->
     <title>profile with data and skills - Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -30,18 +30,27 @@
             <div class="col-md-4 mb-3">
                  <div class="card">
             <div class="card-body">
+             
               <div class="d-flex flex-column align-items-center text-center">
-                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+                <img src="/telechargement/avatar/{{ $user->photo }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+            <form enctype="multipart/form-data" action="/profile" method="POST">
+                <label>Changer ma photo</label>
+                <input type="file" name="avatar">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="submit" class="pull-right btn btn-sm btn-primary">
+            </form>
                 <div class="mt-3">
-                  <h4>John Doe</h4>
-                  <p class="text-secondary mb-1">Full Stack Developer</p>
+                 
+                  <h4>{{$user->name}}</h4>
+                 
+                  <!-- <p class="text-secondary mb-1">Full Stack Developer</p>
                   <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                  <!-- <button class="btn btn-primary">Follow</button>
+                  <button class="btn btn-primary">Follow</button>
                   <button class="btn btn-outline-primary">Message</button>-->
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
               <!--<div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
@@ -86,10 +95,20 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Full Name</h6>
+                      <h6 class="mb-0">Nom</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Kenneth Valdez
+                      {{$user->name}} 
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Prenom</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{$user->prenom}}
                     </div>
                   </div>
                   <hr>
@@ -98,25 +117,17 @@
                       <h6 class="mb-0">Email</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      fip@jukmuh.al
+                      {{$user->email}}
                     </div>
                   </div>
+                  
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Phone</h6>
+                      <h6 class="mb-0">Grade</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      (239) 816-9029
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Mobile</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      (320) 380-4539
+                     {{$user->grade}}
                     </div>
                   </div>
                   <hr>
@@ -125,13 +136,20 @@
                       <h6 class="mb-0">Address</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Bay Area, San Francisco, CA
+                      Faculté des Sciences,Université Abou Bakr Belkaid Tlemcen
                     </div>
                   </div>
-                  <hr>
+                  <hr> 
+                    
                   <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info " href="/editprofil">Edit</a>
+                      <a href="{{ URL::to('editprofil/'.$user->id) }}"><i class="fa fa-cogs"><button class="btn btn-info">
+                                   Modifier 
+                                  </button> </i></a>
+                      <!-- <a href="/notes"><button class="btn btn-light">
+                                    <i class="fa fa-edit text-success"></i>  Notes
+                                  </button> </a> -->
+                                  
                     </div>
                   </div>
                 </div>
@@ -165,7 +183,6 @@
               </div>
             </div>
           </div>
-
            <!--   <div class="row gutters-sm">
                 <div class="col-sm-6 mb-3">
                   <div class="card h-100">

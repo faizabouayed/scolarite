@@ -45,6 +45,11 @@ Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteControll
 Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@afficher')->name('show.afficher');
 
 
+
+
+ //afficher liste des modules 
+Route::get('/modules', 'App\Http\Controllers\ModuleController@ListeModules');
+
 Route::get('/calendrier', function () {
     return view('calendrier');
 });
@@ -74,6 +79,9 @@ Route::delete('/Enseignants-User-delete/{id}', 'App\Http\Controllers\ScolariteCo
 Route::get('/MenuAdmin', function () {
     return view('MenuAdmin');
 });
+Route::get('/liste_etudiants', function () {
+    return view('liste_etudiants');
+});
 Route::get('/Profile-Ens', function () {
     return view('Profile-Ens');
 });
@@ -91,20 +99,36 @@ Route::get('/login', function () {
 });
 
  
-Route::get('/profile', function () {
-    return view('profile');
-}
-);
+/*******************/
+
+ //afficher la photo du user
+Route::get('/profile', 'App\Http\Controllers\UserController@afficherInfos');
+
+Route::post('/profile', 'App\Http\Controllers\UserController@update_photo');
+
+//changer la photo 
+
+Route::post('/editprofil/{id}', 'App\Http\Controllers\UserController@update_photo');
+
+//editer profile 
+
+Route::get('/editprofil/{id}', 'App\Http\Controllers\UserController@afficherInfos2');
+
+//modifier profile information
+Route::put('update_data/{id}', 'App\Http\Controllers\UserController@update');
+
+
+/**************************************/
  
 Route::get('/editprofil', function () {
     return view('editprofil');
 }
 );
 
-Route::get('/modules', 'App\Http\Controllers\ModuleController@ListeModules');
+//Route::get('/modules', 'App\Http\Controllers\ModuleController@ListeModules');
 //liste des notes des etudiants
  
-Route::get('/notes/{id_mod}', 'App\Http\Controllers\NoteController@ListeNotes');
+Route::get('/notes/{id_mod}/{idpromo}', 'App\Http\Controllers\NoteController@ListeNotes');
 /* option*/
 Route::get('/options', 'App\Http\Controllers\OptionController@index')->name('options.index');
 Route::get('/createOpt', 'App\Http\Controllers\OptionController@create');

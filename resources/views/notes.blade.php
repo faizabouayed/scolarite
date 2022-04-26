@@ -6,12 +6,12 @@
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Modules
+              Notes
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Sample pages</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Modules</li>
+                <li class="breadcrumb-item active" aria-current="page">Notes</li>
               </ol>
             </nav>
           </div>
@@ -19,7 +19,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Modules</h4>
+                  <h4 class="card-title">Notes</h4>
                  
 
                   <div class="row">
@@ -51,13 +51,13 @@
                                 
                                 <td> {{$F3->note}}</td>
 
-                                @endforeach
+                                 @endforeach
 
-                               @foreach($f2 as $F2)
+                                @foreach($f2 as $F2)
                                 <td class="text-right">
                                   {{$F2->note}}
                                 </td>
-                                @endforeach -->
+                                @endforeach 
                                
                                 <td> 
                                    <button class="btn btn-light">
