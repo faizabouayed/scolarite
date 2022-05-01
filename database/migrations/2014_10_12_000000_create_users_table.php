@@ -22,10 +22,12 @@ class CreateUsersTable extends Migration
             $table->string('photo')->default('default.jpg');
             $table->string('password');   
             $table->date('date_n');
-            $table->string('grade');            
+            $table->date('date_recrutement')->nullable();
+            $table->string('grade')->nullable();            
             $table->enum('role',  ['enseignant','admin']);
             $table->rememberToken();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable()->useCurrentOnDelete();
 
             
         });

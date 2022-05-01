@@ -128,47 +128,51 @@ Route::get('/editprofil', function () {
 //Route::get('/modules', 'App\Http\Controllers\ModuleController@ListeModules');
 //liste des notes des etudiants
  
-Route::get('/notes/{id_mod}/{idpromo}', 'App\Http\Controllers\NoteController@ListeNotes');
+Route::get('/notes/{id_mod}/{id_pr}', 'App\Http\Controllers\NoteController@ListeNotes');
 /* option*/
 Route::get('/options', 'App\Http\Controllers\OptionController@index')->name('options.index');
 Route::get('/createOpt', 'App\Http\Controllers\OptionController@create');
 Route::post('options', 'App\Http\Controllers\OptionController@store');
 /*soft delete*/
-Route::delete('/options/{id}', 'App\Http\Controllers\OptionController@destroy')->name('options.destroy');
+Route::delete('/options/{id_opt}', 'App\Http\Controllers\OptionController@destroy')->name('options.destroy');
 /* force delete*/
-Route::post('/options/{id}', 'App\Http\Controllers\OptionController@supp')->name('options.supp');
+Route::post('/options/{id_opt}', 'App\Http\Controllers\OptionController@supp')->name('options.supp');
 /*restorer*/
-Route::get('/options/restore/{id}', 'App\Http\Controllers\OptionController@restore')->name('options.restore');
+Route::get('/options/restore/{id_opt}', 'App\Http\Controllers\OptionController@restore')->name('options.restore');
 /*tout restorer*/
 Route::get('/options/restore-all', 'App\Http\Controllers\OptionController@restoreAll')->name('options.restoreAll');
 /*master détails option avec promos*/
-Route::get('/options/viewPromo/{libelle}', 'App\Http\Controllers\OptionController@viewPromo')->name('options.viewPromo');
+Route::get('/options/viewPromo/{libelle_opt}', 'App\Http\Controllers\OptionController@viewPromo')->name('options.viewPromo');
 /*master détails promo avec étudiants*/
-Route::get('/promotions/viewEtud/{libelle}', 'App\Http\Controllers\PromotionController@viewEtud')->name('promos.viewEtud');
+Route::get('/promotions/viewEtud/{libelle_pr}', 'App\Http\Controllers\PromotionController@viewEtud')->name('promos.viewEtud');
 /*promotion */
 Route::get('/promotions', 'App\Http\Controllers\PromotionController@index')->name('promotions.index');
 /*etudiant */
 Route::get('/liste-des-etudiants', 'App\Http\Controllers\EtudiantController@index')->name('etudiants.index');
+/*soft delete */
+Route::delete('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@destroy')->name('etduiants.destroy');
+/*force delete*/
+Route::post('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@supp')->name('etudiants.supp');
 
 
 
 /*****************delete promotions***************/
 /*soft delete*/
-Route::delete('/promotions/{id}', 'App\Http\Controllers\PromotionController@destroy')->name('promotions.destroy');
+Route::delete('/promotions/{id_pr}', 'App\Http\Controllers\PromotionController@destroy')->name('promotions.destroy');
 /* force delete*/
-Route::post('/promotions/{id}', 'App\Http\Controllers\PromotionController@supp')->name('promotions.supp');
+Route::post('/promotions/{id_pr}', 'App\Http\Controllers\PromotionController@supp')->name('promotions.supp');
 /*restorer*/
-Route::get('/promotions/restore/{id}', 'App\Http\Controllers\PromotionController@restore')->name('promotions.restore');
+Route::get('/promotions/restore/{id_pr}', 'App\Http\Controllers\PromotionController@restore')->name('promotions.restore');
 /*tout restorer*/
 Route::get('/promotions/restore-all', 'App\Http\Controllers\PromotionController@restoreAll')->name('promotions.restoreAll');
 
 /*****************delete Etudiants***************/
 /*soft delete*/
-Route::delete('/etudiants/{id}', 'App\Http\Controllers\EtudiantController@destroy')->name('etudiants.destroy');
+Route::delete('/etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@destroy')->name('etudiants.destroy');
 /* force delete*/
-Route::post('/etudiants/{id}', 'App\Http\Controllers\EtudiantController@supp')->name('etudiants.supp');
+Route::post('/etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@supp')->name('etudiants.supp');
 /*restorer*/
-Route::get('/etudiants/restore/{id}', 'App\Http\Controllers\EtudiantController@restore')->name('etudiants.restore');
+Route::get('/etudiants/restore/{id_etud}', 'App\Http\Controllers\EtudiantController@restore')->name('etudiants.restore');
 /*tout restorer*/
 Route::get('/etudiants/restore-all', 'App\Http\Controllers\EtudiantController@restoreAll')->name('etudiants.restoreAll');
 
@@ -186,3 +190,9 @@ Route::get('/Admin-User/restore-all', 'App\Http\Controllers\AdminController@rest
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+Route::get('/createPromo', 'App\Http\Controllers\PromotionController@create');
+Route::post('promotions', 'App\Http\Controllers\PromotionController@store');

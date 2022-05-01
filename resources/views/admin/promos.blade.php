@@ -24,6 +24,12 @@
                     <div class="col-12">
                       
                     </div>
+                    <div class="row grid-margin">
+                  <a href="{{url('createPromo')}}">
+                    <button class="btn btn-light ">
+                     <i class="fa fa-plus text-success"></i> Nouvel Promo</button></a>
+                     
+                  </div>
                   </div>
                   <div class="row">
                     <div class="col-12">
@@ -40,13 +46,13 @@
                           <tbody>
                           @foreach($promos as $promo)
                             <tr>
-                                <td>{{$option->libelle}}</td>
-                                <td>{{$promo->libelle}}</td>
+                                <td>{{$option->libelle_opt}}</td>
+                                <td>{{$promo->libelle_pr}}</td>
                                 <td>{{$promo->annee}}</td>
             
                                 
                                 <td class="text-right">
-                                <a href="{{ route('promos.viewEtud', $promo->libelle) }}" class="btn btn-success">View</a> 
+                                <a href="{{ route('promos.viewEtud', $promo->libelle_pr) }}" class="btn btn-success">View</a> 
                                   <button class="btn btn-light">
                                     <i class="fa fa-edit text-sucess"></i>Edit
                                   </button>

@@ -21,15 +21,15 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Etudiants de Promo {{$promotion->libelle}}
+                  <h4 class="card-title">Etudiants de Promo {{$promotion->libelle_pr}}
                    <!-- <button type="button" class="btn btn-danger btn-icon-text">
                       <i class="fa fa-upload btn-icon-prepend"></i>                                                    
                       Upload
                     </button> !-->
-                    <button type="button" class="btn btn-info btn-icon-text">
+                   <!-- <button type="button" class="btn btn-info btn-icon-text">
                       Print
                       <i class="fa fa-print btn-icon-append"></i>                                                                              
-                    </button>
+                    </button>-->
                   </h4> 
                   
                   <div class="row grid-margin">
@@ -53,10 +53,11 @@
                                 <td>{{$etudiant->nom}}</td>
                                 <td>{{$etudiant->prenom}}</td>
                                 <td>{{$etudiant->date_de_naissance}}</td>
+                                
             
                                 
-                                <td class="text-right">
-                              <!--  <a href="/promo"> <button class="btn btn-light" >
+                              <!--  <td class="text-right">
+                               <a href="/promo"> <button class="btn btn-light" >
 
                                     <i class="fa fa-eye text-primary"></i>View
                                   </button></a>
@@ -66,13 +67,13 @@
                                   <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> --><!--@if(request()->has('trashed'))
-                                   <!-- <a href="{{ route('etudiants.restore', $etudiant->id) }}" class="btn btn-success">Restore</a>
-                                   <!-- <button class="btn btn-light">
+                                   <a href="{{ route('etudiants.restore', $etudiant->id) }}" class="btn btn-success">Restore</a>
+                                   <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> -->
                                 <!--  <form method="POST" action="{{ route('etudiants.supp', $etudiant->id) }}">
                                         @csrf
-<!--                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                       <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
                                 @else                                
                                     <form method="POST" action="{{ route('etudiants.destroy', $etudiant->id) }}">
@@ -93,10 +94,10 @@
                                 
                             </tr>
                             
-                          </tbody>
+                          </tbody>-->
                           @endforeach
                         </table>
-                        <div class="float-end">
+                      <!--  <div class="float-end">
                 @if(request()->has('trashed'))
                     <a href="{{ route('promos.viewEtud') }}" class="btn btn-info">View All etudiants</a>
                     <a href="{{ route('etudiants.restoreAll') }}" class="btn btn-success">Restore All</a>
@@ -105,7 +106,7 @@
                 @endif
             </div>
         </div>
-        <!--pop up-->
+        pop up-->
         <div id="popupContact">
 <!-- Contact Us Form -->
 

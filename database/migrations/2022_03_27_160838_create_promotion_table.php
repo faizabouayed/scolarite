@@ -14,11 +14,23 @@ class CreatePromotionTable extends Migration
     public function up()
     {
         Schema::create('promotions', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_pr');
             $table->timestamps();
-            $table->string('libelle');
-            $table->date('annee');
-            $table->foreignId("option");
+            $table->string('libelle_pr');
+            $table->year('annee');
+            $table->unsignedBigInteger('option')->nullable()->index();
+            $table->timestamp('deleted_at')->nullable()->useCurrentOnDelete();
+        });
+
+        Schema::table('promotions', function (Blueprint $table) {
+          
+            
+            $table->foreign('option')
+                  ->references('id_opt')
+                  ->on('options')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+           // $table->engine = 'InnoDB';
         });
     }
 

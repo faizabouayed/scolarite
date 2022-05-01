@@ -45,9 +45,9 @@ class OptionController extends Controller
    public function store(Request $request)
     {
         $option = new Option();
-        $option->id = $request->input('id');
+        $option->id_opt = $request->input('id_opt');
    
-        $option->libelle = $request->input('libelle');
+        $option->libelle_opt = $request->input('libelle_opt');
         $option->niveau = $request->input('niveau');
    
         $option->save();
@@ -87,7 +87,7 @@ class OptionController extends Controller
     public function update(Request $request, $id)
     {
         $option = Option::find($id);
-        $option->libelle = $request->input('libelle');
+        $option->libelle_opt = $request->input('libelle_opt');
         $option->niveau = $request->input('niveau');
         $option->update();
         return redirect()->back()->with('status','Option Updated Successfully');
@@ -125,9 +125,9 @@ class OptionController extends Controller
         return redirect()->back();
     }
     public function viewPromo($libelle){
-        if(Option::where('libelle',$libelle)->exists()){
-        $option = Option::where('libelle',$libelle)->first();
-        $promos = Promotion::where('option',$option->id)->get();
+        if(Option::where('libelle_opt',$libelle)->exists()){
+        $option = Option::where('libelle_opt',$libelle)->first();
+        $promos = Promotion::where('option',$option->id_opt)->get();
         return view('admin.promos', ['promos' => $promos],compact('option','promos'));
         }
         else return redirect()->back();

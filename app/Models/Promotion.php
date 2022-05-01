@@ -11,6 +11,8 @@ class Promotion extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'promotions';
+   /* protected $newDateFormat = $promotion->annee->format('Y-Y'); 
+    dd($newDateFormat);*/
     protected $fillable = [
         'libelle',
         'annee',

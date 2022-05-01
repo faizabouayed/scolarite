@@ -23,6 +23,12 @@
                     <div class="col-12">
                       
                     </div>
+                    <div class="row grid-margin">
+                  <a href="{{url('createPromo')}}">
+                    <button class="btn btn-light ">
+                     <i class="fa fa-plus text-success"></i> Nouvel Option</button></a>
+                     
+                  </div>
                   </div>
                   <div class="row">
                     <div class="col-12">
@@ -40,7 +46,7 @@
                           <tbody>
                             <tr>
                                 <td>{{$promotion->option}}</td>
-                                <td>{{$promotion->libelle}}</td>
+                                <td>{{$promotion->libelle_pr}}</td>
             
                                 <td>
                                 {{$promotion->annee}}
@@ -48,25 +54,25 @@
                                 
                                  <td class="text-right">
                                   @if(request()->has('trashed'))
-                                    <a href="{{ route('promotions.restore', $promotion->id) }}" class="btn btn-success">Restore</a>
+                                    <a href="{{ route('promotions.restore', $promotion->id_pr) }}" class="btn btn-success">Restore</a>
                                    <!-- <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> -->
-                                  <form method="POST" action="{{ route('promotions.supp', $promotion->id) }}">
+                                  <form method="POST" action="{{ route('promotions.supp', $promotion->id_pr) }}">
                                         @csrf
                                        <!-- {{method_field('delete')}}-->
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
                                 @else                                
-                                    <form method="POST" action="{{ route('promotions.destroy', $promotion->id) }}">
+                                    <form method="POST" action="{{ route('promotions.destroy', $promotion->id_pr) }}">
                                         @csrf
                                         {{method_field('delete')}}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
-                    <button class="btn btn-light " type="button" value="{{$promotion->id}}" id="popup" onclick="div_show()">
+                    <button class="btn btn-light " type="button" value="{{$promotion->id_pr}}" id="popup" onclick="div_show()">
                      <i class="fa fa-edit text-success"></i>edit</button>
-                     <a href="{{ route('promos.viewEtud', $promotion->libelle) }}" class="btn btn-success">View</a>
+                     <a href="{{ route('promos.viewEtud', $promotion->libelle_pr) }}" class="btn btn-success">View</a>
                                 @endif
                                   
                                 </td>
@@ -92,7 +98,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('.delete').click(function(e) {
-                    if(!confirm('Are you sure you want to delete this option?')) {
+                    if(!confirm('Are you sure you want to delete this promotion?')) {
                         e.preventDefault();
                     }
                 });

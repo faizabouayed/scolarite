@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Promotion;
+use App\Models\Option;
 use App\Models\Etudiant;
+use Illuminate\Support\Facades\DB;
 
 class EtudiantController extends Controller
 {
@@ -13,9 +15,18 @@ class EtudiantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $listEtud = Etudiant::all();
+       // $results= DB::table('')
+        
+        if ($request->has('trashed')) {
+            $listEtud = Etudiant::onlyTrashed()
+                ->get();
+        } else {
+            $listEtud = Etudiant::get();
+        }
+ 
         return view('admin.listeEtud', ['etudiants' => $listEtud]);
     }
 

@@ -27,12 +27,12 @@
                      
                   </div>
 
-                  <div class="row grid-margin">
+                <!--  <div class="row grid-margin">
                   <a href="{{url('corbeilleOpt')}}">
                     <button class="btn btn-light ">
                      <i class="fa fa-trash text-danger"></i>Corbeille</button></a>
                      
-                  </div>
+                  </div>-->
 
      
                   <div class="row">
@@ -51,8 +51,8 @@
                           <tbody>
                           @foreach($options as $option)
                             <tr>
-                                <td>{{$option->id}}</td>
-                                <td>{{$option->libelle}}</td>
+                                <td>{{$option->id_opt}}</td>
+                                <td>{{$option->libelle_opt}}</td>
             
                                 <td> {{$option->niveau}}
                                   <!--<select id="monselect">
@@ -71,26 +71,26 @@
                                   <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> -->@if(request()->has('trashed'))
-                                    <a href="{{ route('options.restore', $option->id) }}" class="btn btn-success">Restore</a>
+                                    <a href="{{ route('options.restore', $option->id_opt) }}" class="btn btn-success">Restore</a>
                                    <!-- <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> -->
-                                  <form method="POST" action="{{ route('options.supp', $option->id) }}">
+                                  <form method="POST" action="{{ route('options.supp', $option->id_opt) }}">
                                         @csrf
                                        <!-- {{method_field('delete')}}-->
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
                                 @else                                
-                                    <form method="POST" action="{{ route('options.destroy', $option->id) }}">
+                                    <form method="POST" action="{{ route('options.destroy', $option->id_opt) }}">
                                         @csrf
                                         {{method_field('delete')}}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
                                  <!--   <a href="{{url('editOpt')}}"> -->
-                    <button class="btn btn-light " type="button" value="{{$option->id}}" id="popup" onclick="div_show()">
+                    <button class="btn btn-light " type="button" value="{{$option->id_opt}}" id="popup" onclick="div_show()">
                      <i class="fa fa-edit text-success"></i>edit</button><!--</a>-->
-                     <a href="{{ route('options.viewPromo', $option->libelle) }}" class="btn btn-success">View</a>
+                     <a href="{{ route('options.viewPromo', $option->libelle_opt) }}" class="btn btn-success">View</a>
                                 @endif
                                   
                                 </td>
