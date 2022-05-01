@@ -17,7 +17,8 @@ class CreatePromotionTable extends Migration
             $table->id('id_pr');
             $table->timestamps();
             $table->string('libelle_pr');
-            $table->year('annee');
+            $table->year('annee_debut');
+            $table->year('annee_fin');
             $table->unsignedBigInteger('option')->nullable()->index();
             $table->timestamp('deleted_at')->nullable()->useCurrentOnDelete();
         });

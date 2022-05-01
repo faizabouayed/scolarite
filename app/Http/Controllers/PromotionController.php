@@ -105,9 +105,9 @@ class PromotionController extends Controller
   $idOP = $option->id;*/
         
  
-  $r1 = DB::table('options')
+  /*$r1 = DB::table('options')
   ->select('id_opt')
-  ->where('libelle_opt',$request->input('option'))
+  ->where('libelle_opt',$x=$request->input('option'))
   ->get();
   
   
@@ -120,7 +120,7 @@ class PromotionController extends Controller
         
             
         
-       // $Opt=Option::where('libelle_opt',$op)->first();
+      // $Opt=Option::where('libelle_opt',$op)->first();
        // $o=Option::where('id',$Opt->id)->get();
        // $idOpt = Option::where('id',$op->id)->get();
    // $idOpt=$opt->id;
@@ -128,14 +128,22 @@ class PromotionController extends Controller
         {
             $idd=$ot->id;
         }*/
-       // $promotion->option = $request->input('idOpt');
-      // $promotion->annee = $request->input('annee');
-      $promotion->annee ='2022';
-        $promotion->option = $r1;
-      //  $promotion->libelle_pr =$request->input('option').$promotion->annee;
+       /* $r1 = DB::table('options')
+  ->select('libelle_opt')
+  ->where('id_opt',$request->input('option'))
+  ->get();*/
+        $promotion->option = $request->input('option');
+       $promotion->annee_debut = $request->input('anneeD');
+       $promotion->annee_fin = $request->input('anneeF');
+     // $promotion->libelle_pr =$x.$promotion->annee;
+     // $promotion->annee ='2022';
+      //  $promotion->option = $r1;
+      $r1=Option::where('id_opt',$request->input('option'))->first();
+        $promotion->libelle_pr =$r1->libelle_opt.$promotion->annee_debut.'-'.$promotion->annee_fin;
    
         $promotion->save();
         return redirect('promotions')->with('success', 'Data saved');
+        //dd($request);
     }
     
 

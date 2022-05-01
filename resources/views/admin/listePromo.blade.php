@@ -49,8 +49,9 @@
                                 <td>{{$promotion->libelle_pr}}</td>
             
                                 <td>
-                                {{$promotion->annee}}
+                                {{$promotion->annee_debut.'-'.$promotion->annee_fin}}
                                 </td>
+                               
                                 
                                  <td class="text-right">
                                   @if(request()->has('trashed'))
