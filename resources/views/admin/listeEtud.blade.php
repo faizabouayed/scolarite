@@ -6,7 +6,7 @@
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Orders
+              Etudiants
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
@@ -90,7 +90,7 @@
                     <a href="{{ route('etudiants.index', ['trashed' => 'etudiant']) }}" class="btn btn-primary">View Deleted etudiants</a>
                 @endif
             </div>
-        </div>>
+        </div>
         <!--pop up-->
         <div id="popupContact">
 <!-- Contact Us Form -->

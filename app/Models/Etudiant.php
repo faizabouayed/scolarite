@@ -11,6 +11,7 @@ class Etudiant extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'etudiants';
+    protected $primaryKey = 'id_etud';
     protected $fillable = [
         'name',
         'prenom',

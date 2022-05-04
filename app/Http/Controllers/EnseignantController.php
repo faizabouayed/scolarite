@@ -10,11 +10,11 @@ class EnseignantController extends Controller
 {
     //public function listUserE(){
         //$user = User::all();
-        $user=User::where(['role'=>'enseignant'])->get(); 
-        return view('admin.index', ['user'=>$user]);    
+       // $user=User::where(['role'=>'enseignant'])->get(); 
+       // return view('admin.index', ['user'=>$user]);    
                // where([$user->role='enseignant']);
              //return grade::make()->hideFromIndex();
-    }
+  //  }
 
     public function create(){
         return view('admin.create');
@@ -29,10 +29,18 @@ class EnseignantController extends Controller
         return redirect('Enseignants-User');
 
     }
-    public function index(){
+    public function index(Request $request){
         //$listUser = User::all();
        $listUser=User::where(['role'=>'enseignant'])->get(); 
-        return view('admin.index', ['user' => $listUser]);
+       if ($request->has('trashed')) {
+        $listUser = User::where(['role'=>'enseignant'])->onlyTrashed()
+            ->get();
+
+    } else {
+        $listUser = User::where(['role'=>'enseignant'])->get();
+    } 
+    
+        return view('admin.listeEnseignants', ['user' => $listUser]);
     }
 
     public function editUser(int $user_id)

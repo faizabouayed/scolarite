@@ -9,4 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Module extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $primaryKey = 'id_mod';
 }

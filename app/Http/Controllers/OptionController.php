@@ -124,10 +124,16 @@ class OptionController extends Controller
  
         return redirect()->back();
     }
-    public function viewPromo($libelle){
+    public function viewPromo($libelle,Request $request){
         if(Option::where('libelle_opt',$libelle)->exists()){
         $option = Option::where('libelle_opt',$libelle)->first();
-        $promos = Promotion::where('option',$option->id_opt)->get();
+
+        if ($request->has('trashed')) {
+        $promos = Promotion::where('option',$option->id_opt)::onlyTrashed()->get();
+        }
+        else {
+            $promos = Promotion::where('option',$option->id_opt)->get();
+        }
         return view('admin.promos', ['promos' => $promos],compact('option','promos'));
         }
         else return redirect()->back();

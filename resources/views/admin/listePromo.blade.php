@@ -26,7 +26,7 @@
                     <div class="row grid-margin">
                   <a href="{{url('createPromo')}}">
                     <button class="btn btn-light ">
-                     <i class="fa fa-plus text-success"></i> Nouvel Option</button></a>
+                     <i class="fa fa-plus text-success"></i> Nouvel Promotion</button></a>
                      
                   </div>
                   </div>

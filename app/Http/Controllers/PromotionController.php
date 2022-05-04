@@ -30,6 +30,11 @@ class PromotionController extends Controller
         } else {
             $listPromo = Promotion::get();
         }
+       // $option=Option::all();
+      /*  $ops=Option::where('id_opt',$listPromo->option)->first();
+        $op=$ops->libelle_opt;
+        
+        return view('admin.listePromo', ['promotions' => $listPromo],compact('op','promotions'));*/
  
         return view('admin.listePromo', ['promotions' => $listPromo]);
     }
@@ -41,8 +46,17 @@ class PromotionController extends Controller
     
     public function viewEtud($libelle, Request $request){
         if(Promotion::where('libelle_pr',$libelle)->exists()){
-        $promotion = Promotion::where('libelle_pr',$libelle)->first();
-        $etudiants = Etudiant::where('promo',$promotion->id_pr)->get();
+            $promotion = Promotion::where('libelle_pr',$libelle)->first();
+            if ($request->has('trashed')) {
+                $etudiants = Etudiant::where('promo',$promotion->id_pr)::onlyTrashed()
+                
+                    ->get();
+            }
+            else {
+                $etudiants = Etudiant::where('promo',$promotion->id_pr)->get();
+            }
+       
+        
        /* if ($request->has('trashed')) {
             $etudiants = Etudiant::onlyTrashed()->get();
         } else {

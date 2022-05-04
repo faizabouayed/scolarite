@@ -13,9 +13,11 @@ class Promotion extends Model
     protected $table = 'promotions';
    /* protected $newDateFormat = $promotion->annee->format('Y-Y'); 
     dd($newDateFormat);*/
+    protected $primaryKey = 'id_pr';
     protected $fillable = [
         'libelle',
-        'annee',
+        'annee_debut',
+        'annee_fin',
         'option',
        
     ];

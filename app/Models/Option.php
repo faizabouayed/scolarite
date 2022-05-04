@@ -10,6 +10,7 @@ class Option extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'options';
+    protected $primaryKey = 'id_opt';
     protected $fillable = [
         'libelle',
         'niveau',

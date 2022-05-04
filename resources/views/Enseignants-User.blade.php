@@ -51,36 +51,56 @@
                                 <td>
                                   <label class="badge badge-info">{{$user->grade}}</label>
                                 </td>
-                                <!--<td class="text-right">
-                                  <a href="{{url('Enseignants-User/'.$user->id.'/Admin.shwo')}}">
-                                
-                                  
-                                  <button class="btn btn-light" onclick="window.location.href='/Profile-Ens';">
-                                    <i class="fa fa-eye text-primary"></i>View
-                                  </button></a>
-                                  </form>
-                                  <button class="btn btn-light editbtn">
-                                    <i class="fa fa-edit text-success "></i>Edit
-                                  </button>
-
-                                 <button class="btn btn-light" id="show">
-                                    <i class="fa fa-edit text-success "></i>Edit
-                                  </button>-->
-                                 <!-- <form action ="{{url('Enseignants-User/'.$user->id)}}" method="post">
-                                  {{csrf_field()}}
-                                  {{method_field('DELETE')}}-->
-                                  <!--<button class="btn btn-drang servideletebtn"  >
-                                    <i class="fa fa-times text-danger"></i>Remove
-                                  </button>
-                                  <button class="btn btn-light" onclick="showSwal('warning-message-and-cancel')">
-                                    <i class="fa fa-times text-danger"></i>Remove
-                                  </button>onclick="return confirm('Are you sure?')"--><!--</form>-->                                
-                               <!-- </td> -->                               
-                            </tr> 
-                            @endforeach                          
-                          </tbody>                        
-                          
+                                <td class="text-right">                    
+                                @if(request()->has('trashed'))
+                                    <a href="{{ route('Admin-User.restore', $user->id) }}" class="btn btn-success">Restore</a>
+                                   
+                                  <form method="POST" action="{{ route('Admin-User.supp', $user->id) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                    </form>
+                                @else                                
+                                    <form method="POST" action="{{ route('Admin-User.destroy', $user->id) }}">
+                                        @csrf
+                                        {{method_field('delete')}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                    </form>
+                                    <a href="{{url('Admin-User/'.$user->id.'/editAd')}}">
+                                       <button class="btn btn-light editbtn" >
+                                          <i class="fa fa-edit text-success "></i>Edit
+                                        </button>
+                                    </a>
+                                    <a href="#" class="btn btn-success">View</a>
+                                @endif                                  
+                                </td>
+                            </tr>
+                            @endforeach
+                          </tbody>                          
                         </table>
+                 <div class="float-end">
+                    @if(request()->has('trashed'))
+                        <a href="{{ route('Admin-User.index') }}" class="btn btn-info">View All Admin-User</a>
+                        <a href="{{ route('Admin-User.restoreAll') }}" class="btn btn-success">Restore All</a>
+                    @else
+                        <a href="{{ route('Admin-User.index', ['trashed' => 'user']) }}" class="btn btn-primary">View Deleted Admin-User</a>
+                    @endif
+                </div>
+        </div>
+        <!--pop up-->
+        <div id="popupContact">
+<!-- Contact Us Form -->
+
+       <script type="text/javascript">
+            $(document).ready(function() {
+                $('.delete').click(function(e) {
+                    if(!confirm('Are you sure you want to delete this option?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        </script>
+                            
                       </div>
                     </div>
                   </div>
