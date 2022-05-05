@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/index','App\Http\Controllers\UserController@index');
+Route::get('/index','App\Http\Controllers\UserController@index')->name('password.request');
 
 /******************les Enseignants-Users**************/
 
