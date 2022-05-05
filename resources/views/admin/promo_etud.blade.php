@@ -64,7 +64,7 @@
                                   <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                               </form>
                           @else                                
-                              <form method="POST" action="{{ route('etudiants.destroy', $etudiant->id_etud) }}">
+                              <form method="POST" action="{{ route('etudiants.destroy', $etudiant->id_etud)}}">
                                   @csrf
                                   {{method_field('delete')}}
                                   <input name="_method" type="hidden" value="DELETE">
@@ -118,57 +118,7 @@
                                 
             
                                 
-                              <!--  <td class="text-right">
-                               <a href="/promo"> <button class="btn btn-light" >
-
-                                    <i class="fa fa-eye text-primary"></i>View
-                                  </button></a>
-                                  <button class="btn btn-light" id="show">
-                                    <i class="fa fa-edit text-success "></i>Edit
-                                 </button>
-                                  <button class="btn btn-light">
-                                    <i class="fa fa-times text-danger"></i>Remove
-                                  </button> --><!--@if(request()->has('trashed'))
-                                   <a href="{{ route('etudiants.restore', $etudiant->id) }}" class="btn btn-success">Restore</a>
-                                   <button class="btn btn-light">
-                                    <i class="fa fa-times text-danger"></i>Remove
-                                  </button> -->
-                                <!--  <form method="POST" action="{{ route('etudiants.supp', $etudiant->id) }}">
-                                        @csrf
-                                       <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
-                                    </form>
-                                @else                                
-                                    <form method="POST" action="{{ route('etudiants.destroy', $etudiant->id) }}">
-                                        @csrf
-                                        {{method_field('delete')}}
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
-                                    </form>
-                    <button class="btn btn-light " type="button" value="{{$etudiant->id}}" id="popup" onclick="div_show()">
-                     <i class="fa fa-edit text-success"></i>edit</button>
-                     <a href="/Releve">
-                                   <button class="btn btn-light">
-                                    <i class="fa fa-eye text-primary"></i>View
-                                  </button></a>
-                                @endif
-                                  
-                                </td>
-                                
-                            </tr>
-                            
-                          </tbody>
-                          
-                        </table>-->
-                      <!--  <div class="float-end">
-                @if(request()->has('trashed'))
-                    <a href="{{ route('promos.viewEtud') }}" class="btn btn-info">View All etudiants</a>
-                    <a href="{{ route('etudiants.restoreAll') }}" class="btn btn-success">Restore All</a>
-                @else
-                    <a href="{{ route('etudiants.index', ['trashed' => 'option']) }}" class="btn btn-primary">View Deleted etudiants</a>
-                @endif
-            </div>
-        </div>
-        pop up-->
+                              
         <div id="popupContact">
 <!-- Contact Us Form -->
 

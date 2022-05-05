@@ -350,6 +350,13 @@
               </ul>
             </div>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/module">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Modules</span> 
+            </a>
+          </li>
         </ul>
       </nav>
      
@@ -374,7 +381,7 @@
   <script src="../../js/select2.js"></script>
   <!--<script src="{{ asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{ asset('frontend/js/bootstrap5.bundle.min.js')}}"></script>-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/ajax.js"></script>
 

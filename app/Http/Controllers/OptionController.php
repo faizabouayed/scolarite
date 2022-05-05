@@ -51,7 +51,7 @@ class OptionController extends Controller
         $option->niveau = $request->input('niveau');
    
         $option->save();
-        return redirect('listeOpt')->with('success', 'Data saved');
+        return redirect('options')->with('success', 'Data saved');
     }
 
     /**

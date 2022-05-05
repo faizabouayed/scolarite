@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use resources\view;
 use App\Models\Promotion;
@@ -14,35 +15,35 @@ use Illuminate\Support\Facades\DB;
 
 class ScolariteController extends Controller
 {
-    //
-    
+    //    
     public function listUserE(){
         $user=User::where(['role'=>'enseignant'])->get(); 
-        return view('admin.index', ['user'=>$user]);    
+        return view('admin.listeEnseignants-User', ['users'=>$user]);    
     }
+    
     public function create(){
         return view('admin.create');
     }
     public function store(Request $request){
         $User = new User();
+        $User->role = 'enseignant';
+        //$User->photo = $request->input('photo');
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
-        $User->grade = $request->input('grade');
+        $User->email = $request->input('email');
+        $User->password = $request->input('password');
         $User->save();
         return redirect('Enseignants-User');
 
     }
     public function index(){
-        //$listUser = User::all();
        $listUser=User::where(['role'=>'enseignant'])->get(); 
-        return view('admin.index', ['user' => $listUser]);
+        return view('admin.listeEnseignants-User', ['users' => $listUser]);
     }
     public function edit($id){
         $user = User::find($id);
-        //$user=User::where(['role'=>'enseignant'])->get(); 
-
-        return view('Admin.editEns', ['user'=>$user]);
+        return view('admin.editEns', ['users'=>$user]);
     }
     public function update(Request $request, $id){
         $User = User::find($id);
@@ -55,9 +56,9 @@ class ScolariteController extends Controller
     }
      public function shwo($id){
         $user = User::find($id);
-        return view('admin.show', ['user'=>$user]);
+        return view('admin.show', ['users'=>$user]);
     }
-    public function afficher($id) {
+   /* public function afficher($id) {
         /*$module=DB::table('modules')
         ->join('users','users.id','=','modules.user')
         ->join('options','options.id','=','modules.option')
@@ -66,13 +67,13 @@ class ScolariteController extends Controller
          return view('admin.show',['modules'=>$module]);
         //->join('promotions','promotions.id','=','options.promo')
       //  ->select('code','libelle','niveau')*/
-        if(User::where('id',$id)->exists()){
+        /*if(User::where('id',$id)->exists()){
         $user = User::where('id',$id)->first();
         $module = Module::where('user',$user->id)->get();
         return view('admin.show', ['modules' => $module],compact('user','module'));
         }
         else return redirect()->back();
-    }
+    }*/
     /*public function editUser(int $user_id)
     {
         $user = User::find($user_id);

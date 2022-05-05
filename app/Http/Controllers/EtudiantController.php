@@ -29,6 +29,103 @@ class EtudiantController extends Controller
  
         return view('admin.listeEtud', ['etudiants' => $listEtud]);
     }
+    public function viewRelever($id_etud){
+        $etudiant = Etudiant::find($id_etud);
+       // if(Module::where(['semestre'=>'S1'])->first()){
+        $modules1=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S1')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+        $modules2=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S2')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+         $modules3=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S3')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+        $modules4=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S4')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+         $modules5=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S5')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+        $modules6=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S6')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+         $modules7=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S7')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+        $modules8=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S8')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+         $modules9=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S9')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get(); 
+        $modules10=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
+        ->where('modules.semestre',$S='S10')
+        ->where('etudiants.id_etud',$id=$id_etud)
+        ->get();
+
+        $cc=DB::table('etudiants')
+        ->join('notes','etudiants.id_etud','=','notes.etudiant')
+        ->where('notes.module',$module='module1')
+        ->where('notes.type',$t='CC')
+        ->where('etudiants.id_etud',$id=$etudiant)
+        ->get();
+        $ef=DB::table('etudiants')
+        ->join('notes','etudiants.id_etud','=','notes.etudiant')
+        ->where('notes.module',$module='module1')
+        ->where('notes.type',$t='EF')
+        ->where('etudiants.id_etud',$id=$etudiant)
+        ->get();
+        $tp=DB::table('etudiants')
+        ->join('notes','etudiants.id_etud','=','notes.etudiant')
+        ->where('notes.module',$module='module1')
+        ->where('notes.type',$t='TP')
+        ->where('etudiants.id_etud',$id=$etudiant)        
+        ->get(); 
+
+        return view('admin.relever',compact('etudiant','modules1','modules2' ,'modules3','modules4','modules5','modules6','modules7','modules8','modules9','modules10','cc','ef','tp')); 
+      //  }               
+    }
+    
 
     public function destroy($id)
     {
@@ -60,9 +157,9 @@ class EtudiantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createEtud()
     {
-        //
+         return view('admin.createEtud');
     }
 
     /**
@@ -71,9 +168,18 @@ class EtudiantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeEtud(Request $request)
     {
         //
+        $etudiant = new Etudiant();
+        //$etudiant->photo = $request->input('photo');
+        $etudiant->nom = $request->input('nom');
+        $etudiant->prenom = $request->input('prenom');
+        $etudiant->date_de_naissance = $request->input('date_de_naissance');
+        $etudiant->date_inscription = $request->input('date_inscription');
+        $etudiant->promo = $request->input('promo');
+        $etudiant->save();
+        return redirect('etudiants');
     }
 
     /**
@@ -85,6 +191,7 @@ class EtudiantController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**

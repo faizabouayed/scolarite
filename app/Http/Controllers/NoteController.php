@@ -13,20 +13,20 @@ class NoteController extends Controller
     public function ListeNotes($module,$promotion){
        
         $f=DB::table('etudiants')
-        ->join('notes','etudiants.id','=','notes.etudiants')
-        ->where('notes.modules',$module)
+        ->join('notes','etudiants.id_etud','=','notes.etudiant')
+        ->where('notes.module',$module)
         ->where('etudiants.promo',$v=$promotion)
         ->where('notes.type',$t='CC')
         ->get();
         $f2=DB::table('etudiants')
-        ->join('notes','etudiants.id','=','notes.etudiants')
-        ->where('notes.modules',$module)
+        ->join('notes','etudiants.id_etud','=','notes.etudiant')
+        ->where('notes.module',$module)
         ->where('etudiants.promo',$v=$promotion)
         ->where('notes.type',$t='EF')
         ->get();
         $f3=DB::table('etudiants')
-        ->join('notes','etudiants.id','=','notes.etudiants')
-        ->where('notes.modules',$module)
+        ->join('notes','etudiants.id_etud','=','notes.etudiant')
+        ->where('notes.module',$module)
         ->where('etudiants.promo',$v=$promotion)
         ->where('notes.type',$t='TP')
         ->get();

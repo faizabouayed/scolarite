@@ -146,13 +146,13 @@ class PromotionController extends Controller
   ->select('libelle_opt')
   ->where('id_opt',$request->input('option'))
   ->get();*/
-        $promotion->option = $request->input('option');
+       $promotion->option = $request->input('option');
        $promotion->annee_debut = $request->input('anneeD');
        $promotion->annee_fin = $request->input('anneeF');
      // $promotion->libelle_pr =$x.$promotion->annee;
      // $promotion->annee ='2022';
       //  $promotion->option = $r1;
-      $r1=Option::where('id_opt',$request->input('option'))->first();
+       $r1=Option::where('id_opt',$request->input('option'))->first();
         $promotion->libelle_pr =$r1->libelle_opt.$promotion->annee_debut.'-'.$promotion->annee_fin;
    
         $promotion->save();

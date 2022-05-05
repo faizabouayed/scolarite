@@ -1,181 +1,143 @@
+
 @extends('layouts.MenuAdmin')
 @Section('content')
-      
-  <html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Popup Login Form Design | CodingNepal</title>
-      <link rel="stylesheet" href="style.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-   </head>
-   <style>
-    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  outline: none;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-body{
-  height: 100vh;
-  width: 100%;
-  /*background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);*/
-}
-.show-btn{
-  background: #fff;
-  padding: 10px 20px;
-  font-size: 20px;
-  font-weight: 500;
-  color: #3498db;
-  cursor: pointer;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-}
-.show-btn, .container{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-input[type="checkbox"]{
-  display: none;
-}
-.container{
-  display: none;
-  background: #fff;
-  width: 410px;
-  padding: 30px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-}
-#show:checked ~ .container{
-  display: block;
-}
-.container .close-btn{
-  position: absolute;
-  right: 20px;
-  top: 15px;
-  font-size: 18px;
-  cursor: pointer;
-}
-.container .close-btn:hover{
-  color: #3498db;
-}
-.container .text{
-  font-size: 35px;
-  font-weight: 600;
-  text-align: center;
-}
-.container form{
-  margin-top: -20px;
-}
-.container form .data{
-  height: 45px;
-  width: 100%;
-  margin: 40px 0;
-}
-form .data label{
-  font-size: 18px;
-}
-form .data input{
-  height: 100%;
-  width: 100%;
-  padding-left: 10px;
-  font-size: 17px;
-  border: 1px solid silver;
-}
-form .data input:focus{
-  border-color: #3498db;
-  border-bottom-width: 2px;
-}
-form .forgot-pass{
-  margin-top: -8px;
-}
-form .forgot-pass a{
-  color: #3498db;
-  text-decoration: none;
-}
-form .forgot-pass a:hover{
-  text-decoration: underline;
-}
-form .btn{
-  margin: 30px 0;
-  height: 45px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-form .btn .inner{
-  height: 100%;
-  width: 300%;
-  position: absolute;
-  left: -100%;
-  z-index: -1;
-  background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);
-  transition: all 0.4s;
-}
-form .btn:hover .inner{
-  left: 0;
-}
-form .btn button{
-  height: 100%;
-  width: 100%;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-form .signup-link{
-  text-align: center;
-}
-form .signup-link a{
-  color: #3498db;
-  text-decoration: none;
-}
-form .signup-link a:hover{
-  text-decoration: underline;
-}
-   </style>
-   <body>
-   
-      <div class="center">
-
-              <input type="checkbox" id="show">                                   
-              <label for="show" class="show-btn">BOUTON edit</label>
-      <div class="container">
-            <label for="show" class="close-btn fas fa-times" title="close"></label>
-            <div class="text">
-               Modifier 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</head>
+<body>
+        <meta charset="utf-8">     
+   </head>   
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+      <div class="main-panel">          
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              Les Listes des Enseignants
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">User</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Enseignants</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Les Enseignants</h4> 
+                  <a href="{{url('Enseignants-User/create')}}">
+                  <button class="btn btn-light ">
+                     <i class="fa fa-plus text-success"></i> Add User</button></a><br><br>              
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        
+                        
+                         <table id="order-listing" class="table">
+                          <thead>
+                            <tr class="bg-primary text-white">                             
+                                <th>Photo</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Date de naissance</th>
+                                <th>Grade</th>
+                                <th>Actions</th>
+                            </tr>
+                          </thead>                                                
+                          <tbody>
+                            
+                    </tbody>                                                  
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-              <form action= "{{url('Enseignants-User/'. $user->id)}}" method="POST">
-               <input type="hidden" name="_method" value="PUT">
-               {{ csrf_field()}}              
-               <div class="data">
-                  <label>Nom</label>
-                  <input type="text" name="name" value="{{$user->name}}" >
-               </div>
-               <div class="data">
-                  <label>Prenom</label>
-                  <input type="text" name="prenom"value="{{$user->prenom}}">
-               </div>
-               
-               <div class="btn">
-                  <div class="inner"></div>
-                  <button type="submit">Enregistrer</button>
-               </div>
-             
-            </form>
-         </div>
+          </div>
+        </div>
+        
       </div>
-   
-	</form>
-  <script src="../../js/file-upload.js"></script>
+
+    
+  
+  
+  
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    <form action= "{{url('Enseignants-User/'. $users->id)}}" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  {{ csrf_field()}}
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modification</h5>
+                 <a href="{{url('/Enseignants-User')}}">
+                <a href="{{url('/Enseignants-User')}}">
+                 <i class="fa fa-times"></i></a></a>
+            </div>
+            <div class="modal-body">
+                <!--<div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"></h4>
+                  <p class="card-description">
+                    
+                  </p>-->
+                    <div class="form-group">
+                      <label for="exampleInputName1">Name:</label>
+                      <input type="text" class="form-control" id="exampleInputName1" name="name" value="{{$users->name}}" >
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Prénom:</label>
+                      <input type="text" class="form-control" id="exampleInputEmail3" name="prenom" value="{{$users->prenom}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Date de naissance:</label>
+                      <input type="date" class="form-control" id="exampleInputPassword4" name="date_n" value="{{$users->date_n}}" >
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Grade:</label>
+                      <input type="text" class="form-control" id="exampleInputPassword4" name="grade" value="{{$users->grade}}" >
+                    </div>                
+            <div class="modal-footer">
+               <button type="submit" class="btn btn-primary mr-2">Edit</button>
+              <button class="btn btn-light">Cancel</button>
+            </div>
+            <!--</div>
+                </div>
+              </div>-->
+            </div>
+            </div>
+        </div>
+    </div>
+  </form>
+    <script>
+      
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    </script>
+    <script src="../../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
+
+  <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/hoverable-collapse.js"></script>
+  <script src="../../js/misc.js"></script>
+  <script src="../../js/settings.js"></script>
+  <script src="../../js/todolist.js"></script>
+  
+  <script src="../../js/data-table.js"></script>
+   <script src="../../js/file-upload.js"></script>
   <script src="../../js/typeahead.js"></script>
   <script src="../../js/select2.js"></script>
-   @endsection
-  
-  
+</body>
+</html>
+@endsection

@@ -9,8 +9,8 @@
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Sample pages</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+                <li class="breadcrumb-item"><a href="#">Etudiant</a></li>
+                <li class="breadcrumb-item active" aria-current="page">promotion</li>
               </ol>
             </nav>
           </div>
@@ -18,18 +18,12 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Promotion</h4>
-                  <div class="row grid-margin">
-                    <div class="col-12">
-                      
-                    </div>
-                    <div class="row grid-margin">
+                  <h4 class="card-title"> Les Promotions</h4>
+                 <div class="row grid-margin">
                   <a href="{{url('createPromo')}}">
                     <button class="btn btn-light ">
                      <i class="fa fa-plus text-success"></i> Nouvel Promotion</button></a>
-                     
-                  </div>
-                  </div>
+                </div>
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">

@@ -16,52 +16,52 @@
                   <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                       <div class="statistics-item">
                         <p>
-                          <i class="icon-sm fa fa-user mr-2"></i>
-                          New users
+                          <i class="icon-sm fas fa-user-graduate mr-2" ></i>
+                          Etudiants
                         </p>
-                        <h2>54000</h2>
-                        <label class="badge badge-outline-success badge-pill">2.7% increase</label>
+                        <h2>{{$etudiant}}</h2>
+                        <label class="badge badge-outline-success badge-pill"><a href="{{url('Enseignants-User')}}">Details<i class="icon-sm  mr-2 "></i><!--2.7% increase--></a></label>
                       </div>
                       <div class="statistics-item">
                         <p>
-                          <i class="icon-sm fas fa-hourglass-half mr-2"></i>
-                          Avg Time
+                          <i class="icon-sm fa fa-user mr-2"></i>
+                         Enseignants
                         </p>
-                        <h2>123.50</h2>
+                        <h2>{{$enseignant}}</h2>
                         <label class="badge badge-outline-danger badge-pill">30% decrease</label>
                       </div>
                       <div class="statistics-item">
                         <p>
                           <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
-                          Downloads
+                         Option
                         </p>
-                        <h2>3500</h2>
+                        <h2>{{$option}}</h2>
                         <label class="badge badge-outline-success badge-pill">12% increase</label>
                       </div>
                       <div class="statistics-item">
                         <p>
                           <i class="icon-sm fas fa-check-circle mr-2"></i>
-                          Update
+                          Promotions
                         </p>
-                        <h2>7500</h2>
+                        <h2>{{$promotion}}</h2>
                         <label class="badge badge-outline-success badge-pill">57% increase</label>
                       </div>
                       <div class="statistics-item">
                         <p>
                           <i class="icon-sm fas fa-chart-line mr-2"></i>
-                          Sales
+                         Modules
                         </p>
-                        <h2>9000</h2>
+                        <h2>{{$module}}</h2>
                         <label class="badge badge-outline-success badge-pill">10% increase</label>
                       </div>
-                      <div class="statistics-item">
+                     <!-- <div class="statistics-item">
                         <p>
                           <i class="icon-sm fas fa-circle-notch mr-2"></i>
                           Pending
                         </p>
                         <h2>7500</h2>
                         <label class="badge badge-outline-danger badge-pill">16% decrease</label>
-                      </div>
+                      </div>-->
                   </div>
                 </div>
               </div>
@@ -425,67 +425,67 @@
                     Todo
                   </h4>
                   <div class="add-items d-flex">
-										<input type="text" class="form-control todo-list-input"  placeholder="What do you need to do today?">
-										<button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
-									</div>
-									<div class="list-wrapper">
-										<ul class="d-flex flex-column-reverse todo-list">
-											<li>
-												<div class="form-check">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox">
-														Meeting with Alisa
-													</label>
-												</div>
-												<i class="remove fa fa-times-circle"></i>
-											</li>
-											<li class="completed">
-												<div class="form-check">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox" checked>
-														Call John
-													</label>
-												</div>
-												<i class="remove fa fa-times-circle"></i>
-											</li>
-											<li>
-												<div class="form-check">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox">
-														Create invoice
-													</label>
-												</div>
-												<i class="remove fa fa-times-circle"></i>
-											</li>
-											<li>
-												<div class="form-check">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox">
-														Print Statements
-													</label>
-												</div>
-												<i class="remove fa fa-times-circle"></i>
-											</li>
-											<li class="completed">
-												<div class="form-check">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox" checked>
-														Prepare for presentation
-													</label>
-												</div>
-												<i class="remove fa fa-times-circle"></i>
-											</li>
-											<li>
-												<div class="form-check">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox">
-														Pick up kids from school
-													</label>
-												</div>
-												<i class="remove fa fa-times-circle"></i>
-											</li>
-										</ul>
-									</div>
+                    <input type="text" class="form-control todo-list-input"  placeholder="What do you need to do today?">
+                    <button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
+                  </div>
+                  <div class="list-wrapper">
+                    <ul class="d-flex flex-column-reverse todo-list">
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox">
+                            Meeting with Alisa
+                          </label>
+                        </div>
+                        <i class="remove fa fa-times-circle"></i>
+                      </li>
+                      <li class="completed">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox" checked>
+                            Call John
+                          </label>
+                        </div>
+                        <i class="remove fa fa-times-circle"></i>
+                      </li>
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox">
+                            Create invoice
+                          </label>
+                        </div>
+                        <i class="remove fa fa-times-circle"></i>
+                      </li>
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox">
+                            Print Statements
+                          </label>
+                        </div>
+                        <i class="remove fa fa-times-circle"></i>
+                      </li>
+                      <li class="completed">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox" checked>
+                            Prepare for presentation
+                          </label>
+                        </div>
+                        <i class="remove fa fa-times-circle"></i>
+                      </li>
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox">
+                            Pick up kids from school
+                          </label>
+                        </div>
+                        <i class="remove fa fa-times-circle"></i>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

@@ -10,19 +10,22 @@ class AdminController extends Controller
 {
     //
     public function createAd(){
-        return view('admin.createAd');
+        $listUser=User::where(['role'=>'admin'])->get();
+        return view('admin.createAd',compact('listUser'));
     }
     public function storeAd(Request $request){
         $User = new User();
+        $User->role = 'admin';
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
+        $User->email = $request->input('email');
+        $User->password = $request->input('password');
         $User->save();
         return redirect('Admin-User');
 
     }
    public function index(Request $request){
-        //$listUser = User::all();
         $listUser=User::where(['role'=>'admin'])->get();
         if ($request->has('trashed')) {
             $listUser = User::where(['role'=>'admin'])->onlyTrashed()
@@ -31,40 +34,10 @@ class AdminController extends Controller
         } else {
             $listUser = User::where(['role'=>'admin'])->get();
         } 
-        return view('Admin-User', ['user' => $listUser]);
+        return view('admin.listeAdmin-User', ['user' => $listUser]);
     }
-   /* public function index(Request $request)
-    {
-        $listUser=User::where(['role'=>'admin'])->get(); 
-        if ($request->has('trashed')) {
-            $listUser = User::onlyTrashed()
-                ->get();
-        } else {
-            $listUser = User::get();
-        }
- 
-        return view('Admin-User', ['user' => $listUser]);
-    }*/
-
-    /*public function editUser(int $user_id)
-    {
-        $user = User::find($user_id);
-        if($user){
-
-            $this->user_id = $user->id;
-            $this->name = $user->name;
-            $this->email = $user->email;
-            $this->course = $user->course;
-        }else{
-            return redirect()->to('Admin-User');
-        }
-    }*/
-
-
     public function edit($id){
         $user = User::find($id);
-        //$user=User::where(['role'=>'enseignant'])->get(); 
-
         return view('Admin.editAd', ['user'=>$user]);
     }
     public function update(Request $request, $id){
@@ -74,21 +47,8 @@ class AdminController extends Controller
         $User->date_n = $request->input('date_n');
         $User->grade = $request->input('grade');
         $User->save();
-        return redirect('Admin-User');        
+        return redirect('admin.listeAdmin-User');        
     }
-     
-    
-     /*public function listUserA(){
-        $listUser=User::where(['role'=>'admin'])->get(); 
-        if ($request->has('trashed')) {
-            $listUser = User::onlyTrashed()
-                ->get();
-        } else {
-            $listUser = User::get();
-        }
- 
-        return view('Admin-User', ['user' => $listUser]);
-    }*/
     public function destroy($id)
     {
         $user = User::find($id); //delete();

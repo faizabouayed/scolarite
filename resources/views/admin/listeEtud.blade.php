@@ -19,12 +19,13 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Listes des Etudiants</h4>
+                  <h4 class="card-title">Les étudiants</h4> 
                   <div class="row grid-margin">
-                    <div class="col-12">
+                  <a href="{{url('etudiants/createEtud')}}">
+                  <button class="btn btn-light ">
+                     <i class="fa fa-plus text-success"></i> Add étudiant</button></a>
                       
-                    </div>
-                  </div>
+                   </div>
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
@@ -69,7 +70,7 @@
                                     </form>
                     <button class="btn btn-light " type="button" value="{{$etudiant->id_etud}}" id="popup" onclick="div_show()">
                      <i class="fa fa-edit text-success"></i>edit</button>
-                     <a href="/Releve">
+                    <a href="{{url('Relever/'.$etudiant->id_etud.'/relever')}}">
                                    <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>View
                                   </button></a>
