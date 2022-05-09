@@ -1,6 +1,36 @@
 
 @extends('layouts.MenuAdmin')
 @Section('content')
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+  <script>
+    jQuery(document).ready(function($) {
+      $('#example').DataTable(
+        {
+        dom: 'Bfrtip',
+        buttons: [
+                    
+                    'excel',
+                    'csv',
+                    'pdf',
+                    'print'
+                ],
+              }
+      );
+     
+    } );
+    
+    </script>
       <!-- partial -->
       <div class="main-panel">          
         <div class="content-wrapper">
@@ -29,17 +59,18 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table id="order-listing" class="table">
+                        <table id="example" class="table" >
                           <thead>
                          
 
                             <tr class="bg-primary text-white">
-                                <th>Photo</th>
+                                <th class="not-export-col">Photo</th>
                                 <th>Nom</th>
                                 <th>Prénom</th>
                                 <th>Date de naissance</th>
+                                <th>Date d'inscription</th>
                                 <th>Promo</th>
-                                <th>Actions</th>
+                                <th class="not-export-col">Actions</th>
                             </tr>
                           </thead>
                           @foreach($etudiants as $etudiant)
@@ -49,7 +80,8 @@
                                 <td>{{$etudiant->nom}}</td>
                                 <td>{{$etudiant->prenom}}</td>
                                 <td>{{$etudiant->date_de_naissance}}</td>
-                                <td>{{$etudiant->promo}}</td>
+                                <td>{{$etudiant->date_inscription}}</td>
+                                <td>{{$etudiant->libelle_pr}}</td>
             
                                 <td class="text-right">
                             
@@ -122,6 +154,7 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>

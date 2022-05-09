@@ -15,13 +15,26 @@ use Illuminate\Support\Facades\DB;
 class ModuleAdminController extends Controller
 {
     //
-     public function ListeMod(){
+     public function ListeMod(Request $request){
+        if ($request->has('trashed')) {
+           
+            $module = Module::onlyTrashed()
+            ->join('options','options.id_opt','=','modules.option')
+            ->join('users','users.id','=','modules.enseignant')
+            ->join('promotions','options.id_opt','=','promotions.option')
+            ->get(); 
+        } else {
+            $module = Module:: join('options','options.id_opt','=','modules.option')
+            ->join('users','users.id','=','modules.enseignant')
+            ->join('promotions','options.id_opt','=','promotions.option')
+            ->get(); 
+            
+            
+        }
+       
+ 
+      
 
-        $module=DB::table('modules')
-        ->join('options','options.id_opt','=','modules.option')
-        ->join('users','users.id','=','modules.enseignant')
-        ->join('promotions','options.id_opt','=','promotions.option')
-        ->get();  
         return view('admin.listeMod',['modules'=>$module]);
     }
     /*public function ListeMod(Request $request){
@@ -48,19 +61,16 @@ class ModuleAdminController extends Controller
         $module = new Module();      
         $module->libelle = $request->input('libelle');
         $module->code = $request->input('code');
-        //$module->semestre = $request->input('semestre');
+        $module->semestre = $request->input('semestre');
         $module->option = $request->input('option');         
         $module->enseignant = $request->input('enseignant');
         $module->save();
         return redirect('module');
     }
-    public function edit($id){
+    /*public function edit($id){
         $module = Module::find($id);
-        $listeOpt = Option::all();
-        $listePromo = Promotion::all();
-        $users=User::where(['role'=>'enseignant'])->get();
-        return view('module',compact('listeOpt','users','listePromo')); 
-    }
+        return view('admin.editMod', ['modules'=>$module]);
+    }*/
     public function update(Request $request, $id){
         $module = Module::find($id);
         $module->libelle = $request->input('libelle');
@@ -68,7 +78,7 @@ class ModuleAdminController extends Controller
         $module->option = $request->input('option');
         $module->enseignant = $request->input('enseignant');
         $module->save();
-        return redirect('module');        
+        return redirect('Enseignants-User');        
     }
     public function destroy($id)
     {

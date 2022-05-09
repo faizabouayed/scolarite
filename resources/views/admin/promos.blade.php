@@ -19,7 +19,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Promotion</h4>
+                  <h4 class="card-title">Les Promotions de {{$option->libelle_opt}}</h4>
                   <div class="row grid-margin">
                     <div class="col-12">
                       
@@ -37,7 +37,7 @@
                         <table id="order-listing" class="table">
                           <thead>
                             <tr class="bg-primary text-white">
-                                <th>Option</th>
+                                
                                 <th>Libellé</th>
                                 <th>Année</th>
                                 <th>Actions</th>
@@ -46,7 +46,7 @@
                           <tbody>
                           @foreach($promos as $promo)
                             <tr>
-                                <td>{{$option->libelle_opt}}</td>
+                               
                                 <td>{{$promo->libelle_pr}}</td>
                                 <td>{{$promo->annee_debut.'-'.$promo->annee_fin}}</td>
             

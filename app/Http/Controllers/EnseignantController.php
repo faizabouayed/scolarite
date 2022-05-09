@@ -31,7 +31,7 @@ class EnseignantController extends Controller
     }
     public function index(Request $request){
         //$listUser = User::all();
-       $listUser=User::where(['role'=>'enseignant'])->get(); 
+     //  $listUser=User::where(['role'=>'enseignant'])->get(); 
        if ($request->has('trashed')) {
         $listUser = User::where(['role'=>'enseignant'])->onlyTrashed()
             ->get();
@@ -77,6 +77,33 @@ class EnseignantController extends Controller
         $user = User::find($id);
         return view('admin.show', ['user'=>$user]);
     }
+
+    public function destroy($id)
+    {
+        $user = User::find($id); //delete();
+        $user->delete();
+ 
+        return redirect()->back()->with('status','Teacher Deleted Successfully');
+    }
+    public function supp($id)
+    {
+        User::onlyTrashed()->find($id)->forceDelete();
+ 
+        return redirect()->back()->with('status','Teacher Deleted Successfully');
+    }
+    public function restore($id)
+    {
+        User::withTrashed()->find($id)->restore();
+ 
+        return redirect()->back();
+    }
+    public function restoreAll()
+    {
+        User::onlyTrashed()->restore();
+ 
+        return redirect()->back();
+    }
+
    /* public function Module(){
          $Module = Module::find($id);
          $Module = Module::find($libelle);

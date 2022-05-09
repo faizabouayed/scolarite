@@ -37,9 +37,17 @@ class ScolariteController extends Controller
         return redirect('Enseignants-User');
 
     }
-    public function index(){
-       $listUser=User::where(['role'=>'enseignant'])->get(); 
-        return view('admin.listeEnseignants-User', ['users' => $listUser]);
+    public function index(Request $request){
+        if ($request->has('trashed')) {
+            $user = User::where(['role'=>'enseignant'])->onlyTrashed()
+                ->get();
+    
+        } else {
+            $user = User::where(['role'=>'enseignant'])->get();
+        } 
+        
+            return view('admin.listeEnseignants-User', ['users'=>$user]);
+        
     }
     public function edit($id){
         $user = User::find($id);
@@ -57,6 +65,31 @@ class ScolariteController extends Controller
      public function shwo($id){
         $user = User::find($id);
         return view('admin.show', ['users'=>$user]);
+    }
+    public function destroy($id)
+    {
+        $user = User::find($id); //delete();
+        $user->delete();
+ 
+        return redirect()->back()->with('status','Teacher Deleted Successfully');
+    }
+    public function supp($id)
+    {
+        User::onlyTrashed()->find($id)->forceDelete();
+ 
+        return redirect()->back()->with('status','Teacher Deleted Successfully');
+    }
+    public function restore($id)
+    {
+        User::withTrashed()->find($id)->restore();
+ 
+        return redirect()->back();
+    }
+    public function restoreAll()
+    {
+        User::onlyTrashed()->restore();
+ 
+        return redirect()->back();
     }
     
 }

@@ -36,10 +36,10 @@
                                 <th>Actions</th>
                             </tr>
                           </thead>
-                          @foreach($promotions as $promotion)
+                          @foreach($promotions as $promotion )
                           <tbody>
                             <tr>
-                                <td>{{$promotion->option}}</td>
+                                <td>{{$promotion->libelle_opt}}</td>
                                 <td>{{$promotion->libelle_pr}}</td>
             
                                 <td>
