@@ -25,7 +25,7 @@ Route::get('/', function () {
 /******************les Enseignants-Users**************/
 
 /*****lister*****/
-Route::get('/Enseignants-User', 'App\Http\Controllers\ScolariteController@listUserE');
+Route::get('/Enseignants-User', 'App\Http\Controllers\ScolariteController@index')->name('Enseignant-User.index');;
 /******ajouter***/
 Route::get('/Enseignants-User/create', 'App\Http\Controllers\ScolariteController@create');
 Route::post('Enseignants-User', 'App\Http\Controllers\ScolariteController@store');
@@ -35,6 +35,16 @@ Route::put('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@up
 /******View******/
 Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@shwo')->name('shwo.info');
 Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@afficher')->name('show.afficher');
+/*soft delete*/
+Route::delete('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@destroy')->name('Enseignants-User.destroy');
+/* force delete*/
+Route::post('/Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@supp')->name('Enseignants-User.supp');
+/*restorer*/
+Route::get('/Enseignants-User/restore/{id}', 'App\Http\Controllers\ScolariteController@restore')->name('Enseignants-User.restore');
+/*tout restorer*/
+Route::get('/Enseignants-User/restore-all', 'App\Http\Controllers\ScolariteController@restoreAll')->name('Enseignants-User.restoreAll');
+
+
 
 
 //******************les Admins-Users**************/
@@ -68,13 +78,13 @@ Route::get('module/{id}', 'App\Http\Controllers\ModuleAdminController@edit')->na
 Route::put('module/{id}', 'App\Http\Controllers\ModuleAdminController@update')->name('modules.update');
 
 /*soft delete*/
-Route::delete('/module/{id}', 'App\Http\Controllers\ModuleController@destroy')->name('module.destroy');
+Route::delete('/module/{id}', 'App\Http\Controllers\ModuleAdminController@destroy')->name('module.destroy');
 /* force delete*/
-Route::post('/module/{id}', 'App\Http\Controllers\ModuleController@supp')->name('module.supp');
+Route::post('/module/{id}', 'App\Http\Controllers\ModuleAdminController@supp')->name('module.supp');
 /*restorer*/
-Route::get('/module/restore/{id}', 'App\Http\Controllers\ModuleController@restore')->name('module.restore');
+Route::get('/module/restore/{id}', 'App\Http\Controllers\ModuleAdminController@restore')->name('module.restore');
 /*tout restorer*/
-Route::get('/module/restore-all', 'App\Http\Controllers\ModuleController@restoreAll')->name('module.restoreAll');
+Route::get('/module/restore-all', 'App\Http\Controllers\ModuleAdminController@restoreAll')->name('module.restoreAll');
 
 
 Route::get('/calendrier', function () {

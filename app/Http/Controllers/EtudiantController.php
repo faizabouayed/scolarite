@@ -17,15 +17,19 @@ class EtudiantController extends Controller
      */
     public function index(Request $request)
     {
-        $listEtud = Etudiant::all();
-       // $results= DB::table('')
-        
         if ($request->has('trashed')) {
+           
             $listEtud = Etudiant::onlyTrashed()
+            ->join('promotions','promotions.id_pr','=','etudiants.promo')
                 ->get();
         } else {
-            $listEtud = Etudiant::get();
+            $listEtud = Etudiant::join('promotions','promotions.id_pr','=','etudiants.promo')
+            ->get();
+            /*$listPromo=DB::table('promotions')
+            ->join('options','options.id_opt','=','promotions.option')
+            ->get(); */
         }
+       
  
         return view('admin.listeEtud', ['etudiants' => $listEtud]);
     }

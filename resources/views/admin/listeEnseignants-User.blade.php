@@ -54,19 +54,28 @@
                                   <label class="badge badge-success">{{$user->grade}}</label>
                                 </td>
                                 <td class="text-right">
+                                    <a href="#" class="btn btn-success">View</a>
 
-                                <a href="{{url('Enseignants-User/'.$user->id.'/shwo')}}">
-                                 <button class="btn btn-light" onclick="window.location.href='/Profile-Ens';">
-                                    <i class="fa fa-eye text-primary"></i>View
-                                  </button>
-                                </a>
-                                  <a href="{{ route('Enseignants-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a>                                                                      
-                                </td> 
-
-                            </tr> 
-                            
-
-                       <div class="modal" id="user{{$user->id}}">
+                                   <a href="{{ route('Enseignants-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a>                                                                                       
+                                @if(request()->has('trashed'))
+                                    <a href="{{ route('Enseignants-User.restore', $user->id) }}" class="btn btn-success">Restore</a>
+                                   
+                                  <form method="POST" action="{{ route('Enseignants-User.supp', $user->id) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                    </form>
+                                @else                                
+                                    <form method="POST" action="{{ route('Enseignants-User.destroy', $user->id) }}">
+                                        @csrf
+                                        {{method_field('delete')}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                    </form>
+                                    
+                                @endif                                  
+                                </td>
+                            </tr>
+                            <div class="modal" id="user{{$user->id}}">
                         <div class="modal-dialog modal-md">
                           <div class="modal-content">         
                             <!-- Modal Header -->
@@ -96,11 +105,7 @@
                                     <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
                                     <input id="prenom" type="date" class="form-control form-little-squirrel-control @error('date_n') is-invalid @enderror" placeholder="date_de_naissance" name="date_n" value="{{$user->date_n}}"  autocomplete="date_n"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
                                   </div> 
-                                  
-                                  <div class="input-group-icon mb-3">
-                                    <label class="form-label col-12" for="inputCategories"> Grade:</label>
-                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="date_de_naissance" name="grade" value="{{$user->grade}}"  autocomplete="Grade"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                  </div>  
+                                   
                                      
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
                                   <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
@@ -116,9 +121,31 @@
                         </div>
                       </div>
           
-                            @endforeach                          
-                          </tbody>                                                  
+                            @endforeach
+                          </tbody>                          
                         </table>
+                 <div class="float-end">
+                    @if(request()->has('trashed'))
+                        <a href="{{ route('Enseignant-User.index') }}" class="btn btn-info">View All Enseignant-User</a>
+                        <a href="{{ route('Enseignants-User.restoreAll') }}" class="btn btn-success">Restore All</a>
+                    @else
+                        <a href="{{ route('Enseignant-User.index', ['trashed' => 'user']) }}" class="btn btn-primary">View Deleted Admin-User</a>
+                    @endif
+                </div>
+        </div>
+        <!--pop up-->
+        <div id="popupContact">
+<!-- Contact Us Form -->
+
+       <script type="text/javascript">
+            $(document).ready(function() {
+                $('.delete').click(function(e) {
+                    if(!confirm('Are you sure you want to delete this option?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        </script>
                       </div>
                     </div>
                   </div>

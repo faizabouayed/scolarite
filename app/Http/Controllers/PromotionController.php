@@ -22,13 +22,22 @@ class PromotionController extends Controller
     }*/
 
     public function index(Request $request)
-    {
-        $listPromo = Promotion::all();
+   
+    {	/* $listPromo=DB::table('promotions')
+        ->join('options','options.id_opt','=','promotions.option')
+        ->get();*/ 
+      //  $listPromo = Promotion::all();
         if ($request->has('trashed')) {
+           
             $listPromo = Promotion::onlyTrashed()
+            ->join('options','options.id_opt','=','promotions.option')
                 ->get();
         } else {
-            $listPromo = Promotion::get();
+            $listPromo = Promotion::join('options','options.id_opt','=','promotions.option')
+            ->get();
+            /*$listPromo=DB::table('promotions')
+            ->join('options','options.id_opt','=','promotions.option')
+            ->get(); */
         }
        // $option=Option::all();
       /*  $ops=Option::where('id_opt',$listPromo->option)->first();

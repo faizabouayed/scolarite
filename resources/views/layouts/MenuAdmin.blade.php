@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Melody Admin</title>
+  <title>Scolarité</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">

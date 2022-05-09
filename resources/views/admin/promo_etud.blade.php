@@ -4,7 +4,7 @@
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Orders
+              Liste des Etudiants
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
@@ -21,7 +21,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Etudiants de Promo {{$promotion->libelle_pr}}
+                  <h4 class="card-title">Les Etudiants de {{$promotion->libelle_pr}}
                    <!-- <button type="button" class="btn btn-danger btn-icon-text">
                       <i class="fa fa-upload btn-icon-prepend"></i>                                                    
                       Upload

@@ -2,16 +2,104 @@
 @extends('layouts.MenuAdmin')
 @Section('content')
       <!-- partial -->
-    
+    <meta charset="utf-8">
+      <title>Popup Login Form Design | CodingNepal</title>
+      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+   </head>
+   <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 8;
+        left:0%;
+        top: 10%;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+       /* background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);*/
+      }
+      .modal-content {
+        margin: 50px auto;
+        border: 1px solid #999;
+        width: 60%;
+      }
+      h2,
+      p {
+        margin: 0 0 20px;
+        font-weight: 400;
+        color: #999;
+      }
+      span {
+        color: #666;
+        display: block;
+        padding: 0 0 5px;
+      }
+      form {
+        padding: 25px;
+        margin: 25px;
+        box-shadow: 0 2px 5px #f5f5f5;
+        background: #eee;
+      }
+      input,
+      textarea {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #1c87c9;
+        outline: none;
+      }
+      /*.contact-form button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: #1c87c9;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+      }
+      /*button:hover {
+        background: #2371a0;
+      }*/
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+     /* button.button {
+        background: none;
+        border-top: none;
+        outline: none;
+        border-right: none;
+        border-left: none;
+        border-bottom: #02274a 1px solid;
+        padding: 0 0 3px 0;
+        font-size: 16px;
+        cursor: pointer;
+      }*/
+      /*button.button:hover {
+        border-bottom: #a99567 1px solid;
+        color: #a99567;
+      }*/
+    </style>     
+
       <div class="main-panel">          
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Les Listes des Modules
+              Les Listes des mos
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Modules</li>
+                <li class="breadcrumb-item active" aria-current="page">mos</li>
               </ol>
             </nav>
           </div>
@@ -19,10 +107,10 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Les Modules</h4> 
-                 <a href="{{url('module/createMod')}}">
+                  <h4 class="card-title">Les mos</h4> 
+                 <a href="{{url('mo/createMod')}}">
                   <button class="btn btn-light ">
-                     <i class="fa fa-plus text-success"></i> Add Modules</button></a><br><br>              
+                     <i class="fa fa-plus text-success"></i> Add mos</button></a><br><br>              
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
@@ -47,104 +135,45 @@
                                 <td>{{$module->code}}</td>
                                 <td>{{$module->libelle_opt}}</td>
                                 <td>{{$module->libelle_pr}}</td>
-                                <!--<td>{{$module->annee_debut}}-{{$module->annee_fin}}</td>-->
                                 <td>{{$module->name}} {{$module->prenom}}</td>                               
                                 <td class="text-right">
-                                   <a href="{{ route('modules.update',$module->id) }}" data-bs-toggle="modal" data-bs-target="#module{{$module->id}}"><i class="fa fa-edit text-success "></i></a>                                                              
+                                  <p>
+                                  <button class="btn btn-light button" data-modal="modalOne" >
+                                  <i class="fa fa-edit text-success "></i>Edit
+                                  </button>                                 
+                                 </p>                                                              
                                 
                                 @if(request()->has('trashed'))
-                                    <a href="{{ route('module.restore', $module->id) }}" class="btn btn-success">Restore</a>
-                                   <!-- <button class="btn btn-light">
-                                    <i class="fa fa-times text-danger"></i>Remove
-                                  </button> -->
-                                  <form method="POST" action="{{ route('module.supp', $module->id) }}">
-                                        @csrf
-                                       <!-- {{method_field('delete')}}-->
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
-                                    </form>
-                                @else                                
-                                    <form method="POST" action="{{ route('module.destroy', $module->id) }}">
-                                        @csrf
-                                        {{method_field('delete')}}
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
-                                    </form>
-                                 <!--   <a href="{{url('editOpt')}}"> -->
-                                      <button class="btn btn-light " type="button" value="{{$module->id}}" id="popup" onclick="div_show()">
-                                      <i class="fa fa-edit text-success"></i>edit</button><!--</a>-->
+                                <a href="{{ route('module.restore', $module->id_mod) }}" class="btn btn-success">Restore</a>
+                                   
+                                   <form method="POST" action="{{ route('module.supp', $module->id_mod) }}">
+                                         @csrf
+                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                     </form>
+                                 @else                                
+                                     <form method="POST" action="{{ route('module.destroy', $module->id_mod) }}">
+                                         @csrf
+                                         {{method_field('delete')}}
+                                         <input name="_method" type="hidden" value="DELETE">
+                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                     </form>
+                                      <button class="btn btn-light " type="button" value="{{$module->id_mod}}" id="popup" onclick="div_show()">
+                                      <i class="fa fa-edit text-success"></i>edit</button>
                     
                                 @endif
                                   
                                 </td>
                             </tr>
-                            <div class="modal" id="module{{$module->id_opt}}">
-                        <div class="modal-dialog modal-md">
-                          <div class="modal-content">         
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                              <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Modifier les informations </h3>
-                                <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
-                            </div>
-                            <!-- Modal body -->
-                            <div class="modal-body mx-auto">
-                              <div class="row align-items-center mb-3">
-                                <form method="POST" action="{{ route('modules.update',$module->id_opt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
-                                  @csrf
-                                  @method('PUT')
-                                  <div class="input-group-icon mb-3 "> 
-                                    <label class="form-label col-12" for="inputCategories">Libelle:</label>
-                                    <input id="libelle_opt" type="text" class="form-control form-little-squirrel-control @error('libelle') is-invalid @enderror" placeholder="Libelle" name="libelle" value="{{$module->libelle}}" autocomplete="libelle"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
-                                  </div>
-
-                                  <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Code:</label>
-                                    <input id="niveau" type="text" class="form-control form-little-squirrel-control @error('code') is-invalid @enderror" placeholder="Code" name="code" value="{{$module->code}}"  autocomplete="code"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                    
-                                  </div> 
-                                  <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Option:</label>
-                                    <input id="niveau" type="text" class="form-control form-little-squirrel-control @error('libelle_opt') is-invalid @enderror" placeholder="Libelle" name="libelle_opt" value="{{$module->libelle_opt}}"  autocomplete="libelle_opt"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                    
-                                  </div>
-                                  <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Promo:</label>
-                    
-                                    <select class="form-control" id="exampleSelectGender" name="enseignant" required>
-                                 <option value=""></option>
-                                 @foreach($listePromo as $promo)
-                                <option value="{{$promo->id_pr}}">{{$promo->libelle_pr}}</option>
-                                 @endforeach
-                        </select>    
-                                    
-                                  </div>
-                                  <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Promo:</label>
-                                    <input id="niveau" type="text" class="form-control form-little-squirrel-control @error('libelle_pr') is-invalid @enderror" placeholder="promo" name="libelle_pr" value="{{$module->libelle_pr}}"  autocomplete="libelle_pr"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                    
-                                  </div>                                   
-                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
-                                  </div>
-                                </form>          
-                              </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
-                          </div>
-                        </div>
-                      </div>
                             @endforeach
                           </tbody>
                           
                         </table>
                         <div class="float-end">
                 @if(request()->has('trashed'))
-                    <a href="{{ route('module.index') }}" class="btn btn-info">View All module</a>
+                    <a href="{{ route('module.index') }}" class="btn btn-info">View All modules</a>
                     <a href="{{ route('module.restoreAll') }}" class="btn btn-success">Restore All</a>
                 @else
-                    <a href="{{ route('module.index', ['trashed' => 'module']) }}" class="btn btn-primary">View Deleted module</a>
+                    <a href="{{ route('module.index', ['trashed' => 'module']) }}" class="btn btn-primary">View Deleted modules</a>
                 @endif
             </div>
         </div>
