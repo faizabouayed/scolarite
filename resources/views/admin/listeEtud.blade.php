@@ -51,7 +51,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Les étudiants</h4> 
                   <div class="row grid-margin">
-                  <a href="{{url('etudiants/createEtud')}}">
+                  <a href="{{url('liste-des-etudiants/createEtud')}}">
                   <button class="btn btn-light ">
                      <i class="fa fa-plus text-success"></i> Add étudiant</button></a>
                       
@@ -59,7 +59,7 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table id="example" class="table" >
+                        <table  id="example" class="table" >
                           <thead>
                          
 
@@ -100,9 +100,8 @@
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
-                    <button class="btn btn-light " type="button" value="{{$etudiant->id_etud}}" id="popup" onclick="div_show()">
-                     <i class="fa fa-edit text-success"></i>edit</button>
-                    <a href="{{url('Relever/'.$etudiant->id_etud.'/relever')}}">
+                   <a href="{{ route('etudiants.update',$etudiant->id_etud) }}" data-bs-toggle="modal" data-bs-target="#etudiant{{$etudiant->id_etud}}"><i class="fa fa-edit text-success "></i></a>
+                                 <a href="{{url('Relever/'.$etudiant->id_etud.'/relever')}}">
                                    <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>View
                                   </button></a>
@@ -113,6 +112,64 @@
                             </tr>
                             
                           </tbody>
+                          <div class="modal" id="etudiant{{$etudiant->id_etud}}">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">         
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Modifier les informations </h3>
+                                <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body mx-auto">
+                              <div class="row align-items-center mb-3">
+                                <form method="POST" action="{{ route('etudiants.update',$etudiant->id_etud) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                  @csrf
+                                  @method('PUT')
+                                  <div class="input-group-icon mb-3 "> 
+                                    <label class="form-label col-12" for="inputCategories">Nom:</label>
+                                    <input id="nom" type="text" class="form-control form-little-squirrel-control @error('nom') is-invalid @enderror" placeholder="Nom" name="nom" value="{{$etudiant->nom}}" autocomplete="nom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
+                                  </div>
+
+                                  <div class="input-group-icon mb-3"> 
+                                    <label class="form-label col-12" for="inputCategories">Prénom:</label>
+                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$etudiant->prenom}}"  autocomplete="prenom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    
+                                  </div>
+                                 
+                                  <div class="input-group-icon mb-3"> 
+                                    <br><br><br><br><br>
+                                    <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
+                                    <input id="date" type="date" class="form-control form-little-squirrel-control @error('date_de_naissance') is-invalid @enderror" placeholder="date_de_naissance" name="date_de_naissance" value="{{$etudiant->date_de_naissance}}"  autocomplete="date_de_naissance"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                  </div> 
+                                  
+                                  <div class="input-group-icon mb-3"> 
+                                    <br><br><br><br><br>
+                                    <label class="form-label col-12" for="inputCategories">date_inscription:</label>
+                                    <input id="date" type="date" class="form-control form-little-squirrel-control @error('date_inscription') is-invalid @enderror" placeholder="date_inscription" name="date_inscription" value="{{$etudiant->date_inscription}}"  autocomplete="date_inscription"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                  </div> 
+                                  <div class="input-group-icon mb-3">
+                                    <label class="form-label col-12" for="inputCategories"> Promo:</label>
+                                    <select class="form-control" id="exampleSelectGender" name="promo" required>
+                                      @foreach($listePromo as $promo)
+                                       <option value="{{$promo->id_pr}}">{{$promo->libelle_pr}}</option>
+                                      @endforeach
+                                      </select> 
+                                  </div>  
+                                     
+                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
+                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
+                                  </div>
+                                </form>          
+                              </div>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+                            </div>          
+                          </div>
+                        </div>
+                      </div>
                           @endforeach
                         </table>
                         <div class="float-end">

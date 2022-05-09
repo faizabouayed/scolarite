@@ -376,8 +376,7 @@
               <i class="fa fa-home menu-icon"></i>
               <span class="menu-title">Tableau de bord</span>
             </a>
-          </li>
-        
+          </li>       
           <!-----------------------------User-------------->
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">

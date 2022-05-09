@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\DB;
 class ScolariteController extends Controller
 {
     //    
-    public function listUserE(){
+    /*public function listUserE(){
         $user=User::where(['role'=>'enseignant'])->get(); 
         return view('admin.listeEnseignants-User', ['users'=>$user]);    
     }
-    
+    */
     public function create(){
         return view('admin.create');
     }
@@ -31,10 +31,11 @@ class ScolariteController extends Controller
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
+        $User->grade = $request->input('grade');
         $User->email = $request->input('email');
         $User->password = $request->input('password');
         $User->save();
-        return redirect('Enseignants-User');
+        return redirect('admin.listeEnseignants-User');
 
     }
     public function index(Request $request){
@@ -51,7 +52,7 @@ class ScolariteController extends Controller
     }
     public function edit($id){
         $user = User::find($id);
-        return view('Enseignants-User', ['users'=>$user]);
+        return view('admin.listeEnseignants-User', ['users'=>$user]);
     }
     public function update(Request $request, $id){
         $User = User::find($id);
@@ -60,7 +61,7 @@ class ScolariteController extends Controller
         $User->date_n = $request->input('date_n');
         $User->grade = $request->input('grade');
         $User->save();
-        return redirect('Enseignants-User');        
+        return redirect()->back()->with('status','Enseignants Updated Successfully');        
     }
      public function shwo($id){
         $user = User::find($id);

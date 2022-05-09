@@ -26,7 +26,7 @@ class PromotionController extends Controller
     {	/* $listPromo=DB::table('promotions')
         ->join('options','options.id_opt','=','promotions.option')
         ->get();*/ 
-      //  $listPromo = Promotion::all();
+        $listeOpt = Option::all();
         if ($request->has('trashed')) {
            
             $listPromo = Promotion::onlyTrashed()
@@ -165,7 +165,7 @@ class PromotionController extends Controller
         $promotion->libelle_pr =$r1->libelle_opt.$promotion->annee_debut.'-'.$promotion->annee_fin;
    
         $promotion->save();
-        return redirect('promotions')->with('success', 'Data saved');
+        return redirect('admin.listePromo')->with('success', 'Data saved');
         //dd($request);
     }
     
@@ -187,11 +187,12 @@ class PromotionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+   public function edit($id)
     {
-        //
+        
+         $promotion = Promotion::find($id);
+        return view('admin.listePromo', ['promotions'=>$promotion]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -202,6 +203,14 @@ class PromotionController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $promotion = Promotion::find($id);
+        $promotion->libelle_pr = $request->input('libelle_pr');
+        $promotion->option = $request->input('option');
+        $promotion->annee_debut = $request->input('anneeD');
+        $promotion->annee_fin = $request->input('anneeF');
+             
+        $promotion->save();
+        return redirect()->back()->with('status','Promotions Updated Successfully');        
     }
 
     /**
@@ -210,5 +219,6 @@ class PromotionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     
 }

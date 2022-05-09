@@ -45,9 +45,8 @@
                                 <td>{{$user->prenom}}</td>
                                 <td>{{$user->date_n}}</td>
                                  <td class="text-right">
-                                    <a href="#" class="btn btn-success">View</a>
 
-                                   <a href="{{ route('Admin-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a>                                                                                       
+                                                                                                                         
                                 @if(request()->has('trashed'))
                                     <a href="{{ route('Admin-User.restore', $user->id) }}" class="btn btn-success">Restore</a>
                                    
@@ -62,11 +61,12 @@
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
+                                    <a href="{{ route('Admin-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a> 
                                     
                                 @endif                                  
                                 </td>
                             </tr>
-                            <div class="modal" id="user{{$user->id}}">
+                      <div class="modal" id="user{{$user->id}}">
                         <div class="modal-dialog modal-md">
                           <div class="modal-content">         
                             <!-- Modal Header -->
@@ -88,9 +88,7 @@
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Prénom:</label>
                                     <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$user->prenom}}"  autocomplete="prenom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                    
                                   </div>
-                                 
                                   <div class="input-group-icon mb-3"> 
                                     <br><br><br><br><br>
                                     <label class="form-label col-12" for="inputCategories">Date de naissance:</label>

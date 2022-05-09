@@ -16,7 +16,8 @@ class EtudiantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {   $listePromo = Promotion::all();
+        $listEtud = Etudiant::all();
         if ($request->has('trashed')) {
            
             $listEtud = Etudiant::onlyTrashed()
@@ -31,7 +32,7 @@ class EtudiantController extends Controller
         }
        
  
-        return view('admin.listeEtud', ['etudiants' => $listEtud]);
+        return view('admin.listeEtud', ['etudiants' => $listEtud],['listePromo' => $listePromo]);
     }
     public function viewRelever($id_etud){
         $etudiant = Etudiant::find($id_etud);
@@ -126,8 +127,9 @@ class EtudiantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function createEtud()
-    {
-         return view('admin.createEtud');
+    {     $listePromo = Promotion::all();
+
+         return view('admin.createEtud',['listePromo' => $listePromo]);
     }
 
     /**
@@ -147,9 +149,8 @@ class EtudiantController extends Controller
         $etudiant->date_inscription = $request->input('date_inscription');
         $etudiant->promo = $request->input('promo');
         $etudiant->save();
-        return redirect('etudiants');
+        return redirect('liste-des-etudiants');
     }
-
     /**
      * Display the specified resource.
      *
@@ -171,8 +172,7 @@ class EtudiantController extends Controller
     public function edit($id)
     {
         //
-        $etudiant = User::find($id);
-        return view('etudiants', ['etudiant'=>$etudiant]);
+        return view('liste-des-etudiants');
     }
 
     /**
@@ -189,8 +189,10 @@ class EtudiantController extends Controller
         $etudiant->nom= $request->input('nom');
         $etudiant->prenom = $request->input('prenom');
         $etudiant->date_de_naissance= $request->input('date_de_naissance');
+        $etudiant->date_inscription= $request->input('date_inscription');
+        $etudiant->promo= $request->input('promo');
         $etudiant->save();
-        return redirect('etudiants');
+        return redirect('liste-des-etudiants');
     }
 
     /**

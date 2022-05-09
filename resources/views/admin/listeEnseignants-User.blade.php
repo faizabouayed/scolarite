@@ -54,7 +54,6 @@
                                   <label class="badge badge-success">{{$user->grade}}</label>
                                 </td>
                                 <td class="text-right">
-                                    <a href="#" class="btn btn-success">View</a>
 
                                    <a href="{{ route('Enseignants-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a>                                                                                       
                                 @if(request()->has('trashed'))
@@ -90,13 +89,18 @@
                                   @csrf
                                   @method('PUT')
                                   <div class="input-group-icon mb-3 "> 
-                                    <label class="form-label col-12" for="inputCategories">Nom</label>
-                                    <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{$user->name}}" autocomplete="name"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
+                                    <label class="form-label col-12" for="inputCategories">Nom:</label>
+                                    <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{$user->name}}" autocomplete="name"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
                                   </div>
 
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Prénom:</label>
-                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$user->prenom}}"  autocomplete="prenom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$user->prenom}}"  autocomplete="prenom"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    
+                                  </div>
+                                  <div class="input-group-icon mb-3"> 
+                                    <label class="form-label col-12" for="inputCategories">Grade:</label>
+                                    <input id="grade" type="text" class="form-control form-little-squirrel-control @error('grade') is-invalid @enderror" placeholder="grade" name="grade" value="{{$user->grade}}"  autocomplete="grade"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
                                     
                                   </div>
                                  

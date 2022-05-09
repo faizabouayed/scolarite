@@ -22,7 +22,7 @@ class AdminController extends Controller
         $User->email = $request->input('email');
         $User->password = $request->input('password');
         $User->save();
-        return redirect('Admin-User');
+        return redirect('admin.listeAdmin-User');
 
     }
    public function index(Request $request){
@@ -39,7 +39,7 @@ class AdminController extends Controller
 
     public function edit($id){
         $user = User::find($id);
-        return view('Admin-User', ['user'=>$user]);
+        return view('admin.listeAdmin-User', ['user'=>$user]);
     }
     public function update(Request $request, $id){
         $User = User::find($id);
@@ -47,7 +47,7 @@ class AdminController extends Controller
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
         $User->save();
-        return redirect('Admin-User');        
+        return redirect()->back()->with('status','Admin Updated Successfully');        
     }
     public function destroy($id)
     {

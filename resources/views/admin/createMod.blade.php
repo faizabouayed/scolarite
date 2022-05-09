@@ -43,17 +43,7 @@
                                  @endforeach
                         </select>                      
                       </div>
-                      <div class="form-group">
-                        <div class="form-group">
-                        <label for="firstname">Promotion:</label>
-                        <select class="form-control" id="exampleSelectGender" name="promo" required>
-                                 <option value=""></option>
-                                 @foreach($listePromo as $promo)
-                                <option value="{{$promo->id_pr}}">{{$promo->libelle_pr}}</option>
-                                 @endforeach
-                        </select>                      
-                      </div>                          
-                      </div>
+
                       <div class="form-group">
                         <div class="form-group">
                         <label for="firstname">Enseignat par:</label>

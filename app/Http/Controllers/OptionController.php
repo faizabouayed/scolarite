@@ -51,7 +51,7 @@ class OptionController extends Controller
         $option->niveau = $request->input('niveau');
    
         $option->save();
-        return redirect('options')->with('success', 'Data saved');
+        return redirect('admin.listeOpt')->with('success', 'Data saved');
     }
 
     /**
@@ -74,7 +74,7 @@ class OptionController extends Controller
     public function edit($id)
     {
         $option = Option::find($id);
-        return view('options',['option'=>$option]);
+        return view('admin.listeOpt',['options'=>$option]);
     }
 
     /**
@@ -90,7 +90,7 @@ class OptionController extends Controller
         $option->libelle_opt = $request->input('libelle_opt');
         $option->niveau = $request->input('niveau');
         $option->save();
-        return redirect('options');
+        return redirect()->back()->with('status','Option Updated Successfully');
     }
 
     /**

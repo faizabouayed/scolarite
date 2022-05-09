@@ -16,46 +16,27 @@ class ModuleAdminController extends Controller
 {
     //
      public function ListeMod(Request $request){
+        
         if ($request->has('trashed')) {
-           
-            $module = Module::onlyTrashed()
+            $listeOpt = Option::all();
+            $users=User::where(['role'=>'enseignant'])->get();
+            $modules = Module::onlyTrashed()
             ->join('options','options.id_opt','=','modules.option')
             ->join('users','users.id','=','modules.enseignant')
-            ->join('promotions','options.id_opt','=','promotions.option')
             ->get(); 
         } else {
-            $module = Module:: join('options','options.id_opt','=','modules.option')
+            $listeOpt = Option::all();
+            $users=User::where(['role'=>'enseignant'])->get();
+            $modules = Module:: join('options','options.id_opt','=','modules.option')
             ->join('users','users.id','=','modules.enseignant')
-            ->join('promotions','options.id_opt','=','promotions.option')
-            ->get(); 
-            
-            
+            ->get();            
         }
-       
- 
-      
-
-        return view('admin.listeMod',['modules'=>$module]);
+        return view('admin.listeMod',compact('modules','listeOpt','users'));
     }
-    /*public function ListeMod(Request $request){
-        $module=DB::table('modules')
-        ->join('options','options.id','=','modules.option')
-        ->join('users','users.id','=','modules.user')
-        ->join('promotions','options.id','=','promotions.option')
-        ->get();  
-        if ($request->has('trashed')) {
-            $module = Module::onlyTrashed()
-                ->get();
-        } else {
-            $module = Module::get();
-        }
-        return view('admin.listeMod',['modules'=>$module]);
-    }*/
     public function create()
     {   $listeOpt = Option::all();
-        $listePromo = Promotion::all();
         $users=User::where(['role'=>'enseignant'])->get(); 
-        return view('admin.createMod',compact('listeOpt','users','listePromo'));
+        return view('admin.createMod',compact('listeOpt','users'));
     }
     public function store(Request $request){
         $module = new Module();      
@@ -65,12 +46,14 @@ class ModuleAdminController extends Controller
         $module->option = $request->input('option');         
         $module->enseignant = $request->input('enseignant');
         $module->save();
-        return redirect('module');
+        return redirect('admin.listeMod');
     }
-    /*public function edit($id){
+     public function edit($id){
         $module = Module::find($id);
-        return view('admin.editMod', ['modules'=>$module]);
-    }*/
+        $listeOpt = Option::all();
+        $users=User::where(['role'=>'enseignant'])->get();
+        return view('admin.listeMod',compact('listeOpt','users')); 
+    }
     public function update(Request $request, $id){
         $module = Module::find($id);
         $module->libelle = $request->input('libelle');
@@ -78,7 +61,7 @@ class ModuleAdminController extends Controller
         $module->option = $request->input('option');
         $module->enseignant = $request->input('enseignant');
         $module->save();
-        return redirect('Enseignants-User');        
+        return redirect()->back()->with('status','Modules Updated Successfully');        
     }
     public function destroy($id)
     {

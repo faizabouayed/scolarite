@@ -53,13 +53,10 @@
                                 <td>{{$option->libelle_opt}}</td>
             
                                 <td> {{$option->niveau}}
-                                  <!--<select id="monselect">
-                                    <option value="Licence">Licence</option>
-                                    <option value="Master" selected>Master</option>
-                                  </select>-->
+                                  
                                 </td>
                                 <td class="text-right">
-                                  <a href="{{ route('options.update',$option->id_opt)}}" data-bs-toggle="modal" data-bs-target="#option{{$option->id_opt}}"><i class="fa fa-edit text-success "></i></a>
+                                 
                               <!--  <a href="/promo"> <button class="btn btn-light" >
 
                                     <i class="fa fa-eye text-primary"></i>View
@@ -70,26 +67,25 @@
                                   <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> -->@if(request()->has('trashed'))
-                                    <a href="{{ route('options.restore', $option->id_opt) }}" class="btn btn-success">Restore</a>
+                                    <a href="{{ route('option.restore', $option->id_opt) }}" class="btn btn-success">Restore</a>
                                    <!-- <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> -->
-                                  <form method="POST" action="{{ route('options.supp', $option->id_opt) }}">
+                                  <form method="POST" action="{{ route('option.supp', $option->id_opt) }}">
                                         @csrf
                                        <!-- {{method_field('delete')}}-->
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
                                 @else                                
-                                    <form method="POST" action="{{ route('options.destroy', $option->id_opt) }}">
+                                    <form method="POST" action="{{ route('option.destroy', $option->id_opt) }}">
                                         @csrf
                                         {{method_field('delete')}}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
                                  <!--   <a href="{{url('editOpt')}}"> -->
-                    <button class="btn btn-light " type="button" value="{{$option->id_opt}}" id="popup" onclick="div_show()">
-                     <i class="fa fa-edit text-success"></i>edit</button><!--</a>-->
-                     <a href="{{ route('options.viewPromo', $option->libelle_opt) }}" class="btn btn-success">View</a>
+                     <a href="{{ route('option.update',$option->id_opt)}}" data-bs-toggle="modal" data-bs-target="#option{{$option->id_opt}}"><i class="fa fa-edit text-success "></i></a>
+                     <a href="{{ route('option.viewPromo', $option->libelle_opt) }}" class="btn btn-success">View</a>
                                 @endif
                                   
                                 </td>
@@ -105,7 +101,7 @@
                             <!-- Modal body -->
                             <div class="modal-body mx-auto">
                               <div class="row align-items-center mb-3">
-                                <form method="POST" action="{{ route('options.update',$option->id_opt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                <form method="POST" action="{{ route('option.update',$option->id_opt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
                                   @csrf
                                   @method('PUT')
                                   <div class="input-group-icon mb-3 "> 
@@ -138,10 +134,10 @@
                         </table>
                         <div class="float-end">
                 @if(request()->has('trashed'))
-                    <a href="{{ route('options.index') }}" class="btn btn-info">View All options</a>
-                    <a href="{{ route('options.restoreAll') }}" class="btn btn-success">Restore All</a>
+                    <a href="{{ route('option.index') }}" class="btn btn-info">View All options</a>
+                    <a href="{{ route('option.restoreAll') }}" class="btn btn-success">Restore All</a>
                 @else
-                    <a href="{{ route('options.index', ['trashed' => 'option']) }}" class="btn btn-primary">View Deleted options</a>
+                    <a href="{{ route('option.index', ['trashed' => 'option']) }}" class="btn btn-primary">View Deleted options</a>
                 @endif
             </div>
         </div>

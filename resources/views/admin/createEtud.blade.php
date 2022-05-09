@@ -9,7 +9,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Ajouter un etudiant</h4>
-                    <form class="cmxform" id="signupForm" action= "{{url('etudiants')}}" method="POST">
+                    <form class="cmxform" id="signupForm" action= "{{url('liste-des-etudiants')}}" method="POST">
                     {{ csrf_field()}}
 
                     <fieldset>
@@ -33,8 +33,12 @@
                         <input id="firstname" class="form-control" name="date_inscription" type="date" required>
                       </div>                    
                       <div class="form-group">
-                        <label for="lastname">promo:</label>
-                        <input id="lastname" class="form-control" name="promo" type="text" required>
+                       <select class="form-control" id="exampleSelectGender" name="promo" required>
+                                      <option ></option>
+                                      @foreach($listePromo as $promo)
+                                       <option value="{{$promo->id_pr}}">{{$promo->libelle_pr}}</option>
+                                      @endforeach
+                                      </select> 
                       </div>
 
                       <input class="btn btn-primary" type="submit" value="Enregistrer">

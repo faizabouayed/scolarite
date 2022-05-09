@@ -42,7 +42,7 @@ Route::post('/Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@
 /*restorer*/
 Route::get('/Enseignants-User/restore/{id}', 'App\Http\Controllers\ScolariteController@restore')->name('Enseignants-User.restore');
 /*tout restorer*/
-Route::get('/Enseignants-User/restore-all', 'App\Http\Controllers\ScolariteController@restoreAll')->name('Enseignants-User.restoreAll');
+Route::get('/listeEnseignants-User/restore-all', 'App\Http\Controllers\ScolariteController@restoreAll')->name('Enseignants-User.restoreAll');
 
 
 
@@ -65,7 +65,7 @@ Route::post('/Admin-User/{id}', 'App\Http\Controllers\AdminController@supp')->na
 /*restorer*/
 Route::get('/Admin-User/restore/{id}', 'App\Http\Controllers\AdminController@restore')->name('Admin-User.restore');
 /*tout restorer*/
-Route::get('/Admin-User/restore-all', 'App\Http\Controllers\AdminController@restoreAll')->name('Admin-User.restoreAll');
+Route::get('/listeAdmin-User/restore-all', 'App\Http\Controllers\AdminController@restoreAll')->name('Admin-User.restoreAll');
 
 /******************les Listes Modules Admin**************/
 
@@ -74,8 +74,8 @@ Route::get('/module', 'App\Http\Controllers\ModuleAdminController@ListeMod')->na
 /******ajouter***/
 Route::get('/module/createMod', 'App\Http\Controllers\ModuleAdminController@create');
 Route::post('module', 'App\Http\Controllers\ModuleAdminController@store');
-Route::get('module/{id}', 'App\Http\Controllers\ModuleAdminController@edit')->name('modules.edit');
-Route::put('module/{id}', 'App\Http\Controllers\ModuleAdminController@update')->name('modules.update');
+Route::get('module/{id}', 'App\Http\Controllers\ModuleAdminController@edit')->name('module.edit');
+Route::put('module/{id}', 'App\Http\Controllers\ModuleAdminController@update')->name('module.update');
 
 /*soft delete*/
 Route::delete('/module/{id}', 'App\Http\Controllers\ModuleAdminController@destroy')->name('module.destroy');
@@ -84,7 +84,7 @@ Route::post('/module/{id}', 'App\Http\Controllers\ModuleAdminController@supp')->
 /*restorer*/
 Route::get('/module/restore/{id}', 'App\Http\Controllers\ModuleAdminController@restore')->name('module.restore');
 /*tout restorer*/
-Route::get('/module/restore-all', 'App\Http\Controllers\ModuleAdminController@restoreAll')->name('module.restoreAll');
+Route::get('/listeMod/restore-all', 'App\Http\Controllers\ModuleAdminController@restoreAll')->name('module.restoreAll');
 
 
 Route::get('/calendrier', function () {
@@ -104,25 +104,26 @@ Route::get('/popup', function () {
 
 
 /***********************Les options*********************/
-Route::get('/options', 'App\Http\Controllers\OptionController@index')->name('options.index');
-Route::get('/createOpt', 'App\Http\Controllers\OptionController@create');
+Route::get('/options', 'App\Http\Controllers\OptionController@index')->name('option.index');
+
+Route::get('/options/createOpt', 'App\Http\Controllers\OptionController@create');
 Route::post('options', 'App\Http\Controllers\OptionController@store');
 
 /******Modifire****/
-Route::get('options/{id}', 'App\Http\Controllers\OptionController@edit')->name('options.edit');
-Route::put('options/{id}', 'App\Http\Controllers\OptionController@update')->name('options.update');
+Route::get('options/{id}', 'App\Http\Controllers\OptionController@edit')->name('option.edit');
+Route::put('options/{id}', 'App\Http\Controllers\OptionController@update')->name('option.update');
 /*soft delete*/
-Route::delete('/options/{id_opt}', 'App\Http\Controllers\OptionController@destroy')->name('options.destroy');
+Route::delete('/options/{id_opt}', 'App\Http\Controllers\OptionController@destroy')->name('option.destroy');
 /* force delete*/
-Route::post('/options/{id_opt}', 'App\Http\Controllers\OptionController@supp')->name('options.supp');
+Route::post('/options/{id_opt}', 'App\Http\Controllers\OptionController@supp')->name('option.supp');
 /*restorer*/
-Route::get('/options/restore/{id_opt}', 'App\Http\Controllers\OptionController@restore')->name('options.restore');
+Route::get('/options/restore/{id_opt}', 'App\Http\Controllers\OptionController@restore')->name('option.restore');
 /*tout restorer*/
-Route::get('/options/restore-all', 'App\Http\Controllers\OptionController@restoreAll')->name('options.restoreAll');
+Route::get('/listeOpt/restore-all', 'App\Http\Controllers\OptionController@restoreAll')->name('option.restoreAll');
 
 
 /*master détails option avec promos*/
-Route::get('/options/viewPromo/{libelle_opt}', 'App\Http\Controllers\OptionController@viewPromo')->name('options.viewPromo');
+Route::get('/options/viewPromo/{libelle_opt}', 'App\Http\Controllers\OptionController@viewPromo')->name('option.viewPromo');
 
 /*master détails promo avec étudiants*/
 Route::get('/promotions/viewEtud/{libelle_pr}', 'App\Http\Controllers\PromotionController@viewEtud')->name('promos.viewEtud');
@@ -132,6 +133,8 @@ Route::get('/promotions/viewEtud/{libelle_pr}', 'App\Http\Controllers\PromotionC
 Route::get('/promotions', 'App\Http\Controllers\PromotionController@index')->name('promotions.index');
 Route::get('/createPromo', 'App\Http\Controllers\PromotionController@create');
 Route::post('promotions', 'App\Http\Controllers\PromotionController@store');
+Route::get('promotions/{id}', 'App\Http\Controllers\PromotionController@edit')->name('promotions.edit');
+Route::put('promotions/{id}', 'App\Http\Controllers\PromotionController@update')->name('promotions.update');
 
 /****delete promotions*****/
 /*soft delete*/
@@ -141,15 +144,19 @@ Route::post('/promotions/{id_pr}', 'App\Http\Controllers\PromotionController@sup
 /*restorer*/
 Route::get('/promotions/restore/{id_pr}', 'App\Http\Controllers\PromotionController@restore')->name('promotions.restore');
 /*tout restorer*/
-Route::get('/promotions/restore-all', 'App\Http\Controllers\PromotionController@restoreAll')->name('promotions.restoreAll');
+Route::get('/listePromo/restore-all', 'App\Http\Controllers\PromotionController@restoreAll')->name('promotions.restoreAll');
 
 
 
 /***********************les etudiants ******************/
 Route::get('/liste-des-etudiants', 'App\Http\Controllers\EtudiantController@index')->name('etudiants.index');
 
-Route::get('/etudiants/createEtud', 'App\Http\Controllers\EtudiantController@createEtud');
-Route::post('etudiants', 'App\Http\Controllers\EtudiantController@storeEtud');
+
+Route::get('/liste-des-etudiants/createEtud', 'App\Http\Controllers\EtudiantController@createEtud');
+Route::post('liste-des-etudiants', 'App\Http\Controllers\EtudiantController@storeEtud');
+Route::post('liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@edit')->name('etudiants.edit');
+Route::put('liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@update')->name('etudiants.update');
+
 
 /*soft delete */
 Route::delete('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@destroy')->name('etduiants.destroy');
@@ -162,13 +169,13 @@ Route::get('Relever/{id_etud}/relever', 'App\Http\Controllers\EtudiantController
 
 /*******delete Etudiants******/
 /*soft delete*/
-Route::delete('/etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@destroy')->name('etudiants.destroy');
+Route::delete('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@destroy')->name('etudiants.destroy');
 /* force delete*/
-Route::post('/etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@supp')->name('etudiants.supp');
+Route::post('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@supp')->name('etudiants.supp');
 /*restorer*/
-Route::get('/etudiants/restore/{id_etud}', 'App\Http\Controllers\EtudiantController@restore')->name('etudiants.restore');
+Route::get('/liste-des-etudiants/restore/{id_etud}', 'App\Http\Controllers\EtudiantController@restore')->name('etudiants.restore');
 /*tout restorer*/
-Route::get('/etudiants/restore-all', 'App\Http\Controllers\EtudiantController@restoreAll')->name('etudiants.restoreAll');
+Route::get('/liste-des-etudiants/restore-all', 'App\Http\Controllers\EtudiantController@restoreAll')->name('etudiants.restoreAll');
 
 
 
