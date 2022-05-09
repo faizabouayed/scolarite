@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/index','App\Http\Controllers\UserController@index')->name('password.request');
+//Route::get('/index','App\Http\Controllers\UserController@index')->name('password.request');
 
 /******************les Enseignants-Users**************/
 
@@ -80,9 +80,17 @@ Route::get('/module/restore-all', 'App\Http\Controllers\ModuleController@restore
 Route::get('/calendrier', function () {
     return view('calendrier');
 });
+
+Route::get('/calendrier_en', 'App\Http\Controllers\UserController@calend');
+
+/*Route::get('/calendrier_en', function () {
+    return view('calend_enseignant');
+});*/
 Route::get('/popup', function () {
     return view('popup');
 });
+
+
 
 
 /***********************Les options*********************/
@@ -164,7 +172,7 @@ Route::get('/MenuAdmin', function () {
 
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 });
 
  
@@ -186,7 +194,7 @@ Route::get('/editprofil/{id}', 'App\Http\Controllers\UserController@afficherInfo
 //modifier profile information
 Route::put('update_data/{id}', 'App\Http\Controllers\UserController@update');
 
-
+Route::get('/index', 'App\Http\Controllers\UserController@stat');
 /**************************************/
  
 /*Route::get('/editprofil', function () {
@@ -194,10 +202,13 @@ Route::put('update_data/{id}', 'App\Http\Controllers\UserController@update');
 }
 );*/
 /*******************************Coté Enseignants***********/ 
-//Route::get('/modules', 'App\Http\Controllers\ModuleController@ListeModules');
+Route::get('/modules/{prom}', 'App\Http\Controllers\ModuleController@ListeModules');
 //liste des notes des etudiants
  
 Route::get('/notes/{id_mod}/{id_pr}', 'App\Http\Controllers\NoteController@ListeNotes');
+
+Route::get('notes/{id_mod}/{id_nt}', 'App\Http\Controllers\NoteController@edit')->name('note.edit');
+Route::put('notes/{id_mod}/{id_nt}', 'App\Http\Controllers\NoteController@update')->name('note.update');
 
 
 
@@ -209,3 +220,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

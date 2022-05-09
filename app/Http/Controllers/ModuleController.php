@@ -20,22 +20,27 @@ class ModuleController extends Controller
          return view('modules',['mo'=>$f]);
     }*/
 
-     public function ListeModules(){
+     public function ListeModules($prom){
 
-    	/*$f=Module::all();
-    	return view('modules',['mo'=>$f]);*/
-       /* $u=Auth::user()
+      
+
+        $f=DB::table('options')
+        ->join('modules','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->where('promotions.libelle_pr','=',$v=$prom)
+        ->get(); 
+      /* $f=DB::table('modules')
+        ->join('options','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->where('modules.enseignant','=',Auth::user()->id)
+        ->where('promotions.id_pr','=',$v='1')
         ->get();*/
 
-    	$f=DB::table('options')
-    	->join('modules','options.id','=','modules.option')
-    	->where('modules.enseignant','=',Auth::user()->id)
-    	->get();
         $b = DB::table('users')
         ->where('id','=',Auth::user()->id)
         ->get();
 
-    	$m = DB::table('promotions')
+        $m = DB::table('promotions')
         ->get();
 
      return view('modules',compact('f','b','m'));
