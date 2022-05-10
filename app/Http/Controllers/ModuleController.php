@@ -20,20 +20,32 @@ class ModuleController extends Controller
          return view('modules',['mo'=>$f]);
     }*/
 
-     public function ListeModules($prom){
+     public function ListeModules($opt,$promo){
 
       
 
-        $f=DB::table('options')
+        /*   vraiiiiii  $f=DB::table('options')
         ->join('modules','options.id_opt','=','modules.option')
         ->join('promotions','options.id_opt','=','promotions.option')
         ->where('promotions.libelle_pr','=',$v=$prom)
-        ->get(); 
-      /* $f=DB::table('modules')
+        ->get(); */
+        $f=DB::table('options')
+        ->join('modules','options.id_opt','=','modules.option')
+        ->join('promotions','options.id_opt','=','promotions.option')
+        ->where('promotions.id_pr','=',$v2=$promo)
+        ->where('modules.enseignant','=',Auth::user()->id)
+        ->where('modules.option','=',$v=$opt)
+        ->get();
+     /*  $f=DB::table('modules')
         ->join('options','options.id_opt','=','modules.option')
         ->join('promotions','options.id_opt','=','promotions.option')
+        ->where('promotions.libelle_pr','=',$v='1')
         ->where('modules.enseignant','=',Auth::user()->id)
-        ->where('promotions.id_pr','=',$v='1')
+        ->where('option','=',$v=$opt)
+        ->get();*/
+      /*  $f2=DB::table('promotions')
+        ->join('options','options.id_opt','=','promotions.option')
+        ->where('modules.option','=',$v=$opt)
         ->get();*/
 
         $b = DB::table('users')

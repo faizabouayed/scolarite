@@ -311,14 +311,14 @@
               </div>
             </div>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{url('index/')}}">
               <i class="fa fa-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
       
-        <!-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="/modules" aria-expanded="false" aria-controls="e-commerce">
               <i class="fas icon-sm fa fa-list-alt menu-icon"></i>
              <span class="menu-title">Modules</span> 
@@ -338,7 +338,15 @@
 
         </li>-->
          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="/modules" aria-expanded="false" aria-controls="e-commerce">
+            <a class="nav-link" href="/calendrier_en">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Calendrier</span> 
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="e-commerce">
               <!--<i class="fas fa-shopping-cart menu-icon"></i>-->
               <i class="fas icon-sm fa fa-list-alt  menu-icon"></i>
               <span class="menu-title"> Modules</span>
@@ -348,16 +356,14 @@
               <ul class="nav flex-column sub-menu">
 
              @foreach($m as $m)
-                <li class="nav-item"> <a class="nav-link" href="/modules/{{$m->libelle_pr}}"> Promo {{$m->libelle_pr}} </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ URL::to('modules',[ $m->option,$m->id_pr]) }}"> Promo {{$m->libelle_pr}} </a></li>
                
             @endforeach
-            
               </ul>
 
 
             </div>
           </li>
-
           <!-----------------------------User-------------->
         
         </ul>

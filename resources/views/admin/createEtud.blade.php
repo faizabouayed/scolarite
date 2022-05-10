@@ -9,7 +9,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Ajouter un etudiant</h4>
-                    <form class="cmxform" id="signupForm" action= "{{url('liste-des-etudiants')}}" method="POST">
+                    <form enctype="multipart/form-data" class="cmxform" id="signupForm" action= "{{url('liste-des-etudiants')}}" method="POST">
                     {{ csrf_field()}}
 
                     <fieldset>
@@ -40,6 +40,13 @@
                                       @endforeach
                                       </select> 
                       </div>
+                      <div class="form-group"> 
+                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+                                    <input id="photo" type="file" name="photo">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
+                       </div> 
 
                       <input class="btn btn-primary" type="submit" value="Enregistrer">
                       <button class="btn btn-light">Annuler</button>

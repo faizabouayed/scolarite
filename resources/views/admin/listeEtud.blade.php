@@ -76,7 +76,8 @@
                           @foreach($etudiants as $etudiant)
                           <tbody>
                             <tr>
-                                <td>{{$etudiant->photo}}</td>
+                                <td><img src="/telechargement/avatar/{{$etudiant->photo}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="300">
+                                </td>
                                 <td>{{$etudiant->nom}}</td>
                                 <td>{{$etudiant->prenom}}</td>
                                 <td>{{$etudiant->date_de_naissance}}</td>
@@ -98,12 +99,13 @@
                                         @csrf
                                         {{method_field('delete')}}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'><i class=" fa fa-trash"></i>
+                                        </button>
                                     </form>
                    <a href="{{ route('etudiants.update',$etudiant->id_etud) }}" data-bs-toggle="modal" data-bs-target="#etudiant{{$etudiant->id_etud}}"><i class="fa fa-edit text-success "></i></a>
                                  <a href="{{url('Relever/'.$etudiant->id_etud.'/relever')}}">
                                    <button class="btn btn-light">
-                                    <i class="fa fa-eye text-primary"></i>View
+                                    <i class="fa fa-eye"></i>
                                   </button></a>
                                 @endif
                                   
@@ -123,9 +125,10 @@
                             <!-- Modal body -->
                             <div class="modal-body mx-auto">
                               <div class="row align-items-center mb-3">
-                                <form method="POST" action="{{ route('etudiants.update',$etudiant->id_etud) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                <form enctype="multipart/form-data" method="POST" action="{{ route('etudiants.update',$etudiant->id_etud) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
                                   @csrf
                                   @method('PUT')
+
                                   <div class="input-group-icon mb-3 "> 
                                     <label class="form-label col-12" for="inputCategories">Nom:</label>
                                     <input id="nom" type="text" class="form-control form-little-squirrel-control @error('nom') is-invalid @enderror" placeholder="Nom" name="nom" value="{{$etudiant->nom}}" autocomplete="nom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
@@ -155,7 +158,16 @@
                                        <option value="{{$promo->id_pr}}">{{$promo->libelle_pr}}</option>
                                       @endforeach
                                       </select> 
-                                  </div>  
+                                  </div>
+
+                                  
+                                  <div class="input-group-icon mb-3"> 
+                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+                                    <input id="photo" type="file" name="photo">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
+                                  </div> 
                                      
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
                                   <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>

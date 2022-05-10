@@ -22,7 +22,13 @@ class UserController extends Controller
            //$b = User::where('id',$id)->get();
           
           // return view('profile', ['info'=>$b]);
-           return view('profile', array('user'=>Auth::user()));
+       $b=DB::table('users')
+        ->where('id','=',Auth::user()->id)
+        ->get();
+
+        $m=DB::table('promotions')
+        ->get();
+           return view('profile', array('user'=>Auth::user(),'b'=>$b,'m'=>$m));
     }
     public function stat()
     {
@@ -153,8 +159,14 @@ class UserController extends Controller
     public function afficherInfos2($id)
     {
           // echo"affichage du user".$id; 
+      $b=DB::table('users')
+        ->where('id','=',Auth::user()->id)
+        ->get();
+
+        $m=DB::table('promotions')
+        ->get();
            $b2 = User::where('id',$id)->get();
-           return view('editprofil', ['info2'=>$b2]);
+           return view('editprofil',compact('b2','b','m'));
 
     }
 
@@ -181,6 +193,8 @@ class UserController extends Controller
         $r->prenom=$request->input('prenom');
                 $r->name=$request->input('nom');
                         $r->email=$request->input('email');
+                         $r->grade=$request->input('grade');
+
 
 
 

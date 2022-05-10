@@ -7,6 +7,7 @@ use App\Models\Promotion;
 use App\Models\Option;
 use App\Models\Etudiant;
 use Illuminate\Support\Facades\DB;
+use Image;
 
 class EtudiantController extends Controller
 {
@@ -141,7 +142,18 @@ class EtudiantController extends Controller
     public function storeEtud(Request $request)
     {
         //
-        $etudiant = new Etudiant();
+         $etudiant = new Etudiant();
+
+        if($request->hasFile('photo')){
+        $avatar=$request->file('photo');
+        $filename=time() . '.' . $avatar->getClientOriginalExtension();
+        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
+       
+         $etudiant->photo=$filename;
+         
+      
+ }
+       
         //$etudiant->photo = $request->input('photo');
         $etudiant->nom = $request->input('nom');
         $etudiant->prenom = $request->input('prenom');
@@ -185,12 +197,25 @@ class EtudiantController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+       if($request->hasFile('photo')){
+        $avatar=$request->file('photo');
+        $filename=time() . '.' . $avatar->getClientOriginalExtension();
+        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
+        $user=Etudiant::find($id);
+        $user->photo=$filename;
+        $user->save();
+      
+ }
+        
+                  
         $etudiant = Etudiant::find($id);
         $etudiant->nom= $request->input('nom');
         $etudiant->prenom = $request->input('prenom');
         $etudiant->date_de_naissance= $request->input('date_de_naissance');
         $etudiant->date_inscription= $request->input('date_inscription');
         $etudiant->promo= $request->input('promo');
+         
         $etudiant->save();
         return redirect('liste-des-etudiants');
     }

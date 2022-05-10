@@ -219,7 +219,7 @@ Route::get('/index', 'App\Http\Controllers\UserController@stat');
 }
 );*/
 /*******************************Coté Enseignants***********/ 
-Route::get('/modules/{prom}', 'App\Http\Controllers\ModuleController@ListeModules');
+Route::get('/modules/{opt}/{prom}', 'App\Http\Controllers\ModuleController@ListeModules');
 //liste des notes des etudiants
  
 Route::get('/notes/{id_mod}/{id_pr}', 'App\Http\Controllers\NoteController@ListeNotes');
