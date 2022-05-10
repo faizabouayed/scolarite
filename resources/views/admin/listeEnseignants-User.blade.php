@@ -46,7 +46,7 @@
 
                             <tr> 
                            <input type="hidden" class="serdelete_val_id" value="{{$user->id}}">
-                                <td class="py-1">{{$user->photo}}</td>
+                                <td class="py-1"><img src="/telechargement/avatar/{{$user->photo}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="300"></td>
                                 <td>{{$user->name}} </td>
                                 <td>{{$user->prenom}}</td>
                                 <td>{{$user->date_n}}</td>
