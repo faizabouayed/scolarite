@@ -17,6 +17,7 @@
               </ol>
             </nav>
           </div>
+          
           <div class="row">
             <div class="col-12">
               <div class="card">
@@ -31,6 +32,11 @@
                       <i class="fa fa-print btn-icon-append"></i>                                                                              
                     </button>-->
                   </h4> 
+                  <div>
+<a href="{{url('createprEtud',$promotion->libelle_pr)}}">
+                    <button class="btn btn-light ">
+                     <i class="fa fa-plus text-success"></i> Nouveau Etudiant</button></a>
+</div>
                   
                   <div class="row grid-margin">
                     

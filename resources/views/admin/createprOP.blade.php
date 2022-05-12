@@ -1,4 +1,3 @@
- 
 @extends('layouts.MenuAdmin')
 @Section('content')
       <!-- partial -->
@@ -9,7 +8,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Ajouter une Promotion</h4>
+                  <h4 class="card-title">Ajouter une Promotion à l'option : {{$option}}</h4>
 
                   <form action= "{{url('promotions')}}" method="POST"> 
 
@@ -17,14 +16,11 @@
 
                     <fieldset>
 
+                                   
+                      </div>
                       <div class="form-group">
-                        <label for="firstname">Option:</label>
-                        <select class="form-control" id="exampleSelectGender" name="option" required>
-                                 <option value="">--Please choose an option--</option>
-                                 @foreach($listeOpt as $option)
-                                <option value="{{$option->id_opt}}">{{$option->libelle_opt}}</option>
-                                 @endforeach
-                                </select>                      
+                        <label for="lastname">Option:</label>
+                        <input id="lastname" class="form-control" type="year" name="option" value="{{$option}}" readonly>
                       </div>
                       <div class="form-group">
                         <label for="lastname">Année de début:</label>

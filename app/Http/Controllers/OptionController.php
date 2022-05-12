@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Option;
 use App\Models\Promotion;
+use App\Http\Controllers\PromotionController;
 
 class OptionController extends Controller
 {
@@ -127,6 +128,7 @@ class OptionController extends Controller
     public function viewPromo($libelle,Request $request){
         if(Option::where('libelle_opt',$libelle)->exists()){
         $option = Option::where('libelle_opt',$libelle)->first();
+       // $result=((new PromotionController)->createPR($option));
 
         if ($request->has('trashed')) {
         $promos = Promotion::where('option',$option->id_opt)::onlyTrashed()->get();

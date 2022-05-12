@@ -20,7 +20,7 @@ class AdminController extends Controller
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
         $User->email = $request->input('email');
-        $User->password = $request->input('password');
+        $User->password = bcrypt($request->input('password'));
         $User->save();
         return redirect('admin.listeAdmin-User');
 

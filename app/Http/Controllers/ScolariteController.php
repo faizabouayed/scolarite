@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\EmailController;
 use App\Models\User;
 use resources\view;
 use App\Models\Promotion;
 use App\Models\Option;
 use App\Models\Module;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\email;
 
 
 
@@ -33,11 +36,18 @@ class ScolariteController extends Controller
         $User->date_n = $request->input('date_n');
         $User->grade = $request->input('grade');
         $User->email = $request->input('email');
-        $User->password = $request->input('password');
+        $User->password = bcrypt($request->input('password'));
+       // $User->d=md5($User->password);
+      $result=((new EmailController)->sendEmail($request));
+      
+      
         $User->save();
         return redirect('admin.listeEnseignants-User');
 
     }
+
+
+    
     public function index(Request $request){
         if ($request->has('trashed')) {
             $user = User::where(['role'=>'enseignant'])->onlyTrashed()

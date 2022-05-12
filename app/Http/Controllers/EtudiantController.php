@@ -169,6 +169,25 @@ class EtudiantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function createprEtud($p)
+    { 
+        return view('admin.createprEtud',['promotion' => $p]);
+    }
+    public function storeprEtud(Request $request)
+    {
+        $etudiant = new Etudiant();
+        $promotion = Promotion::where('libelle_pr',$request->input('promotion'))->first();
+        //$etudiant->photo = $request->input('photo');
+        $etudiant->nom = $request->input('nom');
+        $etudiant->prenom = $request->input('prenom');
+        $etudiant->date_de_naissance = $request->input('date_de_naissance');
+        $etudiant->date_inscription = $request->input('date_inscription');
+        $etudiant->promo = $promotion->id_pr;
+        $etudiant->save();
+      
+        return redirect()->route('promos.viewEtud', $promotion->libelle_pr)->with('success', 'Data saved');
+        //dd($request);
+    }
     public function show($id)
     {
         //

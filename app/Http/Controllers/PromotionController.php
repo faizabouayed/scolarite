@@ -168,7 +168,28 @@ class PromotionController extends Controller
         return redirect('admin.listePromo')->with('success', 'Data saved');
         //dd($request);
     }
-    
+    public function createprOP($o)
+    { 
+        return view('admin.createprOP',['option' => $o]);
+    }
+    public function storePR(Request $request)
+    {
+        $promotion = new Promotion();
+        
+        $option = Option::where('libelle_opt',$request->input('option'))->first();
+       $promotion->option = $option->id_opt;
+       $promotion->annee_debut = $request->input('anneeD');
+       $promotion->annee_fin = $request->input('anneeF');
+     // $promotion->libelle_pr =$x.$promotion->annee;
+     // $promotion->annee ='2022';
+      //  $promotion->option = $r1;
+      // $r1=Option::where('id_opt',$option->id_opt)->first();
+        $promotion->libelle_pr =$request->input('option').$promotion->annee_debut.'-'.$promotion->annee_fin;
+   
+        $promotion->save();
+        return redirect()->route('option.viewPromo', $option->libelle_opt)->with('success', 'Data saved');
+        //dd($request);
+    }
 
     /**
      * Display the specified resource.

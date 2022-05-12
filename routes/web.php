@@ -145,7 +145,9 @@ Route::post('/promotions/{id_pr}', 'App\Http\Controllers\PromotionController@sup
 Route::get('/promotions/restore/{id_pr}', 'App\Http\Controllers\PromotionController@restore')->name('promotions.restore');
 /*tout restorer*/
 Route::get('/listePromo/restore-all', 'App\Http\Controllers\PromotionController@restoreAll')->name('promotions.restoreAll');
-
+/*ajouter une promo dans master details d'option/ promotion */
+Route::get('/createprOP/{opt}', 'App\Http\Controllers\PromotionController@createprOP');
+Route::post('promotions', 'App\Http\Controllers\PromotionController@storePR');
 
 
 /***********************les etudiants ******************/
@@ -157,7 +159,9 @@ Route::post('liste-des-etudiants', 'App\Http\Controllers\EtudiantController@stor
 Route::post('liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@edit')->name('etudiants.edit');
 Route::put('liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@update')->name('etudiants.update');
 
-
+/*ajouter un etudiant dans master details promo/etudiants*/
+Route::get('/createprEtud/{pr}', 'App\Http\Controllers\EtudiantController@createprEtud');
+Route::post('liste-des-etudiants', 'App\Http\Controllers\EtudiantController@storeprEtud');
 /*soft delete */
 Route::delete('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@destroy')->name('etduiants.destroy');
 /*force delete*/
@@ -241,3 +245,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
