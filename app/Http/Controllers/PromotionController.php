@@ -23,9 +23,7 @@ class PromotionController extends Controller
 
     public function index(Request $request)
    
-    {	/* $listPromo=DB::table('promotions')
-        ->join('options','options.id_opt','=','promotions.option')
-        ->get();*/ 
+    {	
         $listeOpt = Option::all();
         if ($request->has('trashed')) {
            
@@ -35,17 +33,10 @@ class PromotionController extends Controller
         } else {
             $listPromo = Promotion::join('options','options.id_opt','=','promotions.option')
             ->get();
-            /*$listPromo=DB::table('promotions')
-            ->join('options','options.id_opt','=','promotions.option')
-            ->get(); */
+            
         }
-       // $option=Option::all();
-      /*  $ops=Option::where('id_opt',$listPromo->option)->first();
-        $op=$ops->libelle_opt;
-        
-        return view('admin.listePromo', ['promotions' => $listPromo],compact('op','promotions'));*/
- 
-        return view('admin.listePromo', ['promotions' => $listPromo]);
+       //
+        return view('admin.listePromo', ['promotions' => $listPromo],['listeOpt' => $listeOpt]);
     }
     /**
      * Show the form for creating a new resource.
@@ -54,6 +45,7 @@ class PromotionController extends Controller
      */
     
     public function viewEtud($libelle, Request $request){
+       
         if(Promotion::where('libelle_pr',$libelle)->exists()){
             $promotion = Promotion::where('libelle_pr',$libelle)->first();
             if ($request->has('trashed')) {
@@ -105,7 +97,7 @@ class PromotionController extends Controller
 
     public function create()
     { $listeOpt = Option::all();
-        return view('admin.createPromo',['listeOpt' => $listeOpt]);
+        return view('admin.listePromo',['listeOpt' => $listeOpt]);
     }
 
     /**
@@ -115,65 +107,31 @@ class PromotionController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function store(Request $request)
-    {
-        $promotion = new Promotion();
+    {   $request->validate([
+                  'annee_debut' => ['required'],
+                 'annee_fin' => ['required'],
+            ]);
         
-       // $op=Option::where('libelle_opt',$promotion->option);
-       /* $op=DB::table('options')
-        
-        ->where('libelle_opt',$promotion->option)
-        ->get("options.id");
-   */
-  /*$option = Option::where('libelle_opt')->first();
-  $idOP = $option->id;*/
-        
- 
-  /*$r1 = DB::table('options')
-  ->select('id_opt')
-  ->where('libelle_opt',$x=$request->input('option'))
-  ->get();
-  
-  
-  /*$data=array("option"=>$r1,"annee"=>'2022',"libelle_pr"=>"hey");
-  $r2=DB::table('promotions')
-  ->insert($data);*/
-  
-
-     //   $op=$request->input('option');
-        
-            
-        
-      // $Opt=Option::where('libelle_opt',$op)->first();
-       // $o=Option::where('id',$Opt->id)->get();
-       // $idOpt = Option::where('id',$op->id)->get();
-   // $idOpt=$opt->id;
-       /* foreach($Opt as $ot)
-        {
-            $idd=$ot->id;
-        }*/
-       /* $r1 = DB::table('options')
-  ->select('libelle_opt')
-  ->where('id_opt',$request->input('option'))
-  ->get();*/
+       $promotion = new Promotion();       
        $promotion->option = $request->input('option');
-       $promotion->annee_debut = $request->input('anneeD');
-       $promotion->annee_fin = $request->input('anneeF');
-     // $promotion->libelle_pr =$x.$promotion->annee;
-     // $promotion->annee ='2022';
-      //  $promotion->option = $r1;
+       $promotion->annee_debut = $request->input('annee_debut');
+       $promotion->annee_fin = $request->input('annee_fin');
        $r1=Option::where('id_opt',$request->input('option'))->first();
-        $promotion->libelle_pr =$r1->libelle_opt.$promotion->annee_debut.'-'.$promotion->annee_fin;
-   
+        $promotion->libelle_pr =$r1->libelle_opt.$promotion->annee_debut.'-'.$promotion->annee_fin; 
         $promotion->save();
-        return redirect('admin.listePromo')->with('success', 'Data saved');
+        return redirect()->route('promotions.index')->with('success','Data saved');
         //dd($request);
     }
     public function createprOP($o)
     { 
-        return view('admin.createprOP',['option' => $o]);
+        return view('admin.promos',['option' => $o]);
     }
     public function storePR(Request $request)
     {
+         $request->validate([
+                  'annee_debut' => ['required'],
+                 'annee_fin' => ['required'],
+            ]);
         $promotion = new Promotion();
         
         $option = Option::where('libelle_opt',$request->input('option'))->first();
@@ -211,8 +169,9 @@ class PromotionController extends Controller
    public function edit($id)
     {
         
+         $listeOpt = Option::all();
          $promotion = Promotion::find($id);
-        return view('admin.listePromo', ['promotions'=>$promotion]);
+        return view('admin.listePromo', ['promotions'=>$promotion],['listeOpt' => $listeOpt]);
     }
     /**
      * Update the specified resource in storage.
@@ -225,13 +184,13 @@ class PromotionController extends Controller
     {
         //
         $promotion = Promotion::find($id);
-        $promotion->libelle_pr = $request->input('libelle_pr');
         $promotion->option = $request->input('option');
         $promotion->annee_debut = $request->input('anneeD');
         $promotion->annee_fin = $request->input('anneeF');
-             
+        $r1=Option::where('id_opt',$request->input('option'))->first();
+        $promotion->libelle_pr =$r1->libelle_opt.$promotion->annee_debut.'-'.$promotion->annee_fin;    
         $promotion->save();
-        return redirect()->back()->with('status','Promotions Updated Successfully');        
+        return redirect('admin.listePromo')->with('status','Promotions Updated Successfully');        
     }
 
     /**
@@ -241,5 +200,21 @@ class PromotionController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    
+    public function editpr($id){
+         $promotion = Promotion::find($id);
+        return view('admin.promos', ['promo'=>$promotion]);
+
+    }
+    public function updatepr(Request $request, $id){
+        $promotion = Promotion::find($id);
+        
+        $option = Option::where('libelle_opt',$request->input('option'))->first();
+       $promotion->option = $option->id_opt;
+       $promotion->annee_debut = $request->input('anneeD');
+       $promotion->annee_fin = $request->input('anneeF');
+        $promotion->libelle_pr =$request->input('option').$promotion->annee_debut.'-'.$promotion->annee_fin;
+        
+        $promotion->save();
+        return redirect()->route('option.viewPromo', $option->libelle_opt)->with('status','Promotions Updated Successfully');
+    }
 }

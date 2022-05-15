@@ -386,6 +386,36 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
    
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+  <script>
+    jQuery(document).ready(function($) {
+      $('#example').DataTable(
+        {
+        dom: 'Bfrtip',
+        buttons: [
+                    
+                    'excel',
+                    'csv',
+                    'pdf',
+                    'print'
+                ],
+              }
+      );
+     
+    } );
+    
+    </script>
       <!-- partial -->
       <div class="main-panel">          
         <div class="content-wrapper">
@@ -410,7 +440,7 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table id="order-listing" class="table">
+                        <table  id="example" class="table">
                           <thead>
                             <tr class="bg-primary text-white">
                                 <th>Nom</th>
@@ -445,7 +475,7 @@
                                
                                
                                 <td> 
-                                  <a href="{{ route('note.update',[ $F->module,$F->id_nt]) }}" data-bs-toggle="modal" data-bs-target="#F{{$F->id_nt}}"><i class="fa fa-edit text-success "></i></a>
+                                  <a href="{{ route('notes.update',$F->id_nt) }}" data-bs-toggle="modal" data-bs-target="#F{{$F->id_nt}}"><i class="fa fa-edit text-success "></i></a>
 
                                 </td>
                             </tr> 
@@ -460,26 +490,27 @@
                             <!-- Modal body -->
                             <div class="modal-body mx-auto">
                               <div class="row align-items-center mb-3">
-                                <form method="POST" action="{{ route('note.update',[ $F->module,$F->id_nt]) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                <form method="POST" action="{{ route('notes.update',$F->id_nt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
                                   @csrf
                                   @method('PUT')
-                                  <div class="input-group-icon mb-3 "> 
-                                    <label class="form-label col-12" for="inputCategories">Note cc </label>
-                                    <input id="note_cc" type="text" class="form-control form-little-squirrel-control @error('note_cc') is-invalid @enderror" placeholder="Nom" name="name" value="{{$F->note_cc}}" autocomplete="note_cc"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
-                                  </div>
+                         
+                             
+                      <div class="form-group">
+                        <label for="note_cc">controle:</label>
+                        <input id="note_cc" class="form-control" name="note_cc" type="text" value="{{$F->note_cc}}" required>
+                      </div>
+                        <div class="form-group">
 
-                                  <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Note tp</label>
-                                    <input id="note_tp" type="text" class="form-control form-little-squirrel-control @error('note_tp') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$F->note_tp}}"  autocomplete="note_tp"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                    
-                                  </div>
-                                 
-                                  <div class="input-group-icon mb-3"> 
-                                    <br><br><br><br><br>
-                                    <label class="form-label col-12" for="inputCategories">Note ef</label>
-                                    <input id="note_ef" type="text" class="form-control form-little-squirrel-control @error('note_ef') is-invalid @enderror" placeholder="date_de_naissance" name="date_n" value="{{$F->note_ef}}"  autocomplete="date_n"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                  </div> 
-                                   
+                        <label for="firstname">TP:</label>
+                        <input id="firstname" class="form-control" name="note_tp" type="text" value="{{$F->note_tp}}" required>
+                      </div>  
+                      <div class="form-group">
+                        <label for="firstname">Examen:</label>
+                        <input id="firstname" class="form-control" name="note_ef" type="text" value="{{$F->note_ef}}" required>
+                      </div>
+                              
+                      
+                              
                                      
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
                                   <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>

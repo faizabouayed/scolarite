@@ -21,12 +21,17 @@
                 <div class="card-body">
                   <h4 class="card-title">Options</h4>
                   <div class="row grid-margin">
-                  <a href="{{url('createOpt')}}">
+                 <!-- <a href="{{url('createOpt')}}">
                     <button class="btn btn-light ">
-                     <i class="fa fa-plus text-success"></i> Nouvel Option</button></a>
+                     <i class="fa fa-plus text-success"></i> Nouvel Option</button></a>-->
+                       <a class="btn btn-light "
+                    data-bs-toggle="modal" data-bs-target="#wnd" aria-haspopup="true" aria-expanded="false" role="button"
+                     v-pre> <i class="fa fa-plus text-success"></i> Ajouter une option
+                   </a>
                      
                   </div>
-
+                 
+      
                 <!--  <div class="row grid-margin">
                   <a href="{{url('corbeilleOpt')}}">
                     <button class="btn btn-light ">
@@ -180,6 +185,72 @@
         }
     });
 </script>
+
+<div class="modal" id="wnd">
+              <div class="modal-dialog modal-md">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                 
+                    <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Remplir les informations </h3>
+                    <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
+                  </div>
+                  <!-- Modal body -->
+                  <div class="modal-body mx-auto">
+                    <div class="row align-items-center mb-3">
+                    
+                      
+                <form class="needs-validation" method="POST" action="{{ route('option.store') }}" novalidate>
+      @csrf
+        
+                     
+                    <fieldset>
+                      <div class="form-group">
+                        <label for="lastname">Libellé:</label>
+                        <input id="lastname" class="form-control" type="year" name="libelle_opt" required>
+                      </div>                    
+
+                      <div class="form-group">
+                        <label for="firstname">Niveau:</label>
+                        <select class="form-control" id="exampleSelectGender" name="niveau" required>
+                                <option value="niveau"></option>                                
+                                <option name="niveau">licence</option>
+                                <option name="niveau">master</option>
+                        </select>                      
+                      </div>
+                    
+                      <div class="input-group-icon ms-3 mb-3 mt-7">
+          <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
+          <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+         </div>
+         </fieldset>
+       
+      </form>
+
+                      
+
+
+</div>
+  </div>
+
+                 
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+      
+                    
+                  
+                
+         
+        </div>
+      </div>
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
   <script src="../../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->

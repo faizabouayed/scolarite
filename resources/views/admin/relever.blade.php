@@ -21,41 +21,56 @@
                   <h4 class="card-title" style="text-transform: uppercase;">Université Abou Bekr BelKaid -Tlemcen-</h4>
                   <p class="page-description">Faculté : de Sciences</p>
                   <p class="page-description">Departement : Informatique</p>
+                  <p class="page-description">Promo: {{$etudiant->libelle_pr}}</p>
+
                   <h4 class="card-title" style="text-align: center;">RELEVE DE NOTE</h4>
                   <p class="page-description">Nom : {{$etudiant->nom}}  Prénom :{{$etudiant->prenom}}  Né (e) le :{{$etudiant->date_de_naissance}}  </p>
-                  <h5 class="card-title" style="text-align: center;">Premier Semestre</h5>
+                 
+                  <h5 class="card-title" style="text-align: center;">Premier Semestre <h6 style="text-align: right;">Niveau:{{$etudiant->niveau}}</h6></h5>
                      <div class="col-lg-12 grid-margin stretch-card">              
                        <table width="100%" border="2"cellpadding="5" id="sortable-table-2" class="table table-striped">
                          <tr>
-                          <th colspan="4" style="text-align: center">Unité d'Enseignement(U.E)</th>                 
-                          <th colspan="3" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</th>
-                          <th colspan="2">Résultats obtenus</th>
+                          <!--<th colspan="4" style="text-align: center">Unité d'Enseignement(U.E)</th>  -->               
+                          <th colspan="5" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</th>
+                          <th colspan="1">Résultats obtenus</th>
                          </tr>
                          <tr>                          
-                            <th>Nature</th>
+                           <!-- <th>Nature</th>
                             <th style="width: 180.5px;">Code et Intitulé</th>
                             <th>Crédits Requis</th>
-                            <th>Coef</th>
-                            <th style="width: 200.5px;">Intitulé                            
-                            <th>Crédits Requis</th>
-                            <th>Coef</th>                                                         
-                            <th >Matiere(s)</th>
-                            
+                            <th>Coef</th>-->
+                            <th style="width: 200.5px;">Code                            
+                            <th>Intitulé</th>
+                            <th>contole</th>                                                      
+                            <th >TPs</th>
+                            <th >Examan</th>
+                            <th >Note</th>
                           </tr>
-                          @foreach($modules1 as $module)
+                          @foreach($var1 as $module)
                           <tr>                           
-                             <td>1</td>
+                         <!--<td>1</td>
                              <td>2</td>
-                             <td>3</td>
-                             <td>4</td>
-                             <td>{{$module->libelle}}</td>                             
-                             <td>@foreach($ef as $EF){{$EF->note}} @endforeach</td>                           
-                             <td>6</td>
-                             <td>7</td>
-                             <td>8</td>   
-                          </tr>
+                             <td>3</td>-->
+                             <td>{{$module->code}}</td>
+                             <td>{{$module->libelle}}</td>              
+                             <td>{{$module->note_cc}}</td>                           
+                             <td>{{$module->note_tp}}</td>
+                             <td>{{$module->note_ef}}</td>
+                             @if(!empty('$module->note_cc') && empty('$module->note_tp'))
+                             <td>{{$module->total}}</td>
+                             @else
+                             @if(!empty('$module->note_cc') || !empty('$module->note_tp'))
+                             <td>{{$module->total/4}}</td>
+                             @else
+                             @if(empty('$module->note_cc') && empty('$module->note_tp'))
+                             <td>{{$module->total}}</td>
+                             @endif
+                             @endif
+                             @endif
+                          </tr>                        
                           @endforeach
-                              
+                          
+                          
                           
                        </table>
                   </div>
@@ -63,35 +78,40 @@
                       <div class="col-lg-12 grid-margin stretch-card">
                         <table width="100%" border="2"cellpadding="5" id="sortable-table-2" class="table table-striped">
                          <tr>
-                          <th colspan="4" style="text-align: center">Unité d'Enseignement(U.E)</th>                 
-                          <th colspan="3" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</th>
-                          <th colspan="2">Résultats obtenus</th>
+                          <!--<th colspan="4" style="text-align: center">Unité d'Enseignement(U.E)</th>  -->               
+                          <th colspan="5" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</th>
+                          <th colspan="1">Résultats obtenus</th>
                          </tr>
                          <tr>                          
-                            <th>Nature</th>
+                           <!-- <th>Nature</th>
                             <th style="width: 180.5px;">Code et Intitulé</th>
                             <th>Crédits Requis</th>
-                            <th>Coef</th>
-                            <th style="width: 200.5px;">Intitulé                            
-                            <th>Crédits Requis</th>
-                            <th>Coef</th>                                                         
-                            <th >Matiere(s)</th>
-                            <th colspan="2">U.E</th>
+                            <th>Coef</th>-->
+                            <th style="width: 200.5px;">Code                            
+                            <th>Intitulé</th>
+                            <th>contole</th>                                                      
+                            <th >TPs</th>
+                            <th>Examan</th>
                             
                           </tr>
-                          @foreach($modules2 as $module)
+                          @foreach($var2 as $module)
                           <tr>                           
-                             <td></td>
-                             <td>1111</td>
-                             <td>3</td>
+                         <!--<td>1</td>
                              <td>2</td>
-                             <td>{{$module->libelle}}</th>
-                             <td>5</td>
-                             <td>6</td>
-                             <td>{{$module->examen}}</td>
-                             <td>8</td>                            
-                          </tr>
+                             <td>3</td>-->
+                             <td>{{$module->code}}</td>
+                             <td>{{$module->libelle}}</td>              
+                             <td>{{$module->note_cc}}</td>                           
+                             <td>{{$module->note_tp}}</td>
+                             <td>{{$module->note_ef}}</td>
+                             @if(empty('$module->note_cc') || empty('$module->note_tp'))
+                             <td>{{$module->total/3}}</td>
+                             @else 
+                             <td>{{$module->total/4}}</td>
+                             @endif
+                          </tr>                        
                           @endforeach
+                          
                               
                           
                        </table>

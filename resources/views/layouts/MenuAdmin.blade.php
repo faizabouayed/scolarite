@@ -15,6 +15,7 @@
     <link href="{{ asset('vendors/css/vendor.bundle.addons.css') }}" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/iconfonts/font-awesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.addons.css">
+
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/../../css/Profile-CSS.css">
 
@@ -40,8 +41,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index-2.html"><img src="images/logo.svg" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="index-2.html"><!--<img src="images/logo.svg" alt="logo"/>--> Gestion Scolarite</a>
+        <a class="navbar-brand brand-logo-mini" href="index-2.html"><!--<img src="images/logo-mini.svg" alt="logo"/>-->Scolarite</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -97,7 +98,7 @@
      
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile"/>
+              <img src="/telechargement/avatar/admin.png" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
@@ -300,12 +301,14 @@
         <ul class="nav">
           <li class="nav-item nav-profile">
             <div class="nav-link">
-              <div class="profile-image">
-                <a href="/profile" ><img src="images/faces/face5.jpg" alt="image"/></a>
+              <a class="nav-link" href="/index">
+              <div class="profile-image" >
+                <img src="/telechargement/avatar/admin.png" alt="image"/>
               </div>
+            </a>
               <div class="profile-name">
                 <p class="name">
-                  Welcome Jane
+                  Bonjour  Admin
                 </p>
                 <p class="designation">
                   Super Admin

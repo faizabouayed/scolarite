@@ -9,20 +9,28 @@ use resources\view;
 class AdminController extends Controller
 {
     //
-    public function createAd(){
+    public function create(){
         $listUser=User::where(['role'=>'admin'])->get();
-        return view('admin.createAd',compact('listUser'));
+        return view('admin.listeAdmin-User',compact('listUser'));
     }
-    public function storeAd(Request $request){
+    public function store(Request $request){
+
+        $request->validate([
+                  'name' => ['required','string','max:100'],
+                  'prenom' => ['required','string','max:100'],
+                 'date_n' => ['required','date'],
+                 'email' => ['required'],
+                 'password' => ['required','max:10'],
+            ]);
         $User = new User();
         $User->role = 'admin';
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
         $User->email = $request->input('email');
-        $User->password = bcrypt($request->input('password'));
+        $User->password = $request->input('password');
         $User->save();
-        return redirect('admin.listeAdmin-User');
+        return redirect()->route('Admin-User.index')->with('success', 'Data saved');
 
     }
    public function index(Request $request){

@@ -51,10 +51,13 @@
                 <div class="card-body">
                   <h4 class="card-title">Les étudiants</h4> 
                   <div class="row grid-margin">
-                  <a href="{{url('liste-des-etudiants/createEtud')}}">
+                  <!--<a href="{{url('liste-des-etudiants/createEtud')}}">
                   <button class="btn btn-light ">
                      <i class="fa fa-plus text-success"></i> Add étudiant</button></a>
-                      
+                      -->
+                      <a class="btn btn-light "
+                    data-bs-toggle="modal" data-bs-target="#wnd" aria-haspopup="true" aria-expanded="false" role="button"
+                     v-pre> <i class="fa fa-plus text-success"></i> Ajouter un enseignant</a>
                    </div>
                   <div class="row">
                     <div class="col-12">
@@ -89,12 +92,12 @@
                                   @if(request()->has('trashed'))
                                     <a href="{{ route('etudiants.restore', $etudiant->id_etud) }}" class="btn btn-success">Restore</a>
                                    
-                                  </button> 
+                                  
                                   <form method="POST" action="{{ route('etudiants.supp', $etudiant->id_etud) }}">
                                         @csrf
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
-                                @else                                
+                                  @else                                
                                     <form method="POST" action="{{ route('etudiants.destroy', $etudiant->id_etud) }}">
                                         @csrf
                                         {{method_field('delete')}}
@@ -102,12 +105,12 @@
                                         <button type="submit" class="btn btn-danger delete" title='Delete'><i class=" fa fa-trash"></i>
                                         </button>
                                     </form>
-                   <a href="{{ route('etudiants.update',$etudiant->id_etud) }}" data-bs-toggle="modal" data-bs-target="#etudiant{{$etudiant->id_etud}}"><i class="fa fa-edit text-success "></i></a>
-                                 <a href="{{url('Relever/'.$etudiant->id_etud.'/relever')}}">
-                                   <button class="btn btn-light">
-                                    <i class="fa fa-eye"></i>
-                                  </button></a>
-                                @endif
+                                    <a href="{{ route('etudiants.update',$etudiant->id_etud) }}" data-bs-toggle="modal" data-bs-target="#etudiant{{$etudiant->id_etud}}"><i class="fa fa-edit text-success "></i></a>
+                                    <a href="{{url('Relever/'.$etudiant->id_etud.'/relever')}}">
+                                     <button class="btn btn-light">
+                                    <i class="fa fa-eye text-primary"></i>View
+                                     </button></a>
+                                   @endif
                                   
                                 </td>
                                 
@@ -223,7 +226,93 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-  
+   <div class="modal" id="wnd">
+              <div class="modal-dialog modal-md">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                 
+                    <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Remplir les informations </h3>
+                    <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
+                  </div>
+                  <!-- Modal body -->
+                  <div class="modal-body mx-auto">
+                    <div class="row align-items-center mb-3">
+                    
+                      
+                <form class="needs-validation" method="POST" action="{{ route('etudiants.store') }}" novalidate>
+      @csrf
+        
+                     
+                    <fieldset>
+                  <!--<div class="file btn btn-lg btn-primary">
+                          <input type="file" name="photo"/>
+                      </div>-->
+                      <div class="form-group">
+                        <label for="firstname">Nom:</label>
+                        <input id="firstname" class="form-control" name="nom" type="text" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname">Prenom:</label>
+                        <input id="lastname" class="form-control" name="prenom" type="text" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="firstname">date de naissance:</label>
+                        <input id="firstname" class="form-control" name="date_de_naissance" type="date" required>
+                      </div>   
+                      <div class="form-group">
+                        <label for="firstname">date_inscription:</label>
+                        <input id="firstname" class="form-control" name="date_inscription" type="date" required>
+                      </div>                    
+                      <div class="form-group">
+                       <select class="form-control" id="exampleSelectGender" name="promo" required>
+                                      <option ></option>
+                                      @foreach($listePromo as $promo)
+                                       <option value="{{$promo->id_pr}}">{{$promo->libelle_pr}}</option>
+                                      @endforeach
+                                      </select> 
+                      </div>
+                      <div class="form-group"> 
+                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+                                    <input id="photo" type="file" name="photo">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
+                       </div> 
+
+                      
+                      <div class="input-group-icon ms-3 mb-3 mt-7">
+          <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
+          <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+         </div>
+         </fieldset>
+       
+      </form>
+
+                      
+
+
+</div>
+  </div>
+
+                 
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+      
+                    
+                  
+                
+         
+        </div>
+      </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>

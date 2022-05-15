@@ -34,7 +34,7 @@ class OptionController extends Controller
      */
     public function create()
     {
-        return view('admin.createOpt');
+        return view('admin.listeOpt');
     }
 
     /**
@@ -45,14 +45,17 @@ class OptionController extends Controller
      */
    public function store(Request $request)
     {
-        $option = new Option();
-        $option->id_opt = $request->input('id_opt');
-   
+         $request->validate([
+                  'libelle_opt' => ['required','string','max:100'],
+                  'niveau' => ['required'],
+                 
+            ]);
+       $option = new Option();
+        $option->id_opt = $request->input('id_opt'); 
         $option->libelle_opt = $request->input('libelle_opt');
         $option->niveau = $request->input('niveau');
-   
         $option->save();
-        return redirect('admin.listeOpt')->with('success', 'Data saved');
+        return redirect()->route('option.index')->with('success', 'Data saved');
     }
 
     /**

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Promotion;
 use App\Models\Note;
+use App\Models\Module;
+use App\Models\Etudiant;
+
 use Auth;
 
 
@@ -16,6 +19,7 @@ class NoteController extends Controller
 
         $f=DB::table('etudiants')
         ->join('notes','etudiants.id_etud','=','notes.etudiant')
+        ->join('modules','modules.id_mod','=','notes.module')
         ->where('notes.module',$module)
         ->where('etudiants.promo',$v=$promotion)
         ->get();
@@ -23,7 +27,7 @@ class NoteController extends Controller
         ->where('id','=',Auth::user()->id)
         ->get();
 
-$m = DB::table('promotions')
+        $m = DB::table('promotions')
         ->get();
 
        /* $f=DB::table('etudiants')
@@ -46,7 +50,7 @@ $m = DB::table('promotions')
         ->get();*/
          return view('notes',compact('f','b','m'));
     }
-     public function edit($module,$id_note){
+     public function edit($id_note){
         $user = Note::find($id_note);
         $b = DB::table('users')
         ->where('id','=',Auth::user()->id)
@@ -54,12 +58,15 @@ $m = DB::table('promotions')
         return view('notes', ['user'=>$user], ['b'=>$b]);
 
     }
-    public function update(Request $request,$module,$id_note){
-        $User = Note::find($id_note);
-        $User->note_ef = $request->input('note_ef');
-        $User->note_cc = $request->input('note_cc');
-        $User->note_tp = $request->input('note_tp');
-        $User->save();
-        return redirect('notes');        
+    public function update(Request $request,$id_note){
+        $note = Note::find($id_note);
+        $module = Note::where('module',$request->input('module'))->first();
+        $etudiant = Etudiant::where('nom',$request->input('nom'))->first();
+        $note->note_ef = $request->input('note_ef');
+        $note->note_cc = $request->input('note_cc');
+        $note->note_tp = $request->input('note_tp');
+        $note->save();
+        return redirect()->back()->with('status','Notes Updated Successfully');        
+       
     }
 }

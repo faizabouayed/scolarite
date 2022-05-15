@@ -27,13 +27,14 @@ Route::get('/', function () {
 /*****lister*****/
 Route::get('/Enseignants-User', 'App\Http\Controllers\ScolariteController@index')->name('Enseignant-User.index');;
 /******ajouter***/
-Route::get('/Enseignants-User/create', 'App\Http\Controllers\ScolariteController@create');
-Route::post('Enseignants-User', 'App\Http\Controllers\ScolariteController@store');
+Route::get('/Enseignants-User/create', 'App\Http\Controllers\ScolariteController@create')->name('Enseignants.create');
+Route::post('Enseignants-User', 'App\Http\Controllers\ScolariteController@store')->name('Enseignants.store');
 /******Modifier****/
 Route::get('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@edit')->name('Enseignants-User.edit');
 Route::put('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@update')->name('Enseignants-User.update');
 /******View******/
-Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@shwo')->name('shwo.info');
+//Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@shwo')->name('shwo.info');
+//Route::get('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@viewMod')->name('show.afficher');
 Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@afficher')->name('show.afficher');
 /*soft delete*/
 Route::delete('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@destroy')->name('Enseignants-User.destroy');
@@ -51,8 +52,8 @@ Route::get('/listeEnseignants-User/restore-all', 'App\Http\Controllers\Scolarite
 /*****lister*****/
 Route::get('/Admin-User', 'App\Http\Controllers\AdminController@index')->name('Admin-User.index');
 /******ajouter***/
-Route::get('/Admin-User/createAd', 'App\Http\Controllers\AdminController@createAd');
-Route::post('Admin-User', 'App\Http\Controllers\AdminController@storeAd');
+Route::get('Admin-User/create', 'App\Http\Controllers\AdminController@create')->name('Admin.create');
+Route::post('Admin-User', 'App\Http\Controllers\AdminController@store')->name('Admin.store');
 /******Modifire****/
 Route::get('Admin-User/{id}', 'App\Http\Controllers\AdminController@edit')->name('Admin-User.edit');
 Route::put('Admin-User/{id}', 'App\Http\Controllers\AdminController@update')->name('Admin-User.update');
@@ -72,8 +73,10 @@ Route::get('/listeAdmin-User/restore-all', 'App\Http\Controllers\AdminController
 /*****lister Modules*****/
 Route::get('/module', 'App\Http\Controllers\ModuleAdminController@ListeMod')->name('module.index');
 /******ajouter***/
-Route::get('/module/createMod', 'App\Http\Controllers\ModuleAdminController@create');
-Route::post('module', 'App\Http\Controllers\ModuleAdminController@store');
+
+Route::get('/createMod', 'App\Http\Controllers\ModuleAdminController@create')->name('module.create');
+Route::post('module', 'App\Http\Controllers\ModuleAdminController@store')->name('module.store');
+
 Route::get('module/{id}', 'App\Http\Controllers\ModuleAdminController@edit')->name('module.edit');
 Route::put('module/{id}', 'App\Http\Controllers\ModuleAdminController@update')->name('module.update');
 
@@ -106,8 +109,9 @@ Route::get('/popup', function () {
 /***********************Les options*********************/
 Route::get('/options', 'App\Http\Controllers\OptionController@index')->name('option.index');
 
-Route::get('/options/createOpt', 'App\Http\Controllers\OptionController@create');
-Route::post('options', 'App\Http\Controllers\OptionController@store');
+
+Route::get('/createOpt', 'App\Http\Controllers\OptionController@create');
+Route::post('options', 'App\Http\Controllers\OptionController@store')->name('option.store');
 
 /******Modifire****/
 Route::get('options/{id}', 'App\Http\Controllers\OptionController@edit')->name('option.edit');
@@ -124,15 +128,30 @@ Route::get('/listeOpt/restore-all', 'App\Http\Controllers\OptionController@resto
 
 /*master détails option avec promos*/
 Route::get('/options/viewPromo/{libelle_opt}', 'App\Http\Controllers\OptionController@viewPromo')->name('option.viewPromo');
+/*ajouter une promo dans master details d'option/ promotion */
+
+Route::get('/createprOP/{opt}', 'App\Http\Controllers\PromotionController@createprOP');
+Route::post('promotionsopt', 'App\Http\Controllers\PromotionController@storePR')->name('promoOpt.store');
+
+/*modifier une promo dans master details d'option/ promotion */
+
+Route::get('promotionsopt/{id}', 'App\Http\Controllers\PromotionController@editpr')->name('promotions.edit');
+Route::put('promotionsopt/{id}', 'App\Http\Controllers\PromotionController@updatepr')->name('promoOpt.update');
 
 /*master détails promo avec étudiants*/
 Route::get('/promotions/viewEtud/{libelle_pr}', 'App\Http\Controllers\PromotionController@viewEtud')->name('promos.viewEtud');
+/*ajouter un etudiant dans master details promo/etudiants*/
+Route::get('/createprEtud/{pr}', 'App\Http\Controllers\EtudiantController@createprEtud');
+Route::post('liste-des-etudiantspr', 'App\Http\Controllers\EtudiantController@storeprEtud')->name('etudiantpromo.store');
+/*modifier un etudiant dans master details promo/etudiants*/
+Route::get('etudiantpromo/{id}', 'App\Http\Controllers\EtudiantController@editEtudpr')->name('etudiantpromo.edit');
+Route::put('etudiantpromo/{id}', 'App\Http\Controllers\EtudiantController@updateEtudpr')->name('etudiantpromo.update');
 
 
 /************************les promotions*****************/
 Route::get('/promotions', 'App\Http\Controllers\PromotionController@index')->name('promotions.index');
-Route::get('/createPromo', 'App\Http\Controllers\PromotionController@create');
-Route::post('promotions', 'App\Http\Controllers\PromotionController@store');
+Route::get('/createPromo', 'App\Http\Controllers\PromotionController@create')->name('promotions.create');
+Route::post('promotions', 'App\Http\Controllers\PromotionController@store')->name('promotions.store');
 Route::get('promotions/{id}', 'App\Http\Controllers\PromotionController@edit')->name('promotions.edit');
 Route::put('promotions/{id}', 'App\Http\Controllers\PromotionController@update')->name('promotions.update');
 
@@ -145,23 +164,17 @@ Route::post('/promotions/{id_pr}', 'App\Http\Controllers\PromotionController@sup
 Route::get('/promotions/restore/{id_pr}', 'App\Http\Controllers\PromotionController@restore')->name('promotions.restore');
 /*tout restorer*/
 Route::get('/listePromo/restore-all', 'App\Http\Controllers\PromotionController@restoreAll')->name('promotions.restoreAll');
-/*ajouter une promo dans master details d'option/ promotion */
-Route::get('/createprOP/{opt}', 'App\Http\Controllers\PromotionController@createprOP');
-Route::post('promotions', 'App\Http\Controllers\PromotionController@storePR');
-
 
 /***********************les etudiants ******************/
 Route::get('/liste-des-etudiants', 'App\Http\Controllers\EtudiantController@index')->name('etudiants.index');
 
 
-Route::get('/liste-des-etudiants/createEtud', 'App\Http\Controllers\EtudiantController@createEtud');
-Route::post('liste-des-etudiants', 'App\Http\Controllers\EtudiantController@storeEtud');
+Route::get('/createEtud', 'App\Http\Controllers\EtudiantController@createEtud')->name('etudiants.create');
+Route::post('etudiants', 'App\Http\Controllers\EtudiantController@storeEtud')->name('etudiants.store');
 Route::post('liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@edit')->name('etudiants.edit');
 Route::put('liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@update')->name('etudiants.update');
 
-/*ajouter un etudiant dans master details promo/etudiants*/
-Route::get('/createprEtud/{pr}', 'App\Http\Controllers\EtudiantController@createprEtud');
-Route::post('liste-des-etudiants', 'App\Http\Controllers\EtudiantController@storeprEtud');
+
 /*soft delete */
 Route::delete('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@destroy')->name('etduiants.destroy');
 /*force delete*/
@@ -226,10 +239,10 @@ Route::get('/index', 'App\Http\Controllers\UserController@stat');
 Route::get('/modules/{opt}/{prom}', 'App\Http\Controllers\ModuleController@ListeModules');
 //liste des notes des etudiants
  
-Route::get('/notes/{id_mod}/{id_pr}', 'App\Http\Controllers\NoteController@ListeNotes');
+Route::get('/notes/{id_mod}/{id_pr}', 'App\Http\Controllers\NoteController@ListeNotes')->name('notes.index');
 
-Route::get('notes/{id_mod}/{id_nt}', 'App\Http\Controllers\NoteController@edit')->name('note.edit');
-Route::put('notes/{id_mod}/{id_nt}', 'App\Http\Controllers\NoteController@update')->name('note.update');
+Route::get('notes/{id_nt}', 'App\Http\Controllers\NoteController@edit')->name('note.edit');
+Route::put('notes/{id_nt}', 'App\Http\Controllers\NoteController@update')->name('notes.update');
 
 
 

@@ -9,28 +9,29 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Ajouter une promo</h4>
+                  <h4 class="card-title"></h4>
 
-                  <form action= "{{url('promotions')}}" method="POST"> 
+                  <div class="modal" id="user{{$user->id}}">
+  <div class="modal-dialog modal-dialog-centered modal-dm">
+    <div class="modal-content">
 
-                     {{ csrf_field()}}
+      <!-- Modal Header -->
+      <div class="modal-header">
+         
+      </div>
 
-                    <fieldset>
-                      <div class="form-group">
-                        <label for="lastname">libelle:</label>
-                        <input id="lastname" class="form-control" type="text" name="libelle_pr" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="lastname">Année de début:</label>
-                        <input id="lastname" class="form-control" type="year" name="anneeD" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="lastname">Année de fin:</label>
-                        <input id="lastname" class="form-control" type="year" name="anneeF" required>
-                      </div>
-                      <input class="btn btn-primary" type="submit" value="Enregistrer">
-                    </fieldset>
-                  </form>
+      <!-- Modal body -->
+      <div class="modal-body mx-auto">
+         
+        <div class="row align-items-center mb-3">
+          <p> Voulez-vous vraiment supprimer <br>
+            @foreach($modules as $modules)
+            <b> {{$modules->libelle}}  </b> 
+            @endforeach
+          </p>
+          
+    </div>
+    </div>
                 </div>
               </div>
             </div>

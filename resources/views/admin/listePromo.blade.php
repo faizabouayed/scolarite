@@ -20,9 +20,13 @@
                 <div class="card-body">
                   <h4 class="card-title"> Les Promotions</h4>
                  <div class="row grid-margin">
-                  <a href="{{url('createPromo')}}">
+                  <!--<a href="{{url('createPromo')}}">
                     <button class="btn btn-light ">
-                     <i class="fa fa-plus text-success"></i> Nouvel Promotion</button></a>
+                     <i class="fa fa-plus text-success"></i> Nouvel Promotion</button></a>-->
+                     <a class="btn btn-light "
+                    data-bs-toggle="modal" data-bs-target="#wnd" aria-haspopup="true" aria-expanded="false" role="button"
+                     v-pre> <i class="fa fa-plus text-success"></i> Ajouter une promo
+                   </a>
                 </div>
                   <div class="row">
                     <div class="col-12">
@@ -88,19 +92,19 @@
                                 <form method="POST" action="{{ route('promotions.update',$promotion->id_pr) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
                                   @csrf
                                   @method('PUT')
-                                  <div class="input-group-icon mb-3 "> 
-                                    <label class="form-label col-12" for="inputCategories">libelle</label>
-                                    <input id="libelle_pr" type="text" class="form-control form-little-squirrel-control @error('libelle_pr') is-invalid @enderror" placeholder="Libelle" name="libelle_pr" value="{{$promotion->libelle_pr}}" autocomplete="libelle_pr"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
-                                  </div>
+                                  
 
-                                  <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Option:</label>
-                                    <input id="libelle_opt" type="text" class="form-control form-little-squirrel-control @error('libelle_opt') is-invalid @enderror" placeholder="libelle_opt" name="libelle_opt" value="{{$promotion->libelle_opt}}"  autocomplete="libelle_opt"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-
+                                  <div class="input-group-icon mb-3">
+                                    <label class="form-label col-12" for="inputCategories"> option:</label>
+                                    <select class="form-control" id="exampleSelectGender" name="option">
+                                      <option value="{{$promotion->id_opt}}">{{$promotion->libelle_opt}}</option>
+                                      @foreach($listeOpt as $option)
+                                       <option value="{{$option->id_opt}}">{{$option->libelle_opt}}</option>
+                                      @endforeach
+                                      </select> 
                                   </div>
-                                 
                                   <div class="input-group-icon mb-3"> 
-                                    <br><br><br><br><br>
+                                    <br><br>
                                     <label class="form-label col-12" for="inputCategories">Année de début:</label>
                                     <input id="anneeD" type="year" class="form-control form-little-squirrel-control @error('anneeD') is-invalid @enderror" placeholder="anneeD" name="anneeD" value="{{$promotion->annee_debut}}"  autocomplete="anneeD"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
                                   </div> 
@@ -169,6 +173,78 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <div class="modal" id="wnd">
+              <div class="modal-dialog modal-md">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                 
+                    <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Remplir les informations </h3>
+                    <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
+                  </div>
+                  <!-- Modal body -->
+                  <div class="modal-body mx-auto">
+                    <div class="row align-items-center mb-3">
+                    
+                      
+             <form class="needs-validation" method="POST" action="{{route('promotions.store')}}" novalidate>
+      @csrf
+        
+       <fieldset>
+
+                      <div class="form-group">
+                        <label for="firstname">Option:</label>
+                        <select class="form-control" id="exampleSelectGender" name="option" required>
+                                 <option value="">--Please choose an option--</option>
+                                 @foreach($listeOpt as $option)
+                                <option value="{{$option->id_opt}}">{{$option->libelle_opt}}</option>
+                                 @endforeach
+                                </select>                      
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname">Année de début:</label>
+                        <input id="lastname" class="form-control" type="year" name="annee_debut" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname">Année de fin:</label>
+                        <input id="lastname" class="form-control" type="year" name="annee_fin" required>
+                      </div>
+                      
+                      
+                      <div class="input-group-icon ms-3 mb-3 mt-7">
+          <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
+          <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+         </div>
+                    </fieldset>
+       
+        
+      </form>
+
+                      
+
+
+</div>
+  </div>
+
+                 
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+      
+                    
+                  
+                
+         
+        </div>
+      </div>
+
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>

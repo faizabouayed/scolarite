@@ -18,22 +18,69 @@ use App\Mail\email;
 
 class ScolariteController extends Controller
 {
-    //    
-    /*public function listUserE(){
-        $user=User::where(['role'=>'enseignant'])->get(); 
-        return view('admin.listeEnseignants-User', ['users'=>$user]);    
+    public function shwo($id){
+        $use = User::where(['role'=>'enseignant'])->get();
+        $modules=DB::table('modules')
+            ->join('users','users.id','=','modules.enseignant')
+            ->where('modules.enseignant',$i=$id)
+            ->get();
+        return redirect('admin.createPromOPT', compact('use','modules'));
     }
-    */
+    public function viewMod($name, Request $request){
+       
+        if(User::where('name',$name)->exists()){
+            $enseignant = User::where('name',$name)->first();
+            if ($request->has('trashed')) {
+                $modules = Module::where('enseignant',$enseignant->id)::onlyTrashed()
+                
+                    ->get();
+            }
+            else {
+                $modules = Module::where('enseignant',$enseignant->id)
+                ->get();
+            }
+
+        return view('admin.show', ['modules' => $modules],compact('enseignant','modules'));
+        }
+        else return redirect()->back();
+    }
+    public function afficher($id) {
+      $user= User::where(['role'=>'enseignant'])->get();
+        $modules=DB::table('modules')
+            ->join('users','users.id','=','modules.enseignant')
+            ->where('modules.enseignant',$i=$id)
+            ->get();
+         $user = User::where('id',$id)->first();
+         return view('admin.show',compact('user','modules'));
+        //->join('promotions','promotions.id','=','options.promo')
+      //  ->select('code','libelle','niveau')*/
+        /*if(User::where('id',$id)->exists()){
+        $user = User::where('id',$id)->first();
+        $module = Module::where('user',$user->id)->get();
+        return view('admin.show', ['modules' => $module],compact('user','module'));
+        }
+        else return redirect()->back();*/
+    }
     public function create(){
-        return view('admin.create');
+        $listUser=User::where(['role'=>'enseignant'])->get();
+        return view('admin.listeEnseignants-User',compact('listUser'));
     }
     public function store(Request $request){
+        $request->validate([
+                  'name' => ['required','string','max:255'],
+                  'prenom' => ['required','string','max:255'],
+                 'date_n' => ['required','date'],
+                 'grade' => ['required'],
+                 'email' => ['required'],
+                 'password' => ['required'],
+            ]);
         $User = new User();
         $User->role = 'enseignant';
         //$User->photo = $request->input('photo');
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
+        $User->date_recrutement = $request->input('date_recrutement');
         $User->grade = $request->input('grade');
         $User->email = $request->input('email');
         $User->password = bcrypt($request->input('password'));
@@ -42,7 +89,7 @@ class ScolariteController extends Controller
       
       
         $User->save();
-        return redirect('admin.listeEnseignants-User');
+        return redirect()->route('Enseignant-User.index')->with('success', 'Data saved');
 
     }
 
@@ -73,10 +120,10 @@ class ScolariteController extends Controller
         $User->save();
         return redirect()->back()->with('status','Enseignants Updated Successfully');        
     }
-     public function shwo($id){
+     /*public function shwo($id){
         $user = User::find($id);
         return view('admin.show', ['users'=>$user]);
-    }
+    }*/
     public function destroy($id)
     {
         $user = User::find($id); //delete();

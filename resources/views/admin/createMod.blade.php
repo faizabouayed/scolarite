@@ -16,7 +16,7 @@
                     <fieldset>
                       <div class="form-group">
                         <label for="firstname">Libelle:</label>
-                        <input id="firstname" class="form-control" name="libelle" type="text" required>
+                        <input id="firstname" class="form-control" name="libelle" type="text" required >
                       </div>
                       <div class="form-group">
                         <label for="lastname">Code:</label>
@@ -43,12 +43,25 @@
                                  @endforeach
                         </select>                      
                       </div>
+                       <div class="form-group">
+                        <div class="form-group">
+                        
+                        <label for="firstname">controle:</label>
+                        
+                        <input type="checkbox" value="1"  name="controle"  />
+
+
+                        <label for="firstname">tp:</label>
+                        <input type="checkbox" value="1" name="tp" />
+
+             
+                      </div>
 
                       <div class="form-group">
                         <div class="form-group">
                         <label for="firstname">Enseignat par:</label>
-                        <select class="form-control" id="exampleSelectGender" name="enseignant">
-                                 <option value=""></option>
+                        <select class="form-control" id="exampleSelectGender" name="enseignant" optionel>
+                                 <option></option>
                                  @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}    {{$user->prenom}}</option>
                                  @endforeach
