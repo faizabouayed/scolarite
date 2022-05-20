@@ -48,20 +48,30 @@ class EtudiantController extends Controller
 
         ->where('promotions.id_pr',$x1=$promo)
         ->find($id_etud);
-       // if(Module::where(['semestre'=>'S1'])->first()){
-       /* $modules1=DB::table('modules')
-        ->select(DB::raw(" (sum(note_cc)+sum(note_tp)+sum(note_ef)) as total,code,libelle,note_cc,note_tp,note_ef,id_mod"))
-        ->join('options','options.id_opt','=','modules.option')
-        ->join('promotions','options.id_opt','=','promotions.option')
-        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
-        ->join('notes','etudiants.id_etud','=','notes.etudiant')
-        ->distinct('libelle','code')
-        ->where('modules.semestre',$S='S1')
-        ->where('etudiants.id_etud',$id=$id_etud)
-        ->groupBy('code','libelle','note_cc','note_tp','note_ef','id_mod')
-        ->get();*/
 
 
+       $nbrMS1=DB::table('modules')
+       ->join('options','options.id_opt','=','modules.option')
+       ->join('promotions','options.id_opt','=','promotions.option')
+       ->join('notes','notes.module','=','modules.id_mod')
+       ->join('etudiants','notes.etudiant','=','etudiants.id_etud')
+       ->where('modules.semestre',$S='S1')
+       ->where('notes.etudiant',$id=$id_etud)
+       ->where('modules.option',$x2=$option)
+       ->where('promotions.id_pr',$x=$promo)
+       ->count();
+       
+       $nbrMS2=DB::table('modules')
+       ->join('options','options.id_opt','=','modules.option')
+       ->join('promotions','options.id_opt','=','promotions.option')
+       ->join('notes','notes.module','=','modules.id_mod')
+       ->join('etudiants','notes.etudiant','=','etudiants.id_etud')
+       ->where('modules.semestre',$S='S2')
+       ->where('notes.etudiant',$id=$id_etud)
+       ->where('modules.option',$x2=$option)
+       ->where('promotions.id_pr',$x=$promo)
+       ->count();
+      
         $var1=DB::table('notes')
         ->select(DB::raw("code,libelle,note_cc,note_tp,note_ef,libelle_opt"))
         ->join('modules','modules.id_mod','=','notes.module')
@@ -70,14 +80,13 @@ class EtudiantController extends Controller
         ->join('options','options.id_opt','=','promotions.option')
         ->where('modules.semestre',$S='S1')
         ->where('etudiants.id_etud',$id=$id_etud)
-        ->where('options.id_opt',$x2=$option)
-
+        ->where('modules.option',$x2=$option)
+        
         ->where('promotions.id_pr',$x=$promo)
-
         ->groupBy('code','libelle','note_cc','note_tp','note_ef','libelle_opt')
         ->get();
-        $var2=DB::table('notes')
-        
+
+        $var2=DB::table('notes')       
         ->select(DB::raw("code,libelle,note_cc,note_tp,note_ef,libelle_pr"))
         ->join('modules','modules.id_mod','=','notes.module')
         ->join('etudiants','etudiants.id_etud','=','notes.etudiant')
@@ -85,64 +94,17 @@ class EtudiantController extends Controller
         ->join('options','options.id_opt','=','promotions.option')
         ->where('modules.semestre',$S='S2')
         ->where('etudiants.id_etud',$id=$id_etud)
-        ->where('options.id_opt',$x2=$option)
-
+        ->where('modules.option',$x2=$option)
         ->where('promotions.id_pr',$x=$promo)
-
         ->groupBy('code','libelle','note_cc','note_tp','note_ef','libelle_pr')
         ->get();
 
-        /*$var2=DB::table('notes')
-        ->select(DB::raw("code,libelle,note_cc,note_tp,note_ef,libelle_opt"))
-        ->join('modules','modules.id_mod','=','notes.module')
-        ->join('etudiants','etudiants.id_etud','=','notes.etudiant')
-        ->join('promotions','promotions.id_pr','=','etudiants.promo')
-        ->join('options','options.id_opt','=','promotions.option')
-        ->where('modules.semestre',$S='S2')
-        ->where('etudiants.id_etud',$id_etud)
-        ->groupBy('code','libelle','note_cc','note_tp','note_ef','libelle_opt')
-        ->get();
-        if(empty($var2->note_cc)){
-        $var=DB::table('notes')
-        ->select(DB::raw(" (sum(note_tp)+sum(note_ef)*2) as total,code,libelle,note_cc,note_tp,note_ef,libelle_opt"))
-        ->join('modules','modules.id_mod','=','notes.module')
-        ->join('etudiants','etudiants.id_etud','=','notes.etudiant')
-        ->join('promotions','promotions.id_pr','=','etudiants.promo')
-        ->join('options','options.id_opt','=','promotions.option')
-        ->where('modules.semestre',$S='S1')
-        ->where('etudiants.id_etud',$id_etud)
-        ->groupBy('code','libelle','note_cc','note_tp','note_ef','libelle_opt')
-        ->get();
-    }
-        else if(empty($var2->note_tp))
-        {
-        $var=DB::table('notes')
-        ->select(DB::raw(" (sum(note_cc)+sum(note_ef)*2) as total,code,libelle,note_cc,note_tp,note_ef,libelle_opt"))
-        ->join('modules','modules.id_mod','=','notes.module')
-        ->join('etudiants','etudiants.id_etud','=','notes.etudiant')
-        ->join('promotions','promotions.id_pr','=','etudiants.promo')
-        ->join('options','options.id_opt','=','promotions.option')
-        ->where('modules.semestre',$S='S1')
-        ->where('etudiants.id_etud',$id_etud)
-        ->groupBy('code','libelle','note_cc','note_tp','note_ef','libelle_opt')
-        ->get();
-        }
-         
-*/
-        $modules2=DB::table('modules')
-        //->select(DB::raw(" (sum(note_cc)+sum(note_tp)+sum(note_ef)) as total,code,libelle"))
-        ->join('options','options.id_opt','=','modules.option')
-        ->join('promotions','options.id_opt','=','promotions.option')
-        ->join('etudiants','promotions.id_pr','=','etudiants.promo')
-        //->join('notes','etudiants.id_etud','=','notes.etudiant')
-        ->where('modules.semestre',$S='S2')
-        ->where('etudiants.id_etud',$id=$id_etud)
-        //->groupBy('code','libelle')
-        ->get(); 
+       
+       
 
         
               
-        return view('admin.relever',compact('etudiant','var1','var2')); 
+        return view('admin.relever',compact('etudiant','var1','var2','nbrMS1','nbrMS2')); 
     }
     
 

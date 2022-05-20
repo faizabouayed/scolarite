@@ -35,10 +35,7 @@
                           <th colspan="1">Résultats obtenus</th>
                          </tr>
                          <tr>                          
-                           <!-- <th>Nature</th>
-                            <th style="width: 180.5px;">Code et Intitulé</th>
-                            <th>Crédits Requis</th>
-                            <th>Coef</th>-->
+                           
                             <th style="width: 200.5px;">Code                            
                             <th>Intitulé</th>
                             <th>contole</th>                                                      
@@ -46,11 +43,15 @@
                             <th >Examan</th>
                             <th >Note</th>
                           </tr>
+                          <?php
+                          $somme1=0;
+                          $n1=$nbrMS1;
+                          ?>
+                           
                           @foreach($var1 as $module)
                           <tr>                           
-                         <!--<td>1</td>
-                             <td>2</td>
-                             <td>3</td>-->
+                         
+                            
                              <td>{{$module->code}}</td>
                              <td>{{$module->libelle}}</td>              
                              <td>{{$module->note_cc}}</td>                           
@@ -58,14 +59,25 @@
                              <td>{{$module->note_ef}}</td>
                              @if(($module->note_cc==NULL && $module->note_tp==NULL) )
                              <td>{{(float)($module->note_ef)}}</td>
+                             <?php
+                             $somme1+=(float)($module->note_ef);
+                             ?>
 
                              @elseif(($module->note_cc==NULL) )
-                             <td>{{((float)($module->note_tp)+(float)($module->note_ef)*2)/3}}</td>
-
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_ef)*2)/3,2)}}</td>
+                            <?php
+                            $somme1+=((float)($module->note_tp)+(float)($module->note_ef)*2)/3;
+                            ?>
                              @elseif(($module->note_tp==NULL) )
-                             <td>{{((float)($module->note_cc)+(float)($module->note_ef)*2)/3}}</td>
+                             <td>{{number_format(((float)($module->note_cc)+(float)($module->note_ef)*2)/3,2)}}</td>
+                             <?php
+                             $somme1+=((float)($module->note_cc)+(float)($module->note_ef)*2)/3;
+                             ?>
                              @else 
-                             <td>{{((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4}}</td>
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4,2)}}</td>
+                             <?php
+                             $somme1+=((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4;
+                             ?>
                              @endif
                           </tr>                        
                           @endforeach
@@ -78,27 +90,28 @@
                       <div class="col-lg-12 grid-margin stretch-card">
                         <table width="100%" border="2"cellpadding="5" id="sortable-table-2" class="table table-striped">
                          <tr>
-                          <!--<th colspan="4" style="text-align: center">Unité d'Enseignement(U.E)</th>  -->               
+                                       
                           <th colspan="5" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</th>
                           <th colspan="1">Résultats obtenus</th>
                          </tr>
                          <tr>                          
-                           <!-- <th>Nature</th>
-                            <th style="width: 180.5px;">Code et Intitulé</th>
-                            <th>Crédits Requis</th>
-                            <th>Coef</th>-->
+                           
                             <th style="width: 200.5px;">Code                            
                             <th>Intitulé</th>
                             <th>contole</th>                                                      
                             <th >TPs</th>
                             <th>Examan</th>
+                            <th >Note</th>
+
                             
                           </tr>
+                          <?php
+                          $somme2=0;
+                          $n2=$nbrMS2;
+                          ?>
                           @foreach($var2 as $module)
                           <tr>                           
-                         <!--<td>1</td>
-                             <td>2</td>
-                             <td>3</td>-->
+                         
                              <td>{{$module->code}}</td>
                              <td>{{$module->libelle}}</td>              
                              <td>{{$module->note_cc}}</td>                           
@@ -106,14 +119,25 @@
                              <td>{{$module->note_ef}}</td>
                              @if(($module->note_cc==NULL && $module->note_tp==NULL) )
                              <td>{{(float)($module->note_ef)}}</td>
+                             <?php
+                             $somme1+=(float)($module->note_ef);
+                             ?>
 
                              @elseif(($module->note_cc==NULL) )
-                             <td>{{((float)($module->note_tp)+(float)($module->note_ef)*2)/3}}</td>
-
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_ef)*2)/3,2)}}</td>
+                            <?php
+                            $somme2+=((float)($module->note_tp)+(float)($module->note_ef)*2)/3;
+                            ?>
                              @elseif(($module->note_tp==NULL) )
-                             <td>{{((float)($module->note_cc)+(float)($module->note_ef)*2)/3}}</td>
+                             <td>{{number_format(((float)($module->note_cc)+(float)($module->note_ef)*2)/3,2)}}</td>
+                             <?php
+                             $somme2+=((float)($module->note_cc)+(float)($module->note_ef)*2)/3;
+                             ?>
                              @else 
-                             <td>{{((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4}}</td>
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4,2)}}</td>
+                             <?php
+                             $somme2+=((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4;
+                             ?>
                              @endif
                           </tr>                        
                           @endforeach
@@ -121,128 +145,20 @@
                               
                           
                        </table>
-                        <!--<table width="100%" border="3" cellspacing="0" cellpadding="3">
-                          <tr>
-                            <td colspan="4" style="text-align: center">Unité d'Enseignement(U.E)</td>                 
-                            <td colspan="3" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</td>
-                            <td colspan="2">Résultats obtenus</td>
-                          </tr>
-                                                  <tr>
-                            <td>Nature</td>
-                            <td style="width: 180.5px;">Code et Intitulé</td>
-                            <td>Crédits Requis</td>
-                            <td>Coef</td>
-                            <td style="width: 200.5px;">Intitulé</td>
-                            <td>Crédits Requis</td>
-                            <td>Coef</td>
-                            <td colspan="2">Matiere(s)</td>
-                            <td colspan="2">U.E</td>
-                          </tr>
-                          <tr>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                          </tr>
-                          <tr>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                          </tr>        
-                          <tr>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                             <td>Contenu</td>
-                          </tr>
-                       </table>-->              
+                               
                       </div>
+                      <p class="page-description">Moyenne génerale S1 : <?php $moy1=$somme1/$n1; $m1=number_format($moy1,2); echo "$m1";
+                    ?></p>
+                      <p class="page-description">Moyenne génerale S2  :<?php $moy2=$somme2/$n2; $m2=number_format($moy2,2); echo "$m2";
+                    ?> </p>
+                    <p class="page-description">Moyenne génerale   :<?php $moy=$moy1+$moy2; $m=$moy/2;
+                    $n=number_format($m,2); echo "$n";
+                    ?> </p>
                 </div>
               </div>
             </div>
 
-           <!-- <div class="col-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Striped Sortable Table</h4>
-                  <p class="page-description">Add class <code>.table-striped</code> for table</p>
-                  <div class="row">
-                    <div class="table-sorter-wrapper col-lg-12 table-responsive">
-                      <table id="sortable-table-2" class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th class="sortStyle">First Name<i class="fa fa-angle-down"></i></th>
-                            <th class="sortStyle">Last Name<i class="fa fa-angle-down"></i></th>
-                            <th class="sortStyle">Product<i class="fa fa-angle-down"></i></th>
-                            <th class="sortStyle">Amount<i class="fa fa-angle-down"></i></th>
-                            <th class="sortStyle">Deadline<i class="fa fa-angle-down"></i></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Herman Beck</td>
-                            <td>John</td>
-                            <td>Photoshop</td>
-                            <td>$456.00</td>
-                            <td>12 May 2017</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Herman Beck</td>
-                            <td>Conway</td>
-                            <td>Flash</td>
-                            <td>$965.00</td>
-                            <td>13 May 2017</td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>John Richards</td>
-                            <td>Alex</td>
-                            <td>Premeire</td>
-                            <td>$255.00</td>
-                            <td>14 May 2017</td>
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>John Richards</td>
-                            <td>Jason</td>
-                            <td>After effects</td>
-                            <td>$975.00</td>
-                            <td>15 May 2017</td>
-                          </tr>
-                          <tr>
-                            <td>5</td>
-                            <td>Messsy max</td>
-                            <td>Back</td>
-                            <td>Ilustrator</td>
-                            <td>$298.00</td>
-                            <td>16 May 2017</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>-->
+           
           </div>
         </div>
         <!-- content-wrapper ends -->
