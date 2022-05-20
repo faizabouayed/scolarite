@@ -73,6 +73,7 @@
                                 <th>Date de naissance</th>
                                 <th>Date d'inscription</th>
                                 <th>Promo</th>
+                                <th>Option</th>
                                 <th class="not-export-col">Actions</th>
                             </tr>
                           </thead>
@@ -86,6 +87,7 @@
                                 <td>{{$etudiant->date_de_naissance}}</td>
                                 <td>{{$etudiant->date_inscription}}</td>
                                 <td>{{$etudiant->libelle_pr}}</td>
+                                <td>{{$etudiant->libelle_opt}}</td>
             
                                 <td class="text-right">
                             
@@ -106,7 +108,7 @@
                                         </button>
                                     </form>
                                     <a href="{{ route('etudiants.update',$etudiant->id_etud) }}" data-bs-toggle="modal" data-bs-target="#etudiant{{$etudiant->id_etud}}"><i class="fa fa-edit text-success "></i></a>
-                                    <a href="{{url('Relever/'.$etudiant->id_etud.'/relever')}}">
+                                    <a href="{{url('Relever',[$etudiant->id_etud,$etudiant->promo,$etudiant->option])}}">
                                      <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>View
                                      </button></a>

@@ -56,16 +56,16 @@
                              <td>{{$module->note_cc}}</td>                           
                              <td>{{$module->note_tp}}</td>
                              <td>{{$module->note_ef}}</td>
-                             @if(!empty('$module->note_cc') && empty('$module->note_tp'))
-                             <td>{{$module->total}}</td>
-                             @else
-                             @if(!empty('$module->note_cc') || !empty('$module->note_tp'))
-                             <td>{{$module->total/4}}</td>
-                             @else
-                             @if(empty('$module->note_cc') && empty('$module->note_tp'))
-                             <td>{{$module->total}}</td>
-                             @endif
-                             @endif
+                             @if(($module->note_cc==NULL && $module->note_tp==NULL) )
+                             <td>{{(float)($module->note_ef)}}</td>
+
+                             @elseif(($module->note_cc==NULL) )
+                             <td>{{((float)($module->note_tp)+(float)($module->note_ef)*2)/3}}</td>
+
+                             @elseif(($module->note_tp==NULL) )
+                             <td>{{((float)($module->note_cc)+(float)($module->note_ef)*2)/3}}</td>
+                             @else 
+                             <td>{{((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4}}</td>
                              @endif
                           </tr>                        
                           @endforeach
@@ -104,10 +104,16 @@
                              <td>{{$module->note_cc}}</td>                           
                              <td>{{$module->note_tp}}</td>
                              <td>{{$module->note_ef}}</td>
-                             @if(empty('$module->note_cc') || empty('$module->note_tp'))
-                             <td>{{$module->total/3}}</td>
+                             @if(($module->note_cc==NULL && $module->note_tp==NULL) )
+                             <td>{{(float)($module->note_ef)}}</td>
+
+                             @elseif(($module->note_cc==NULL) )
+                             <td>{{((float)($module->note_tp)+(float)($module->note_ef)*2)/3}}</td>
+
+                             @elseif(($module->note_tp==NULL) )
+                             <td>{{((float)($module->note_cc)+(float)($module->note_ef)*2)/3}}</td>
                              @else 
-                             <td>{{$module->total/4}}</td>
+                             <td>{{((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4}}</td>
                              @endif
                           </tr>                        
                           @endforeach

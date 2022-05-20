@@ -180,7 +180,7 @@ Route::delete('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantCo
 /*force delete*/
 Route::post('/liste-des-etudiants/{id_etud}', 'App\Http\Controllers\EtudiantController@supp')->name('etudiants.supp');
 /*********Relever ********/
-Route::get('Relever/{id_etud}/relever', 'App\Http\Controllers\EtudiantController@viewRelever')->name('etudiants.relever');
+Route::get('Relever/{id_etud}/{promo}/{option}', 'App\Http\Controllers\EtudiantController@viewRelever')->name('etudiants.relever');
 
 //Route::get('Relever/{id_etud}/relever', 'App\Http\Controllers\EtudiantController@ListeNote')->name('etudiants.notes');
 
