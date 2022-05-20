@@ -260,7 +260,8 @@ class EtudiantController extends Controller
     {
         //
 
-       if($request->hasFile('photo')){
+       
+        if($request->hasFile('photo')){
         $avatar=$request->file('photo');
         $filename=time() . '.' . $avatar->getClientOriginalExtension();
         Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
@@ -269,9 +270,9 @@ class EtudiantController extends Controller
         $user->save();
       
  }
-        
                   
         $etudiant = Etudiant::find($id);
+        
         $etudiant->nom= $request->input('nom');
         $etudiant->prenom = $request->input('prenom');
         $etudiant->date_de_naissance= $request->input('date_de_naissance');
@@ -318,8 +319,7 @@ class EtudiantController extends Controller
         $etudiant->promo = $promotion->id_pr;
         $etudiant->save();
       
-        
-         
+                 
          
         return redirect()->route('promos.viewEtud', $promotion->libelle_pr)->with('success', 'Data saved');
        
