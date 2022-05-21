@@ -48,7 +48,7 @@ class EtudiantController extends Controller
 
         ->where('promotions.id_pr',$x1=$promo)
         ->find($id_etud);
-
+        
 
        $nbrMS1=DB::table('modules')
        ->join('options','options.id_opt','=','modules.option')
@@ -60,7 +60,6 @@ class EtudiantController extends Controller
        ->where('modules.option',$x2=$option)
        ->where('promotions.id_pr',$x=$promo)
        ->count();
-       
        $nbrMS2=DB::table('modules')
        ->join('options','options.id_opt','=','modules.option')
        ->join('promotions','options.id_opt','=','promotions.option')

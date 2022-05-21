@@ -93,15 +93,15 @@
                                   @method('PUT')
                                   <div class="input-group-icon mb-3 "> 
                                     <label class="form-label col-12" for="inputCategories">Libelle:</label>
-                                    <input id="libelle" type="text" class="form-control form-little-squirrel-control @error('libelle') is-invalid @enderror" placeholder="libelle" name="libelle" value="{{$module->libelle}}" autocomplete="libelle"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
+                                    <input id="libelle" type="text" class="form-control form-little-squirrel-control @error('libelle') is-invalid @enderror" placeholder="libelle" name="libelle" value="{{$module->libelle}}" autocomplete="libelle"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus required />
                                   </div>
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Code:</label>
-                                    <input id="code" type="text" class="form-control form-little-squirrel-control @error('code') is-invalid @enderror" placeholder="code" name="code" value="{{$module->code}}"  autocomplete="code"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>                                   
+                                    <input id="code" type="text" class="form-control form-little-squirrel-control @error('code') is-invalid @enderror" placeholder="code" name="code" value="{{$module->code}}"  autocomplete="code"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus required>                                   
                                   </div>                                  
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Semestre:</label>
-                                    <select class="form-control" id="exampleSelectGender" name="semestre">
+                                    <select class="form-control" id="exampleSelectGender" name="semestre" required>
                                          <option value="{{$module->semestre}}">{{$module->semestre}}</option>
                                         <option >S1</option>
                                         <option >S2</option>
@@ -110,7 +110,7 @@
                                   </div>
                                   <div class="input-group-icon mb-3">
                                     <label class="form-label col-12" for="inputCategories"> option:</label>
-                                    <select class="form-control" id="exampleSelectGender" name="option">
+                                    <select class="form-control" id="exampleSelectGender" name="option" required>
                                       <option value="{{$module->id_opt}}">{{$module->libelle_opt}}</option>
                                       @foreach($listeOpt as $option)
                                        <option value="{{$option->id_opt}}">{{$option->libelle_opt}}</option>
@@ -119,7 +119,7 @@
                                   </div> 
                                   <div class="input-group-icon mb-3">
                                     <label class="form-label col-12" for="inputCategories"> Ens par:</label>
-                                    <select class="form-control" id="exampleSelectGender" name="enseignant">
+                                    <select class="form-control" id="exampleSelectGender" name="enseignant" required>
                                       <option value="{{$module->id}}">{{$module->name}}{{$module->prenom}}</option>
                                       @foreach($users as $user)
                                        <option value="{{$user->id}}">{{$user->name}}{{$user->prenom}}</option>

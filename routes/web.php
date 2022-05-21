@@ -25,25 +25,25 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /******************les Enseignants-Users**************/
 
 /*****lister*****/
-Route::get('/Enseignants-User', 'App\Http\Controllers\ScolariteController@index')->name('Enseignant-User.index');;
+Route::get('/Enseignants-User', 'App\Http\Controllers\EnseignantController@index')->name('Enseignant-User.index');;
 /******ajouter***/
-Route::get('/Enseignants-User/create', 'App\Http\Controllers\ScolariteController@create')->name('Enseignants.create');
-Route::post('Enseignants-User', 'App\Http\Controllers\ScolariteController@store')->name('Enseignants.store');
+Route::get('/Enseignants-User/create', 'App\Http\Controllers\EnseignantController@create')->name('Enseignants.create');
+Route::post('Enseignants-User', 'App\Http\Controllers\EnseignantController@store')->name('Enseignants.store');
 /******Modifier****/
-Route::get('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@edit')->name('Enseignants-User.edit');
-Route::put('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@update')->name('Enseignants-User.update');
+Route::get('Enseignants-User/{id}', 'App\Http\Controllers\EnseignantController@edit')->name('Enseignants-User.edit');
+Route::put('Enseignants-User/{id}', 'App\Http\Controllers\EnseignantController@update')->name('Enseignants-User.update');
 /******View******/
-//Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@shwo')->name('shwo.info');
-//Route::get('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@viewMod')->name('show.afficher');
-Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\ScolariteController@afficher')->name('show.afficher');
+//Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\EnseignantController@shwo')->name('shwo.info');
+//Route::get('Enseignants-User/{id}', 'App\Http\Controllers\EnseignantController@viewMod')->name('show.afficher');
+Route::get('Enseignants-User/{id}/shwo', 'App\Http\Controllers\EnseignantController@afficher')->name('show.afficher');
 /*soft delete*/
-Route::delete('Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@destroy')->name('Enseignants-User.destroy');
+Route::delete('Enseignants-User/{id}', 'App\Http\Controllers\EnseignantController@destroy')->name('Enseignants-User.destroy');
 /* force delete*/
-Route::post('/Enseignants-User/{id}', 'App\Http\Controllers\ScolariteController@supp')->name('Enseignants-User.supp');
+Route::post('/Enseignants-User/{id}', 'App\Http\Controllers\EnseignantController@supp')->name('Enseignants-User.supp');
 /*restorer*/
-Route::get('/Enseignants-User/restore/{id}', 'App\Http\Controllers\ScolariteController@restore')->name('Enseignants-User.restore');
+Route::get('/Enseignants-User/restore/{id}', 'App\Http\Controllers\EnseignantController@restore')->name('Enseignants-User.restore');
 /*tout restorer*/
-Route::get('/listeEnseignants-User/restore-all', 'App\Http\Controllers\ScolariteController@restoreAll')->name('Enseignants-User.restoreAll');
+Route::get('/listeEnseignants-User/restore-all', 'App\Http\Controllers\EnseignantController@restoreAll')->name('Enseignants-User.restoreAll');
 
 
 
@@ -103,7 +103,9 @@ Route::get('/popup', function () {
     return view('popup');
 });
 
-
+Route::get('/Lockscreen', function () {
+    return view('lockscreen');
+});
 
 
 /***********************Les options*********************/
@@ -200,7 +202,7 @@ Route::get('/MenuAdmin', function () {
     return view('MenuAdmin');
 });
 
-//Route::get('Enseignants-User/{id}/show', 'App\Http\Controllers\ScolariteController@show')->name('Admin.show');
+//Route::get('Enseignants-User/{id}/show', 'App\Http\Controllers\EnseignantController@show')->name('Admin.show');
 
 //Route::get('/Profile-Ens/{id}', 'App\Http\Controllers\ProfileEController@show')->name('Profile-Ens.show');
 

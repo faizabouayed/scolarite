@@ -28,6 +28,10 @@ class NoteController extends Controller
         ->get();
 
         $m = DB::table('promotions')
+        ->join('options','options.id_opt','=','promotions.option')
+        ->join('modules','options.id_opt','=','modules.option')
+        ->where('modules.enseignant',Auth::user()->id)       
+        ->orderBy('libelle_pr','desc')
         ->get();
 
        /* $f=DB::table('etudiants')

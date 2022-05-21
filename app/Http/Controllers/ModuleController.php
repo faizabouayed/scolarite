@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Promotion;
 use Auth;
 
 
@@ -53,6 +54,12 @@ class ModuleController extends Controller
         ->get();
 
         $m = DB::table('promotions')
+        ->join('options','options.id_opt','=','promotions.option')
+        ->join('modules','options.id_opt','=','modules.option')
+        ->where('modules.enseignant',Auth::user()->id)       
+        ->where('modules.option',$o=$opt)
+        ->orderBy('libelle_pr','desc')
+        ->distinct()
         ->get();
 
      return view('modules',compact('f','b','m'));

@@ -59,12 +59,7 @@
                                 </td>
                                 <td class="text-right">
 
-                                  <a href="{{route('show.afficher', $user->id) }}">
-                                
-                                  
-                                  <button class="btn btn-light" onclick="window.location.href='/Profile-Ens';">
-                                    <i class="fa fa-eye text-primary"></i>View
-                                  </button></a>                                                                              
+                                                                                                               
                                 @if(request()->has('trashed'))
                                     <a href="{{ route('Enseignants-User.restore', $user->id) }}" class="btn btn-success">Restore</a>
                                    
@@ -80,9 +75,52 @@
                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
                                     </form>
                                     <a href="{{ route('Enseignants-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#use{{$user->id}}" href="" ><i class="fa fa-eye text-primary"></i></a>
                                 @endif                                  
                                 </td>
                             </tr>
+
+<div class="modal" id="use{{$user->id}}">
+  <div class="modal-dialog modal-dialog-centered modal-dm">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+         <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> les modules qui enseigner par  {{$user->name}} {{$user->prenom}} </h3>
+           <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a>    
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body mx-auto">
+         
+        <div class="row align-items-center mb-3">
+          
+                 @foreach($modules as $module)
+                    @if($module->enseignant==$user->id)
+                    <br><br>
+                      <li> 
+                        Code: {{$module->code}}
+                        Libelle:     {{$module->libelle}}
+                        de l'option :{{$module->libelle_opt}}
+                      
+                      
+
+                      </li>
+
+                    @endif
+                 @endforeach
+
+          
+          
+    </div>
+    </div>
+
+</div>
+          </div>
+        </div>
+
+
+                         <!-------------modification--------------->   
                             <div class="modal" id="user{{$user->id}}">
                         <div class="modal-dialog modal-md">
                           <div class="modal-content">         
@@ -123,13 +161,6 @@
                                     <br><br><br><br><br>
                                     <label class="form-label col-12" for="inputCategories">Date de recrutement:</label>
                                     <input id="date_recrutement" type="date" class="form-control form-little-squirrel-control @error('date_recrutement') is-invalid @enderror" placeholder="date_recrutement" name="date_recrutement" value="{{$user->date_recrutement}}"  autocomplete="date_recrutement"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                  </div> 
-                                   <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
-                                    <input id="photo" type="file" name="photo">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-
                                   </div> 
                                      
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
@@ -240,13 +271,6 @@
           <input id="grade" type="grade" class="form-control form-little-squirrel-control @error('grade') is-invalid @enderror" placeholder="grade" name="grade"  autocomplete="new-grade" required>
           <i class="fas fa-lock input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
         </div>
-      <!--   <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
-                                    <input id="photo" type="file" name="photo">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-
-                       </div> -->
 
         <div class="input-group-icon ms-3 mb-3 mt-7">
           <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>

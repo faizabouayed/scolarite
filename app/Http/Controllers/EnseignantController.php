@@ -3,108 +3,138 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\EmailController;
 use App\Models\User;
 use resources\view;
-use Image;
+use App\Models\Promotion;
+use App\Models\Option;
+use App\Models\Module;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\email;
+
 
 
 class EnseignantController extends Controller
 {
-    //public function listUserE(){
-        //$user = User::all();
-       // $user=User::where(['role'=>'enseignant'])->get(); 
-       // return view('admin.index', ['user'=>$user]);    
-               // where([$user->role='enseignant']);
-             //return grade::make()->hideFromIndex();
-  //  }
+    /*public function shwo($id){
+        $use = User::where(['role'=>'enseignant'])->get();
+        $modules=DB::table('modules')
+            ->join('users','users.id','=','modules.enseignant')
+            ->where('modules.enseignant',$i=$id)
+            ->get();
+        return redirect('admin.createPromOPT', compact('use','modules'));
+    }
+    public function viewMod($name, Request $request){
+       
+        if(User::where('name',$name)->exists()){
+            $enseignant = User::where('name',$name)->first();
+            if ($request->has('trashed')) {
+                $modules = Module::where('enseignant',$enseignant->id)::onlyTrashed()
+                
+                    ->get();
+            }
+            else {
+                $modules = Module::where('enseignant',$enseignant->id)
+                ->get();
+            }
 
+        return view('admin.show', ['modules' => $modules],compact('enseignant','modules'));
+        }
+        else return redirect()->back();
+    }*/
+    public function afficher($id) {
+      $user= User::where(['role'=>'enseignant'])->get();
+        $modules=DB::table('modules')
+            ->join('users','users.id','=','modules.enseignant')
+            ->where('modules.enseignant',$i=$id)
+            ->get();
+         $user = User::where('id',$id)->first();
+         return view('admin.show',compact('user','modules'));
+        //->join('promotions','promotions.id','=','options.promo')
+      //  ->select('code','libelle','niveau')*/
+        /*if(User::where('id',$id)->exists()){
+        $user = User::where('id',$id)->first();
+        $module = Module::where('user',$user->id)->get();
+        return view('admin.show', ['modules' => $module],compact('user','module'));
+        }
+        else return redirect()->back();*/
+    }
     public function create(){
-        return view('admin.create');
+        $listUser=User::where(['role'=>'enseignant'])->get();
+        return view('admin.listeEnseignants-User',compact('listUser'));
     }
     public function store(Request $request){
+        $request->validate([
+                  'name' => ['required','string','max:255'],
+                  'prenom' => ['required','string','max:255'],
+                 'date_n' => ['required','date'],
+                 'grade' => ['required'],
+                 'email' => ['required'],
+                 'password' => ['required'],
+            ]);
         $User = new User();
-       
-
-        if($request->hasFile('photo')){
-        $avatar=$request->file('photo');
-        $filename=time() . '.' . $avatar->getClientOriginalExtension();
-        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
-       
-         $User->photo=$filename;
-         
-      
-             }
-
-             
+        $User->role = 'enseignant';
+        //$User->photo = $request->input('photo');
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
+        $User->date_recrutement = $request->input('date_recrutement');
         $User->grade = $request->input('grade');
+        $User->email = $request->input('email');
+        $User->password = bcrypt($request->input('password'));
+       // $User->d=md5($User->password);
+      $result=((new EmailController)->sendEmail($request));
+      
+      
         $User->save();
-        return redirect('Enseignants-User');
+        return redirect()->route('Enseignant-User.index')->with('success', 'Data saved');
 
     }
-    public function index(Request $request){
-        //$listUser = User::all();
-     //  $listUser=User::where(['role'=>'enseignant'])->get(); 
-       if ($request->has('trashed')) {
-        $listUser = User::where(['role'=>'enseignant'])->onlyTrashed()
-            ->get();
 
-    } else {
-        $listUser = User::where(['role'=>'enseignant'])->get();
-    } 
+
     
-        return view('admin.listeEnseignants', ['user' => $listUser]);
+    public function index(Request $request){
+        if ($request->has('trashed')) {
+            $user = User::where(['role'=>'enseignant'])->onlyTrashed()
+                ->get();
+                $module=DB::table('modules')
+            ->join('users','users.id','=','modules.enseignant')
+            ->join('options','options.id_opt','=','modules.option')
+            ->get();
+    
+        } else {
+            $user = User::where(['role'=>'enseignant'])->get();
+            $module=DB::table('modules')
+            ->join('users','users.id','=','modules.enseignant')
+            ->join('options','options.id_opt','=','modules.option')
+            ->get();
+        } 
+            
+            
+      
+            return view('admin.listeEnseignants-User', ['users'=>$user],['modules'=>$module]);
+        
     }
-
-    public function editUser(int $user_id)
-    {
-        $user = User::find($user_id);
-        if($user){
-
-            $this->user_id = $user->id;
-            $this->name = $user->name;
-            $this->email = $user->email;
-            $this->course = $user->course;
-        }else{
-            return redirect()->to('Enseignants-User');
-        }
-    }
-
-
     public function edit($id){
         $user = User::find($id);
-        //$user=User::where(['role'=>'enseignant'])->get(); 
-
-        return view('Admin.editEns', ['user'=>$user]);
+        return view('admin.listeEnseignants-User', ['users'=>$user]);
     }
     public function update(Request $request, $id){
-
-        if($request->hasFile('photo')){
-        $avatar=$request->file('photo');
-        $filename=time() . '.' . $avatar->getClientOriginalExtension();
-        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
-        $ser=User::find($id);
-        $ser->photo=$filename;
-        $ser->save();
-      
-          }
         $User = User::find($id);
-       $User->name = $request->input('name');
+        $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
-        $User->grade = $request->input('grade');
         $User->date_recrutement = $request->input('date_recrutement');
-
+        $User->grade = $request->input('grade');
         $User->save();
-        return redirect('Enseignants-User');        
+        return redirect()->back()->with('status','Enseignants Updated Successfully');        
     }
-     public function shwo($id){
+     /*public function shwo($id){
         $user = User::find($id);
-        return view('admin.show', ['user'=>$user]);
-    }
-
+        return view('admin.show', ['users'=>$user]);
+    }*/
     public function destroy($id)
     {
         $user = User::find($id); //delete();
@@ -130,49 +160,5 @@ class EnseignantController extends Controller
  
         return redirect()->back();
     }
-
-   /* public function Module(){
-         $Module = Module::find($id);
-         $Module = Module::find($libelle);
-
-    }*/
     
-     
-    /*public function destroy($id){
-        $user = User::find($id);
-        $user->delete();
-        return redirect('Enseignants-User');
-    } 
-    public function edit($id){
-        $article = User::find($id);
-        return view('Enseignants-User.edit', ['article'=>$article]);
-    }
-    public function delete($id){
-        $serv_cate = Servicecategory::findOrFail();
-        $serv_cate->delete();
-
-        return response()->json(['status'=>'Service Category Deleted Successfully']);
-
-    }
-    public function editUser($id){
-        $user = User::find($id);
-        return view('Admin.editEns', ['user'=>$user]);
-    }
-    public function updateUser(Request $request, $id){
-        $user = User::find($id);     
-        $user->save();
-        return redirect('Enseignants-User');        
-    }
-    public function listUserProfil(){
-        $user = User::all();
-        return view('Profile-Ens', ['user'=>$user]);    
-              
-               }
-     public function show(User $user){
-        
-        //$user = User::find($username);
-        //dd($id);
-        return view('Admin.show',['user'=>$user]);
-
-    }*/
 }
