@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +9,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Scolarité</title>
+  <title>Melody Admin</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.addons.css') }}" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/iconfonts/font-awesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.addons.css">
-
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/../../css/Profile-CSS.css">
 
@@ -35,14 +35,18 @@
   <link rel="shortcut icon" type="text/css" href="{{URL::to('/')}}/www.urbanui.com">
 
   <!--<link rel="shortcut icon" href="http://www.urbanui.com/" />-->
+
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index-2.html"><!--<img src="images/logo.svg" alt="logo"/>--> Gestion Scolarite</a>
-        <a class="navbar-brand brand-logo-mini" href="index-2.html"><!--<img src="images/logo-mini.svg" alt="logo"/>-->Scolarite</a>
+        <a class="navbar-brand brand-logo" href="index-2.html"><img src="images/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -101,14 +105,16 @@
               <img src="/telechargement/avatar/admin.png" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+              <!-- <a class="dropdown-item">
                 <i class="fas fa-cog text-primary"></i>
                 Settings
-              </a>
+              </a>-->
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item">
+              <a href="{{ url('/logout') }}" class="dropdown-item">
+                 
                 <i class="fas fa-power-off text-primary"></i>
-                Logout
+
+                Déconnexion
               </a>
             </div>
           </li>
@@ -301,11 +307,9 @@
         <ul class="nav">
           <li class="nav-item nav-profile">
             <div class="nav-link">
-              <a class="nav-link" href="/index">
-              <div class="profile-image" >
+              <div class="profile-image">
                 <img src="/telechargement/avatar/admin.png" alt="image"/>
               </div>
-            </a>
               <div class="profile-name">
                 <p class="name">
                   Bonjour  Admin
@@ -319,10 +323,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/index">
               <i class="fa fa-home menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title">Tableau de bord</span>
             </a>
-          </li>
-        
+          </li>       
           <!-----------------------------User-------------->
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
@@ -366,13 +369,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Lockscreen">
+            <a class="nav-link" href="/lockscreen">
               <i class="fa fa-list-alt menu-icon"></i>
              <span class="menu-title">Lockscreen</span> 
             </a>
           </li>
         </ul>
+        </ul>
       </nav>
+          
+     
      
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

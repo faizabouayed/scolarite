@@ -279,7 +279,7 @@ class EtudiantController extends Controller
     {
         //
               
-        $etudiant = Etudiant::find($id);
+       
         if($request->hasFile('photo')){
         $avatar=$request->file('photo');
         $filename=time() . '.' . $avatar->getClientOriginalExtension();
@@ -289,15 +289,16 @@ class EtudiantController extends Controller
         $user->save();
       
             }
-   
-        $promotion = Promotion::where('libelle_pr',$request->input('promotion'))->first();
-        //$etudiant->photo = $request->input('photo');
-        $etudiant->nom = $request->input('nom');
-        $etudiant->prenom = $request->input('prenom');
-        $etudiant->date_de_naissance = $request->input('date_de_naissance');
-        $etudiant->date_inscription = $request->input('date_inscription');
-        $etudiant->promo = $promotion->id_pr;
-        $etudiant->save();
+            $etud = new \stdClass();
+        $etud = Etudiant::find($id);      
+        $promotion = Promotion::where('libelle_pr',$request->input('promo'))->first();
+        
+        $etud->nom = $request->input('nom');
+        $etud->prenom = $request->input('prenom');
+        $etud->date_de_naissance = $request->input('date_de_naissance');
+        $etud->date_inscription = $request->input('date_inscription');
+        $etud->promo = $promotion->id_pr;
+        $etud->save();
       
                  
          

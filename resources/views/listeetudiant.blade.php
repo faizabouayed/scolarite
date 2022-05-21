@@ -387,158 +387,81 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
-   
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
 
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
-  <script>
-    jQuery(document).ready(function($) {
-      $('#example').DataTable(
-        {
-        dom: 'Bfrtip',
-        buttons: [
-                    
-                    'excel',
-                    'csv',
-                    'pdf',
-                    'print'
-                ],
-              }
-      );
-     
-    } );
-    
-    </script>
-      <!-- partial -->
+
+     <!-- partial -->
       <div class="main-panel">          
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Notes
+              Liste des Etudiants
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Promo</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Notes</li>
+                <li class="breadcrumb-item active" aria-current="page">Etudiant</li>
+                <li class="breadcrumb-item active" aria-current="page">Options</li>
+                <li class="breadcrumb-item active" aria-current="page">Promotions</li>
+                <li class="breadcrumb-item"><a href="#">Liste des etudiants</a></li>
+
+
               </ol>
             </nav>
           </div>
+          
           <div class="row">
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Les Notes de la promo </h4>
-
+                  <h4 class="card-title">Les Etudiants de {{$promotion->libelle_pr}}
+                   <!-- <button type="button" class="btn btn-danger btn-icon-text">
+                      <i class="fa fa-upload btn-icon-prepend"></i>                                                    
+                      Upload
+                    </button> !-->
+                   <!-- <button type="button" class="btn btn-info btn-icon-text">
+                      Print
+                      <i class="fa fa-print btn-icon-append"></i>                                                                              
+                    </button>-->
+                  </h4> 
+                  
+                  
+                  <div class="row grid-margin">
+                    
+                  </div>
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table  id="example" class="table">
+                        <table id="order-listing" class="table">
                           <thead>
                             <tr class="bg-primary text-white">
+                              <th>Photo</th>
                                 <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Date de Naissance</th>
-                                <th>CC</th>
-                                
-                                <th>TP</th>
-                                <th>EF</th>
-                                 <th>Action</th>
+                                <th>Date de naissance</th>
+                                <th>Date d'inscription</th>
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach($f as $F)
-                             <tr>
-                                <td>{{$F->nom}}</td>
-                                <td>{{$F->prenom}}</td>
-                                <td>{{$F->date_de_naissance}}</td>
-                                <td>{{$F->note_cc}}</td>                                          
-                                <td> {{$F->note_tp}}</td>                               
-                                <td class="text-right">
-                                  {{$F->note_ef}}
-                                </td>                              
-                                <td> 
-                                  <a href="{{ route('notes.update',$F->id_nt) }}" data-bs-toggle="modal" data-bs-target="#F{{$F->id_nt}}"><i class="fa fa-edit text-success "></i></a>
-
+                          @foreach($etudiants as $etudiant)
+                            <tr>
+                              <td><img src="/telechargement/avatar/{{$etudiant->photo}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="300">
                                 </td>
-                            </tr> 
-                       <div class="modal" id="F{{$F->id_nt}}">
-                        <div class="modal-dialog modal-md">
-                          <div class="modal-content">         
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                              <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Modifier les Notes </h3>
-                                <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
-                            </div>
-                            <!-- Modal body -->
-                            <div class="modal-body mx-auto">
-                              <div class="row align-items-center mb-3">
-                                <form method="POST" action="{{ route('notes.update',$F->id_nt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
-                                  @csrf
-                                  @method('PUT')
-                         
-                             
-                      <div class="form-group">
-                        <label for="note_cc">controle:</label>
-                        <input id="note_cc" class="form-control" name="note_cc" type="text" value="{{$F->note_cc}}" >
-                      </div>
-                        <div class="form-group">
-
-                        <label for="firstname">TP:</label>
-                        <input id="firstname" class="form-control" name="note_tp" type="text" value="{{$F->note_tp}}" >
-                      </div>  
-                      <div class="form-group">
-                        <label for="firstname">Examen:</label>
-                        <input id="firstname" class="form-control" name="note_ef" type="text" value="{{$F->note_ef}}" >
-                      </div>
-                              
+                                <td>{{$etudiant->nom}}</td>
+                                <td>{{$etudiant->prenom}}</td>
+                                <td>{{$etudiant->date_de_naissance}}</td>
+                                <td>{{$etudiant->date_inscription}}</td>
+                 
+                      </tr>
                       
+                    </tbody>
+
+                   
+                    @endforeach
+                  </table>
+                  
+                                
                               
-                                     
-                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
-                                  </div>
-                                </form>          
-                              </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
-                          </div>
-                        </div>
-                      </div>
-                           @endforeach
-                           
-                           <!-- <tr>
-                                <td>WD-69</td>
-                                <td>John</td>
-                                <td>Tokyo</td>
-                                <td>$2100</td>
-                               
-                                <td>
-                                  <label class="badge badge-success">Closed</label>
-                                </td>
-                                <td class="text-right">
-                                  <button class="btn btn-light">
-                                    <i class="fa fa-eye text-primary"></i>View
-                                  </button>
-                                  <button class="btn btn-light">
-                                    <i class="fa fa-times text-danger"></i>Remove
-                                  </button>
-                                </td>
-                            </tr> -->
-                           
-                          </tbody>
-                        </table>
+       
                       </div>
                     </div>
                   </div>
@@ -547,19 +470,16 @@
             </div>
           </div>
         </div>
-
-
-        <!-- Popup -->
-
-
+        <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
-        
+       
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
-  </div>    
+  </div>
+  
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
@@ -575,6 +495,3 @@
   <!-- Custom js for this page-->
   <script src="../../js/data-table.js"></script>
   <!-- End custom js for this page-->
-
-</body>
-</html>

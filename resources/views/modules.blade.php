@@ -441,7 +441,7 @@
                                   Télécharger</label>
                                 </td>
                                 <td class="text-right">
-                                  <a href="{{ URL::to('liste_etudiants/') }}"> <button class="btn btn-light">
+                                  <a href="{{ route('viewEtudient', $f->libelle_pr) }}"> <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>  Liste Etudiants
                                   </button>
                                 </a>

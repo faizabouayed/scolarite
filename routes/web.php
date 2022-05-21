@@ -20,6 +20,15 @@ Route::get('/', function () {
 /*log out */
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+// ----------------------------- lock screen --------------------------------//
+Route::get('lock_screen', '\App\Http\Controllers\LockscreenController@lockscreen')->name('lock_screen');
+Route::post('unlock', '\App\Http\Controllers\LockscreenController@unlock')->name('unlock');
+
+
+/*Route::get('/Lockscreen', function () {
+    return view('lockscreen');
+});*/
+
 //Route::get('/index','App\Http\Controllers\UserController@index')->name('password.request');
 
 /******************les Enseignants-Users**************/
@@ -99,13 +108,12 @@ Route::get('/calendrier_en', 'App\Http\Controllers\UserController@calend');
 /*Route::get('/calendrier_en', function () {
     return view('calend_enseignant');
 });*/
+
 Route::get('/popup', function () {
     return view('popup');
 });
 
-Route::get('/Lockscreen', function () {
-    return view('lockscreen');
-});
+
 
 
 /***********************Les options*********************/
@@ -246,7 +254,7 @@ Route::get('/notes/{id_mod}/{id_pr}', 'App\Http\Controllers\NoteController@Liste
 Route::get('notes/{id_nt}', 'App\Http\Controllers\NoteController@edit')->name('note.edit');
 Route::put('notes/{id_nt}', 'App\Http\Controllers\NoteController@update')->name('notes.update');
 
-
+Route::get('/etudiants/viewEtudient/{libelle_pr}', 'App\Http\Controllers\ModuleController@viewEtudiant')->name('viewEtudient');
 
 Auth::routes();
 

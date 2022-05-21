@@ -68,12 +68,12 @@
                                 <td>{{$etudiant->prenom}}</td>
                                 <td>{{$etudiant->date_de_naissance}}</td>
                                 <td>{{$etudiant->date_inscription}}</td>
-                                <td class="text-right">
+                 <td class="text-right">
                             
                             @if(request()->has('trashed'))
                               <a href="{{ route('etudiants.restore', $etudiant->id_etud) }}" class="btn btn-success">Restore</a>
                              
-                            </button> 
+                           
                             <form method="POST" action="{{ route('etudiants.supp', $etudiant->id_etud) }}">
                                   @csrf
                                   <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
@@ -97,6 +97,7 @@
                       </tr>
                       
                     </tbody>
+
                      <div class="modal" id="etudiant{{$etudiant->id_etud}}">
                         <div class="modal-dialog modal-md">
                           <div class="modal-content">         
@@ -108,7 +109,7 @@
                             <!-- Modal body -->
                             <div class="modal-body mx-auto">
                               <div class="row align-items-center mb-3">
-                                <form enctype="multipart/form-data" method="POST" action="{{ route('etudiantpromo.update',$promotion->id_pr) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                <form enctype="multipart/form-data" method="POST" action="{{ route('etudiantpromo.update',$etudiant->id_etud) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
                                   @csrf
                                   @method('PUT')
 
@@ -119,38 +120,34 @@
 
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Prénom:</label>
-                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$etudiant->prenom}}"  autocomplete="prenom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$etudiant->prenom}}"  autocomplete="prenom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
                                     
                                   </div>
                                  
                                   <div class="input-group-icon mb-3"> 
                                     <br><br><br><br><br>
                                     <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
-                                    <input id="date" type="date" class="form-control form-little-squirrel-control @error('date_de_naissance') is-invalid @enderror" placeholder="date_de_naissance" name="date_de_naissance" value="{{$etudiant->date_de_naissance}}"  autocomplete="date_de_naissance"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    <input id="date" type="date" class="form-control form-little-squirrel-control @error('date_de_naissance') is-invalid @enderror" placeholder="date_de_naissance" name="date_de_naissance" value="{{$etudiant->date_de_naissance}}"  autocomplete="date_de_naissance"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
                                   </div> 
                                   
                                   <div class="input-group-icon mb-3"> 
                                     <br><br><br><br><br>
                                     <label class="form-label col-12" for="inputCategories">date_inscription:</label>
-                                    <input id="date" type="date" class="form-control form-little-squirrel-control @error('date_inscription') is-invalid @enderror" placeholder="date_inscription" name="date_inscription" value="{{$etudiant->date_inscription}}"  autocomplete="date_inscription"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    <input id="date" type="date" class="form-control form-little-squirrel-control @error('date_inscription') is-invalid @enderror" placeholder="date_inscription" name="date_inscription" value="{{$etudiant->date_inscription}}"  autocomplete="date_inscription"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
                                   </div> 
+                                  <div class="input-group-icon mb-3">
+                                    <label class="form-label col-12" for="inputCategories"> Promo:</label>
+                                <input id="lastname" class="form-control" type="year" name="promo" value="{{$promotion->libelle_pr}}" readonly/>                      
+                                  </div>
+
                                   <div class="form-group"> 
                                     <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
-                                    <input id="photo" type="file" name="photo">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-
-                       </div> 
+                                    <input id="photo" type="file" name="photo"/>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                  </div> 
 
                                   
-                                  <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
-                                    <input id="photo" type="file" name="photo">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-
-                                  </div> 
-                                     
+                              
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
                                   <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
                                   </div>
