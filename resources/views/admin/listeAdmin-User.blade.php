@@ -36,7 +36,7 @@
                         <table id="order-listing" class="table">
                           <thead>
                             <tr class="table-info">                               
-                                <th>Photo</th>
+                              
                                 <th>Nom</th>
                                 <th>Prénom</th>
                                 <th>Date de naissance</th>
@@ -46,7 +46,7 @@
                           <tbody>
                              @foreach($users as $user)
                             <tr>
-                                <td></td>
+                               
                                 <td>{{$user->name}} </td>
                                 <td>{{$user->prenom}}</td>
                                 <td>{{$user->date_n}}</td>

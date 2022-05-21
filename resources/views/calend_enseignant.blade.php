@@ -99,14 +99,16 @@
               <img src="/telechargement/avatar/{{ $b->photo }}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+             <!-- <a class="dropdown-item">
                 <i class="fas fa-cog text-primary"></i>
                 Settings
-              </a>
+              </a>-->
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item">
+              <a href="{{ url('/logout') }}" class="dropdown-item">
+                 
                 <i class="fas fa-power-off text-primary"></i>
-                Logout
+
+                Déconnexion
               </a>
             </div>
           </li>
@@ -312,34 +314,10 @@
               </div>
             </div>
           </li>
-          <!--<li class="nav-item">
-            <a class="nav-link" href="{{url('index/')}}">
-              <i class="fa fa-home menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-      
-         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="/modules" aria-expanded="false" aria-controls="e-commerce">
-              <i class="fas icon-sm fa fa-list-alt menu-icon"></i>
-             <span class="menu-title">Modules</span> 
-              <i class="menu-arrow"></i>
-            </a>
-             <div class="collapse" id="e-commerce">
-              <ul class="nav flex-column sub-menu">
-             
-                <li class="nav-item"> <a class="nav-link" href="/Admin-User"> Admin </a></li>
-                <li class="nav-item"> <a class="nav-link" href="/Enseignants-User"> Enseignants </a></li>
+          
 
-              </ul>
-            </div>
-
-        
-
-
-        </li>-->
-         <li class="nav-item">
-            <a class="nav-link" href="/calendrier">
+          <li class="nav-item">
+            <a class="nav-link" href="/calendrier_en">
               <i class="fa fa-list-alt menu-icon"></i>
              <span class="menu-title">Calendrier</span> 
             </a>
@@ -384,9 +362,73 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
-  
-    <livewire:calendar />
+
+
+
+
+  <!-- Menuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu -->
+      <div class="main-panel">          
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+Calendrier           </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Enseignant</a></li>
+                <li class="breadcrumb-item"><a href="#">Calendrier</a></li>
+                
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  
+                  
+                 
+                  <div> <livewire:calendar /> 
     @livewireScripts
     @stack('scripts')
+  </div>
+
+      
+               </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+
+
+      
+                    
+                  
+                
+         
+       
+  
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="../../js/data-table.js"></script>
+
+  <script src="../../js/avgrundOpt.js"></script>
+  <!-- End custom js for this page-->
+
+<!--@section('scripts')
+ <script>
+   $(document).ready(function(){
+   $(document).on('click','editbtn',function(){
+     var stud_id = $(this).val();
+     alert(stud_id);
+
+   });
+   });
+ </script>
+
+@endsection-->
+
+  
+  
 </body>
 </html>

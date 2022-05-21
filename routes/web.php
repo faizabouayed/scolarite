@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
+/*log out */
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 //Route::get('/index','App\Http\Controllers\UserController@index')->name('password.request');
 

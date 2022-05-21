@@ -124,6 +124,13 @@
                                     <label class="form-label col-12" for="inputCategories">Date de recrutement:</label>
                                     <input id="date_recrutement" type="date" class="form-control form-little-squirrel-control @error('date_recrutement') is-invalid @enderror" placeholder="date_recrutement" name="date_recrutement" value="{{$user->date_recrutement}}"  autocomplete="date_recrutement"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
                                   </div> 
+                                   <div class="input-group-icon mb-3"> 
+                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+                                    <input id="photo" type="file" name="photo">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
+                                  </div> 
                                      
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
                                   <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
@@ -233,6 +240,13 @@
           <input id="grade" type="grade" class="form-control form-little-squirrel-control @error('grade') is-invalid @enderror" placeholder="grade" name="grade"  autocomplete="new-grade" required>
           <i class="fas fa-lock input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
         </div>
+      <!--   <div class="input-group-icon mb-3"> 
+                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+                                    <input id="photo" type="file" name="photo">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
+                       </div> -->
 
         <div class="input-group-icon ms-3 mb-3 mt-7">
           <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>

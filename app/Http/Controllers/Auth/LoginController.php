@@ -26,7 +26,23 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/calendrier_en';
+
+    public function logout() {
+    //logout user
+    auth()->logout();
+    // redirect to homepage
+    return redirect('/login');
+     }
+
+
+    protected function redirectTo()
+    {
+        if (auth()->user()->role == 'admin') {
+            return '/index';
+        }
+        return '/calendrier_en';
+    }
 
     /**
      * Create a new controller instance.

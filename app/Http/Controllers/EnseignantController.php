@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use resources\view;
+use Image;
+
 
 class EnseignantController extends Controller
 {
@@ -21,6 +23,19 @@ class EnseignantController extends Controller
     }
     public function store(Request $request){
         $User = new User();
+       
+
+        if($request->hasFile('photo')){
+        $avatar=$request->file('photo');
+        $filename=time() . '.' . $avatar->getClientOriginalExtension();
+        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
+       
+         $User->photo=$filename;
+         
+      
+             }
+
+             
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
@@ -65,11 +80,23 @@ class EnseignantController extends Controller
         return view('Admin.editEns', ['user'=>$user]);
     }
     public function update(Request $request, $id){
+
+        if($request->hasFile('photo')){
+        $avatar=$request->file('photo');
+        $filename=time() . '.' . $avatar->getClientOriginalExtension();
+        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
+        $ser=User::find($id);
+        $ser->photo=$filename;
+        $ser->save();
+      
+          }
         $User = User::find($id);
        $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
         $User->grade = $request->input('grade');
+        $User->date_recrutement = $request->input('date_recrutement');
+
         $User->save();
         return redirect('Enseignants-User');        
     }
