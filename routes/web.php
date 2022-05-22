@@ -266,8 +266,8 @@ Route::put('notes/{id_nt}', 'App\Http\Controllers\NoteController@update')->name(
 
 Route::get('/etudiants/viewEtudient/{libelle_pr}', 'App\Http\Controllers\ModuleController@viewEtudiant')->name('viewEtudient');
 
-
-
+/*archive des promos */
+Route::get('/archives', 'App\Http\Controllers\ModuleController@archive');
 
     });
 

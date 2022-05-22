@@ -219,9 +219,17 @@ class UserController extends Controller
         $b=DB::table('users')
         ->where('id','=',Auth::user()->id)
         ->get();
+        $current_year=date('Y');
+        $m = DB::table('promotions')
+          ->join('options','options.id_opt','=','promotions.option')
+->join('modules','options.id_opt','=','modules.option')
+->where('modules.enseignant',Auth::user()->id)
+->where('annee_debut',$y=$current_year)
+->orWhere('annee_fin',$x=$current_year)
+->orderBy('annee_debut','desc')
+->distinct('libelle_pr')
+->get();
 
-        $m=DB::table('promotions')
-        ->get();
          return view('calend_enseignant',compact('b','m'));
       }
 

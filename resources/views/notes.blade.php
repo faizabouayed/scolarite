@@ -345,27 +345,38 @@
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Lockscreen">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Lock screen</span> 
+            </a>
+          </li>
 
 
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="e-commerce">
-              <!--<i class="fas fa-shopping-cart menu-icon"></i>-->
-              <i class="fas icon-sm fa fa-list-alt  menu-icon"></i>
-              <span class="menu-title"> Modules</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="e-commerce">
-              <ul class="nav flex-column sub-menu">
-
-             @foreach($m as $m)
-                <li class="nav-item"> <a class="nav-link" href="{{ URL::to('modules',[ $m->option,$m->id_pr]) }}"> Promo {{$m->libelle_pr}} </a></li>
-               
-            @endforeach
-              </ul>
+<a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
+<i class="fa fa-book menu-icon"></i>
+<span class="menu-title">Promotions</span>
+<i class="menu-arrow"></i>
+</a>
+<div class="collapse" id="page-layouts">
+<ul class="nav flex-column sub-menu">
+@foreach($m as $m)
+<li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ URL::to('modules',[ $m->option,$m->id_pr]) }}">Promo {{$m->libelle_pr}} </a></li>
 
 
-            </div>
-          </li>
+
+@endforeach
+
+</ul>
+</div>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/archives">
+<i class="fa fa-list-alt menu-icon"></i>
+<span class="menu-title">Archives</span>
+</a>
+</li>
           <!-----------------------------User-------------->
         
         </ul>

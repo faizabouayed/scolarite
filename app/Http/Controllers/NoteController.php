@@ -27,11 +27,15 @@ class NoteController extends Controller
         ->where('id','=',Auth::user()->id)
         ->get();
 
+        $current_year=date('Y');
         $m = DB::table('promotions')
         ->join('options','options.id_opt','=','promotions.option')
         ->join('modules','options.id_opt','=','modules.option')
-        ->where('modules.enseignant',Auth::user()->id)       
-        ->orderBy('libelle_pr','desc')
+        ->where('modules.enseignant',Auth::user()->id)
+        ->where('annee_debut',$y=$current_year)
+        ->orWhere('annee_fin',$x=$current_year)
+        ->orderBy('annee_debut','desc')
+        ->distinct('libelle_pr')
         ->get();
 
        /* $f=DB::table('etudiants')
