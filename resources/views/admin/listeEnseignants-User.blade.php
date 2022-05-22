@@ -140,51 +140,96 @@
                                   @method('PUT')
                                   <div class="input-group-icon mb-3 "> 
                                     <label class="form-label col-12" for="inputCategories">Nom:</label>
-                                    <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{$user->name}}" autocomplete="name"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
+                                    <div class="input-group">
+                                     <div class="input-group-prepend bg-transparent">
+                                       <span class="input-group-text bg-transparent border-right-0">
+                                         <i class="fa fa-user text-primary"></i>
+                                       </span>
+                                      </div>
+                                    <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{$user->name}}" autocomplete="name"  size="30"autofocus/>
                                   </div>
-
+                                  </div>
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Prénom:</label>
-                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$user->prenom}}"  autocomplete="prenom"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fa fa-user text-primary"></i>
+                </span>
+              </div>
+                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$user->prenom}}"  autocomplete="prenom"  size="30"    autofocus>
                                     
-                                  </div>
+                                  </div></div>
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Grade:</label>
-                                    <input id="grade" type="text" class="form-control form-little-squirrel-control @error('grade') is-invalid @enderror" placeholder="grade" name="grade" value="{{$user->grade}}"  autocomplete="grade"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                     <i class="fas fa-briefcase text-primary"></i>
+                </span>
+              </div>
+                                    <input id="grade" type="text" class="form-control form-little-squirrel-control @error('grade') is-invalid @enderror" placeholder="grade" name="grade" value="{{$user->grade}}"  autocomplete="grade"  size="30"    autofocus>
                                     
                                   </div>
-                                 
+                                 </div>
                                   <div class="input-group-icon mb-3"> 
-                                    <br><br><br><br><br>
-                                    <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
-                                    <input id="date_n" type="date" class="form-control form-little-squirrel-control @error('date_n') is-invalid @enderror" placeholder="date_de_naissance" name="date_n" value="{{$user->date_n}}"  autocomplete="date_n"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                  </div> 
+                                    
                                    
+                                     <div class="input-group">
+                                       <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
+                                           <div class="input-group-prepend bg-transparent">
+                                      <span class="input-group-text bg-transparent border-right-0">
+                                      <i class="fas fa-calendar text-primary"></i>
+                                        </span>
+                                      </div>
+                                  <input id="date_n" type="date" class="form-control form-little-squirrel-control @error('date_n') is-invalid @enderror" placeholder="date_de_naissance" name="date_n" value="{{$user->date_n}}"  autocomplete="date_n"    autofocus>
+                                   </div>
+                                 </div>
+                                    
+                                  
                                   <div class="input-group-icon mb-3"> 
-                                    <br><br><br><br><br>
-                                    <label class="form-label col-12" for="inputCategories">Date de recrutement:</label>
-                                    <input id="date_recrutement" type="date" class="form-control form-little-squirrel-control @error('date_recrutement') is-invalid @enderror" placeholder="date_recrutement" name="date_recrutement" value="{{$user->date_recrutement}}"  autocomplete="date_recrutement"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    
+                                    
+                                     <div class="input-group">
+                                      <label class="form-label col-12" for="inputCategories">Date de recrutement:</label>
+                                 <div class="input-group-prepend bg-transparent">
+                                    <span class="input-group-text bg-transparent border-right-0">
+                                     <i class="fas fa-calendar text-primary"></i>
+                                        </span>
+                                  </div>
+                                    <input id="date_recrutement" type="date" class="form-control form-little-squirrel-control @error('date_recrutement') is-invalid @enderror" placeholder="date_recrutement" name="date_recrutement" value="{{$user->date_recrutement}}"  autocomplete="date_recrutement"   autofocus>
                                   </div> 
                                    </div> 
                                    <div class="input-group-icon mb-3"> 
-                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+                                    <label class="form-label col-12" for="inputCategories">Modifier la photo </label>
+                                    <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
                                     <input id="photo" type="file" name="photo">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
  
+                                        </span>
+                                             </div>
+                  
 
+                                         </div>
+                                     </div>
                                   </div>
                                      
 
-                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
+                                                                  
+                                  <div class="input-group-icon ms-3 mb-3 mt-7">
+             <button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+            <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+            
+
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
                                   </div>
                                 </form>          
                               </div>
                             </div>
                             <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
+                                    
                           </div>
                         </div>
                       </div>

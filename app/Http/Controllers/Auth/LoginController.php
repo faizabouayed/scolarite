@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/calendrier_en';
+    //protected $redirectTo = '/calendrier_en';
 
     public function logout() {
     //logout user

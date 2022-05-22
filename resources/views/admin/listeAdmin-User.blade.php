@@ -54,13 +54,13 @@
 
                                        <div class="btn-group">                                                                                  
                                 @if(request()->has('trashed'))
-                                    <a href="{{ route('Admin-User.restore', $user->id) }}" class="btn btn-success mr-1"><i class="fa fa-reply"></i></a>
+                                    <a href="{{ route('Admin-User.restore', $user->id) }}" class="btn btn-success"><i class="fa fa-reply"></i></a>
                                    
                                   <form method="POST" action="{{ route('Admin-User.supp', $user->id) }}">
                                         @csrf
                                         <button type="submit" class="btn btn-danger delete " title='Delete'><i class="fa fa-times"></i></button>
-                                  
-                                    </form>
+
+                                     </form>
                                 @else        
                                 <a href="{{ route('Admin-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}">
                                       <button class="btn btn-success mr-1 ">
@@ -93,32 +93,58 @@
                                 <form method="POST" action="{{ route('Admin-User.update',$user->id) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
                                   @csrf
                                   @method('PUT')
-                                  <div class="input-group-icon mb-3 "> 
+                                   <div class="input-group-icon mb-3 "> 
                                     <label class="form-label col-12" for="inputCategories">Nom:</label>
-                                    <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{$user->name}}" autocomplete="name"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
+                                    <div class="input-group">
+                                     <div class="input-group-prepend bg-transparent">
+                                       <span class="input-group-text bg-transparent border-right-0">
+                                         <i class="fa fa-user text-primary"></i>
+                                       </span>
+                                      </div>
+                                    <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{$user->name}}" autocomplete="name"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
+                                  </div>
                                   </div>
 
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Prénom:</label>
-                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$user->prenom}}"  autocomplete="prenom"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                  </div>
+                                    <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fa fa-user text-primary"></i>
+                </span>
+              </div>
+                                    <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{$user->prenom}}"  autocomplete="prenom"  size="30"  style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
+                                    
+                                  </div></div>
                                   <div class="input-group-icon mb-3"> 
-                                    <br><br><br><br><br>
-                                    <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
-                                    <input id="prenom" type="date" class="form-control form-little-squirrel-control @error('date_n') is-invalid @enderror" placeholder="date_n" name="date_n" value="{{$user->date_n}}"  autocomplete="date_n"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
-                                  </div> 
+                                    
+                                   
+                                     <div class="input-group">
+                                       <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
+                                           <div class="input-group-prepend bg-transparent">
+                                      <span class="input-group-text bg-transparent border-right-0">
+                                      <i class="fas fa-calendar text-primary"></i>
+                                        </span>
+                                      </div>
+                                  <input id="date_n" type="date" class="form-control form-little-squirrel-control @error('date_n') is-invalid @enderror" placeholder="date_de_naissance" name="date_n" value="{{$user->date_n}}"  autocomplete="date_n"    autofocus>
+                                   </div>
+                                 </div>
                                    
                                      
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
+                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
+                                  <button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+            <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+            
+
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+                                  </div>
                                   </div>
                                 </form>          
                               </div>
                             </div>
                             <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
+                                    
                           </div>
                         </div>
                       </div>

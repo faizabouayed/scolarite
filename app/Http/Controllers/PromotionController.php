@@ -50,11 +50,14 @@ class PromotionController extends Controller
             $promotion = Promotion::where('libelle_pr',$libelle)->first();
             if ($request->has('trashed')) {
                 $etudiants = Etudiant::where('promo',$promotion->id_pr)::onlyTrashed()
+                ->join('promotions','promotions.id_pr','=','etudiants.promo')
+            ->join('options','options.id_opt','=','promotions.option')
                 
                     ->get();
             }
             else {
-                $etudiants = Etudiant::where('promo',$promotion->id_pr)->get();
+                $etudiants = Etudiant::where('promo',$promotion->id_pr)->join('promotions','promotions.id_pr','=','etudiants.promo')
+            ->join('options','options.id_opt','=','promotions.option')->get();
             }
        
         
@@ -190,7 +193,7 @@ class PromotionController extends Controller
         $r1=Option::where('id_opt',$request->input('option'))->first();
         $promotion->libelle_pr =$r1->libelle_opt.$promotion->annee_debut.'-'.$promotion->annee_fin;    
         $promotion->save();
-        return redirect('admin.listePromo')->with('status','Promotions Updated Successfully');        
+        return redirect()->back()->with('status','Promotions Updated Successfully');        
     }
 
     /**

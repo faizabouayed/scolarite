@@ -54,27 +54,30 @@
                                 <td>{{$module->tp}}</td>
                                 <td>{{$module->examen}}</td>-->
                                 <td>{{$module->name}} {{$module->prenom}}</td>                               
-                                <td class="text-right">
+                                <td class="text-center">
+                                  <div class="btn-group">
                                                                                               
                                 
                                 @if(request()->has('trashed'))
-                                <a href="{{ route('module.restore', $module->id_mod) }}" class="btn btn-success">Restore</a>
+                                <a href="{{ route('module.restore', $module->id_mod) }}" class="btn btn-success"><i class="fa fa-reply"></i></a>
                                    
                                    <form method="POST" action="{{ route('module.supp', $module->id_mod) }}">
                                          @csrf
-                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                         <button type="submit" class="btn btn-danger delete" title='Delete'><i class="fa fa-times"></i></button>
                                      </form>
-                                 @else                                
+                                 @else 
+                                 <a href="{{ route('module.update',$module->id_mod) }}" data-bs-toggle="modal" data-bs-target="#module{{$module->id_mod}}"><button class="btn btn-success mr-1  "><i class="fa fa-edit"></i>
+                                      </button></a>                               
                                      <form method="POST" action="{{ route('module.destroy', $module->id_mod) }}">
                                          @csrf
                                          {{method_field('delete')}}
                                          <input name="_method" type="hidden" value="DELETE">
-                                         <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                         <button type="submit" class="btn btn-danger delete" title='Delete'><i class="fa fa-trash"></i></button>
                                      </form>
-                                      <a href="{{ route('module.update',$module->id_mod) }}" data-bs-toggle="modal" data-bs-target="#module{{$module->id_mod}}"><i class="fa fa-edit text-success "></i></a>
+                                      
                     
                                 @endif
-                                  
+                                  </div>
                                 </td>
                             </tr>
                             <div class="modal" id="module{{$module->id_mod}}">
@@ -93,11 +96,11 @@
                                   @method('PUT')
                                   <div class="input-group-icon mb-3 "> 
                                     <label class="form-label col-12" for="inputCategories">Libelle:</label>
-                                    <input id="libelle" type="text" class="form-control form-little-squirrel-control @error('libelle') is-invalid @enderror" placeholder="libelle" name="libelle" value="{{$module->libelle}}" autocomplete="libelle"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus required />
+                                    <input id="libelle" type="text" class="form-control form-little-squirrel-control @error('libelle') is-invalid @enderror" placeholder="libelle" name="libelle" value="{{$module->libelle}}" autocomplete="libelle"  size="30" maxlength="10"   autofocus required />
                                   </div>
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Code:</label>
-                                    <input id="code" type="text" class="form-control form-little-squirrel-control @error('code') is-invalid @enderror" placeholder="code" name="code" value="{{$module->code}}"  autocomplete="code"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus required>                                   
+                                    <input id="code" type="text" class="form-control form-little-squirrel-control @error('code') is-invalid @enderror" placeholder="code" name="code" value="{{$module->code}}"  autocomplete="code"  size="30" maxlength="10"   autofocus required>   </div>                                
                                   </div>                                  
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Semestre:</label>
@@ -127,15 +130,15 @@
                                       </select> 
                                   </div>                                   
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
+                                  <button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+          <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
                                   </div>
                                 </form>          
                               </div>
                             </div>
                             <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
+                                     
                           </div>
                         </div>
                       </div>
@@ -145,10 +148,10 @@
                         </table>
                         <div class="float-end">
                 @if(request()->has('trashed'))
-                    <a href="{{ route('module.index') }}" class="btn btn-info">View All modules</a>
-                    <a href="{{ route('module.restoreAll') }}" class="btn btn-success">Restore All</a>
+                    <a href="{{ route('module.index') }}" class="btn btn-info">View tout modules</a>
+                    <a href="{{ route('module.restoreAll') }}" class="btn btn-success"><i class="fa fa-reply-all"> Restorer tout</i></a>
                 @else
-                    <a href="{{ route('module.index', ['trashed' => 'module']) }}" class="btn btn-primary">View Deleted modules</a>
+                    <a href="{{ route('module.index', ['trashed' => 'module']) }}" class="btn btn-primary">Voir les modules supprimés</a>
                 @endif
             </div>
         </div>
@@ -256,6 +259,7 @@
                       <div class="input-group-icon ms-3 mb-3 mt-7">
           <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
           <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
          </div>
          </fieldset>
        
@@ -263,9 +267,7 @@
 </div>
   </div>
                   <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
-                  </div>
+                  
 
                 </div>
               </div>

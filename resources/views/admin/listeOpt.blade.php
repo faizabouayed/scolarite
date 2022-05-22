@@ -5,7 +5,7 @@
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Orders
+              Options
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
@@ -60,8 +60,8 @@
                                 <td> {{$option->niveau}}
                                   
                                 </td>
-                                <td class="text-right">
-                                 
+                                <td class="text-center">
+                                 <div class="btn-group">
                               <!--  <a href="/promo"> <button class="btn btn-light" >
 
                                     <i class="fa fa-eye text-primary"></i>View
@@ -71,28 +71,31 @@
                                  </button>
                                   <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
-                                  </button> -->@if(request()->has('trashed'))
-                                    <a href="{{ route('option.restore', $option->id_opt) }}" class="btn btn-success">Restore</a>
+                                  </button> -->
+                                  @if(request()->has('trashed'))
+                                      <a href="{{ route('option.restore', $option->id_opt) }}" class="btn btn-success"><i class="fa fa-reply"></i></a>
                                    <!-- <button class="btn btn-light">
                                     <i class="fa fa-times text-danger"></i>Remove
                                   </button> -->
                                   <form method="POST" action="{{ route('option.supp', $option->id_opt) }}">
                                         @csrf
                                        <!-- {{method_field('delete')}}-->
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'><i class="fa fa-times"></i></button>
                                     </form>
-                                @else                                
+                                @else  
+                                <a href="{{ route('option.update',$option->id_opt)}}" data-bs-toggle="modal" data-bs-target="#option{{$option->id_opt}}"><button class="btn btn-success mr-1  ">
+                                        <i class="fa fa-edit"></i>
+                                      </button></a>
+                                    <a href="{{ route('option.viewPromo', $option->libelle_opt) }}" ><button class="btn btn-light mr-1"><i class="fa fa-eye text-primary"></i></button></a>                              
                                     <form method="POST" action="{{ route('option.destroy', $option->id_opt) }}">
                                         @csrf
                                         {{method_field('delete')}}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'><i class="fa fa-trash"></i></button>
                                     </form>
-                                 <!--   <a href="{{url('editOpt')}}"> -->
-                     <a href="{{ route('option.update',$option->id_opt)}}" data-bs-toggle="modal" data-bs-target="#option{{$option->id_opt}}"><i class="fa fa-edit text-success "></i></a>
-                     <a href="{{ route('option.viewPromo', $option->libelle_opt) }}" class="btn btn-success">View</a>
+                     
                                 @endif
-                                  
+                                  </div>
                                 </td>
                             </tr>
                       <div class="modal" id="option{{$option->id_opt}}">
@@ -110,25 +113,36 @@
                                   @csrf
                                   @method('PUT')
                                   <div class="input-group-icon mb-3 "> 
-                                    <label class="form-label col-12" for="inputCategories">Libe</label>
-                                    <input id="libelle_opt" type="text" class="form-control form-little-squirrel-control @error('libelle_opt') is-invalid @enderror" placeholder="Nom" name="libelle_opt" value="{{$option->libelle_opt}}" autocomplete="libelle_opt"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus/>
+                                    <label class="form-label col-12" for="inputCategories">Libellé:</label>
+                                    <div class="input-group">
+                                     
+                                    <input id="libelle_opt" type="text" class="form-control form-little-squirrel-control @error('libelle_opt') is-invalid @enderror" placeholder="Nom" name="libelle_opt" value="{{$option->libelle_opt}}" autocomplete="libelle_opt"  size="30" maxlength="10"   autofocus/>
                                   </div>
+                               
 
                                   <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Niveau:</label>
-                                    <input id="niveau" type="text" class="form-control form-little-squirrel-control @error('niveau') is-invalid @enderror" placeholder="Niveau" name="niveau" value="{{$option->niveau}}"  autocomplete="niveau"  size="30" maxlength="10" style="border-radius:5px;  box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
                                     
-                                  </div>                                    
+                                     <select class="form-control" id="exampleSelectGender" name="niveau" required>
+                                <option value="{{$option->niveau}}">{{$option->niveau}}</option>                                
+                                <option name="niveau">licence</option>
+                                <option name="niveau">master</option>
+                                 </select>
+                                    
+                                  </div> 
+                                  <br>                                   
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
+                                  <button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+            <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+            
+
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
                                   </div>
                                 </form>          
                               </div>
                             </div>
                             <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
+                                     
                           </div>
                         </div>
                       </div>
@@ -139,10 +153,10 @@
                         </table>
                         <div class="float-end">
                 @if(request()->has('trashed'))
-                    <a href="{{ route('option.index') }}" class="btn btn-info">View All options</a>
-                    <a href="{{ route('option.restoreAll') }}" class="btn btn-success">Restore All</a>
+                    <a href="{{ route('option.index') }}" class="btn btn-info">Voir tout les options</a>
+                    <a href="{{ route('option.restoreAll') }}" class="btn btn-success"><i class="fa fa-reply-all"> Restorer tout</i></a>
                 @else
-                    <a href="{{ route('option.index', ['trashed' => 'option']) }}" class="btn btn-primary">View Deleted options</a>
+                    <a href="{{ route('option.index', ['trashed' => 'option']) }}" class="btn btn-primary">Voir les options supprimés</a>
                 @endif
             </div>
         </div>
@@ -223,6 +237,7 @@
                       <div class="input-group-icon ms-3 mb-3 mt-7">
           <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
           <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
          </div>
          </fieldset>
        
@@ -237,9 +252,7 @@
                  
 
                   <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
-                  </div>
+                  
 
                 </div>
               </div>
