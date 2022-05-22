@@ -38,7 +38,7 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index-2.html"><img src="/telechargement/univ.png"" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="#"><img src="telechargement/logo.png" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/telechargement/avatar/{{ $b->photo }}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -450,9 +450,174 @@
                   <h4 class="card-title">Les Notes de la promo </h4>
 
                   <div class="row">
-                    <div class="col-12">
+                    <div class="col-12"> 
+                   
                       <div class="table-responsive">
+                         @foreach($tab as $tab)
+                       @if(($tab->tp==0))
                         <table  id="example" class="table">
+                          <thead>
+                            <tr class="bg-primary text-white">
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Date de Naissance</th>
+                                <th>CC</th>
+                                
+                               
+                                <th>EF</th>
+                                 <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($f as $F)
+                             <tr>
+                                <td>{{$F->nom}}</td>
+                                <td>{{$F->prenom}}</td>
+                                <td>{{$F->date_de_naissance}}</td>
+                                <td>{{$F->note_cc}}</td>                                          
+                                                              
+                                <td class="text-right">
+                                  {{$F->note_ef}}
+                                </td>                              
+                                <td> 
+                                  <a href="{{ route('notes.update',$F->id_nt) }}" data-bs-toggle="modal" data-bs-target="#F{{$F->id_nt}}"><i class="fa fa-edit text-success "></i></a>
+
+                                </td>
+                            </tr> 
+                       <div class="modal" id="F{{$F->id_nt}}">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">         
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Modifier les Notes </h3>
+                                <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body mx-auto">
+                              <div class="row align-items-center mb-3">
+                                <form method="POST" action="{{ route('notes.update',$F->id_nt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                  @csrf
+                                  @method('PUT')
+                         
+                             
+                      <div class="form-group">
+                        <label for="note_cc">controle:</label>
+                        <input id="note_cc" class="form-control" name="note_cc" type="text" value="{{$F->note_cc}}" >
+                      </div>
+                       <!-- <div class="form-group">
+
+                        <label for="firstname">TP:</label>
+                        <input id="firstname" class="form-control" name="note_tp" type="text" value="{{$F->note_tp}}" >
+                      </div>  -->
+                      <div class="form-group">
+                        <label for="firstname">Examen:</label>
+                        <input id="firstname" class="form-control" name="note_ef" type="text" value="{{$F->note_ef}}" >
+                      </div>
+                              
+                      
+                              
+                                     
+                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
+                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
+                                  </div>
+                                </form>          
+                              </div>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+                            </div>          
+                          </div>
+                        </div>
+                      </div>
+                           @endforeach
+                           
+                          
+                          </tbody>
+                        </table> 
+                        @elseif(($tab->controle==0))
+                          <table  id="example" class="table">
+                          <thead>
+                            <tr class="bg-primary text-white">
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Date de Naissance</th>
+                                
+                                <th>TP</th>
+                                <th>EF</th>
+                                 <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($f as $F)
+                             <tr>
+                                <td>{{$F->nom}}</td>
+                                <td>{{$F->prenom}}</td>
+                                <td>{{$F->date_de_naissance}}</td>
+                                                                         
+                                <td> {{$F->note_tp}}</td>                               
+                                <td class="text-right">
+                                  {{$F->note_ef}}
+                                </td>                              
+                                <td> 
+                                  <a href="{{ route('notes.update',$F->id_nt) }}" data-bs-toggle="modal" data-bs-target="#F{{$F->id_nt}}"><i class="fa fa-edit text-success "></i></a>
+
+                                </td>
+                            </tr> 
+                       <div class="modal" id="F{{$F->id_nt}}">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">         
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Modifier les Notes </h3>
+                                <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body mx-auto">
+                              <div class="row align-items-center mb-3">
+                                <form method="POST" action="{{ route('notes.update',$F->id_nt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                  @csrf
+                                  @method('PUT')
+                         
+                             
+                     <!-- <div class="form-group">
+                        <label for="note_cc">controle:</label>
+                        <input id="note_cc" class="form-control" name="note_cc" type="text" value="{{$F->note_cc}}" >
+                      </div>-->
+                        <div class="form-group">
+
+                        <label for="firstname">TP:</label>
+                        <input id="firstname" class="form-control" name="note_tp" type="text" value="{{$F->note_tp}}" >
+                      </div>  
+                      <div class="form-group">
+                        <label for="firstname">Examen:</label>
+                        <input id="firstname" class="form-control" name="note_ef" type="text" value="{{$F->note_ef}}" >
+                      </div>
+                              
+                      
+                              
+                                     
+                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
+                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
+                                  </div>
+                                </form>          
+                              </div>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+                            </div>          
+                          </div>
+                        </div>
+                      </div>
+                           @endforeach
+                           
+                          
+                          </tbody>
+                        </table> 
+
+                        @else
+                         <table  id="example" class="table">
                           <thead>
                             <tr class="bg-primary text-white">
                                 <th>Nom</th>
@@ -529,27 +694,11 @@
                       </div>
                            @endforeach
                            
-                           <!-- <tr>
-                                <td>WD-69</td>
-                                <td>John</td>
-                                <td>Tokyo</td>
-                                <td>$2100</td>
-                               
-                                <td>
-                                  <label class="badge badge-success">Closed</label>
-                                </td>
-                                <td class="text-right">
-                                  <button class="btn btn-light">
-                                    <i class="fa fa-eye text-primary"></i>View
-                                  </button>
-                                  <button class="btn btn-light">
-                                    <i class="fa fa-times text-danger"></i>Remove
-                                  </button>
-                                </td>
-                            </tr> -->
-                           
+                          
                           </tbody>
-                        </table>
+                        </table> 
+                        @endif 
+                        @endforeach
                       </div>
                     </div>
                   </div>

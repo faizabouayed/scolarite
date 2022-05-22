@@ -18910,9 +18910,10 @@ input:focus {
 
 .navbar.default-layout-navbar .navbar-brand-wrapper .navbar-brand img {
   width: calc(255px - 100px);
-  max-width: 100%;
-  height: 38px;
-  margin: auto;
+  max-width: 200%;
+  height: 120px;
+  margin-top: 20px;
+
   vertical-align: middle;
 }
 
@@ -18981,7 +18982,10 @@ input:focus {
 .navbar.default-layout-navbar .navbar-menu-wrapper .navbar-nav .nav-item .nav-link i {
   font-size: 0.9375rem;
 }
+.nav-link .dropdown-toggle img{
 
+  padding-top:00px;
+}
 .navbar.default-layout-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group-text,
 .navbar.default-layout-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .form-control,
 .navbar.default-layout-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-input,

@@ -26,6 +26,9 @@ class NoteController extends Controller
         $b = DB::table('users')
         ->where('id','=',Auth::user()->id)
         ->get();
+         $tab = DB::table('modules')
+        ->where('id_mod','=',$module)
+        ->get();
 
         $current_year=date('Y');
         $m = DB::table('promotions')
@@ -56,7 +59,7 @@ class NoteController extends Controller
         ->where('etudiants.promo',$v=$promotion)
         ->where('notes.type',$t='TP')
         ->get();*/
-         return view('notes',compact('f','b','m'));
+         return view('notes',compact('f','b','m','tab'));
     }
      public function edit($id_note){
         $user = Note::find($id_note);
