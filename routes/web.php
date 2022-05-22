@@ -16,9 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('auth.login');
 
+});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /*log out */
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::middleware('auth')->group(function () {
+        
+
 
 //Route::get('/index','App\Http\Controllers\UserController@index')->name('password.request');
 
@@ -103,10 +116,17 @@ Route::get('/popup', function () {
     return view('popup');
 });
 
-Route::get('/Lockscreen', function () {
+/*Route::get('/Lockscreen', function ()->name() {
     return view('lockscreen');
-});
+});*/
 
+
+Route::get('/Lockscreen', 'App\Http\Controllers\UserController@lockScreen')->name('Lockscreen');
+Route::post('unlock', 'App\Http\Controllers\UserController@unlock')->name('unlock');
+
+/***lockscreen for admin */
+Route::get('/LockscreenA', 'App\Http\Controllers\AdminController@lockScreen')->name('LockscreenA');
+Route::post('unlockA', 'App\Http\Controllers\AdminController@unlock')->name('unlockA');
 
 /***********************Les options*********************/
 Route::get('/options', 'App\Http\Controllers\OptionController@index')->name('option.index');
@@ -207,9 +227,7 @@ Route::get('/MenuAdmin', function () {
 //Route::get('/Profile-Ens/{id}', 'App\Http\Controllers\ProfileEController@show')->name('Profile-Ens.show');
 
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+
 
  
 /*********Les photes de user profile**********/
@@ -248,17 +266,9 @@ Route::put('notes/{id_nt}', 'App\Http\Controllers\NoteController@update')->name(
 
 
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
-
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    });
 
 

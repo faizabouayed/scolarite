@@ -421,6 +421,12 @@
              <span class="menu-title">Modules</span> 
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Lockscreen">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Lock screen</span> 
+            </a>
+          </li>
         </ul>
       </nav>
      

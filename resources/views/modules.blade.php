@@ -346,6 +346,12 @@
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Lockscreen">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Lock screen</span> 
+            </a>
+          </li>
          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="e-commerce">
               <!--<i class="fas fa-shopping-cart menu-icon"></i>-->

@@ -366,9 +366,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Lockscreen">
+            <a class="nav-link" href="LockscreenA">
               <i class="fa fa-list-alt menu-icon"></i>
-             <span class="menu-title">Lockscreen</span> 
+             <span class="menu-title">Lock screen</span> 
             </a>
           </li>
         </ul>

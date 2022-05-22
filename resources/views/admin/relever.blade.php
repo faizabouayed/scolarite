@@ -147,6 +147,7 @@
                        </table>
                                
                       </div>
+                      @if($n1!=0 && $n2!=0)
                       <p class="page-description">Moyenne génerale S1 : <?php $moy1=$somme1/$n1; $m1=number_format($moy1,2); echo "$m1";
                     ?></p>
                       <p class="page-description">Moyenne génerale S2  :<?php $moy2=$somme2/$n2; $m2=number_format($moy2,2); echo "$m2";
@@ -154,6 +155,7 @@
                     <p class="page-description">Moyenne génerale   :<?php $moy=$moy1+$moy2; $m=$moy/2;
                     $n=number_format($m,2); echo "$n";
                     ?> </p>
+                    @endif
                 </div>
               </div>
             </div>

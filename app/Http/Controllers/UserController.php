@@ -9,6 +9,9 @@ use App\Models\Option;
 use App\Models\Promotion;
 use App\Models\Module;
 use resources\view;
+use Hash;
+use Session;
+use Brian2694\Toastr\Facades\Toastr;
 use Auth;
 use Image;
 use Illuminate\Support\Facades\DB;
@@ -220,5 +223,39 @@ class UserController extends Controller
         $m=DB::table('promotions')
         ->get();
          return view('calend_enseignant',compact('b','m'));
+      }
+
+
+
+
+      public function lockScreen()
+      {
+          /*if(!session('lock-expires-at'))
+          {
+              return redirect('home');
+          }
+  
+          if(session('lock-expires-at') > now())
+          {
+              return redirect('home');
+          }*/
+          return view('Lockscreen');
+      }
+      
+      // unlock screen
+      public function unlock(Request $request)
+      {
+          $request->validate([
+              'password' => 'required|string',
+          ]);
+          $check = Hash::check($request->input('password'), $request->user()->password);
+  
+          if(!$check)
+          {
+              Toastr::error('fail, Your password does not match :)','Error');
+              return redirect()->route('Lockscreen');
+          }
+          session(['lock-expires-at' => now()->addMinutes($request->user())]);
+          return redirect('calendrier_en');
       }
 }

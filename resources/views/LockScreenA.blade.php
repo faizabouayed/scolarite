@@ -17,7 +17,7 @@
                         </div>
                     @endif
                     <br>
-                    <form method="POST" action="{{ route('unlock') }}" class="md-float-material">
+                    <form method="POST" action="{{ route('unlockA') }}" class="md-float-material">
                         @csrf
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" placeholder="Enter Password">

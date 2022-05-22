@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use resources\view;
+use Hash;
+use Session;
+use Brian2694\Toastr\Facades\Toastr;
 
 class AdminController extends Controller
 {
@@ -28,8 +31,8 @@ class AdminController extends Controller
         $User->prenom = $request->input('prenom');
         $User->date_n = $request->input('date_n');
         $User->email = $request->input('email');
-        $User->password = $request->input('password');
-        $User->save();
+        $User->password = bcrypt($request->input('password'));      
+          $User->save();
         return redirect()->route('Admin-User.index')->with('success', 'Data saved');
 
     }
@@ -81,5 +84,36 @@ class AdminController extends Controller
         User::onlyTrashed()->restore();
  
         return redirect()->back();
+    }
+
+    public function lockScreen()
+    {
+        /*if(!session('lock-expires-at'))
+        {
+            return redirect('home');
+        }
+
+        if(session('lock-expires-at') > now())
+        {
+            return redirect('home');
+        }*/
+        return view('LockScreenA');
+    }
+    
+    // unlock screen
+    public function unlock(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string',
+        ]);
+        $check = Hash::check($request->input('password'), $request->user()->password);
+
+        if(!$check)
+        {
+            Toastr::error('fail, Your password does not match :)','Error');
+            return redirect()->route('LockscreenA');
+        }
+        session(['lock-expires-at' => now()->addMinutes($request->user())]);
+        return redirect('index');
     }
 }
