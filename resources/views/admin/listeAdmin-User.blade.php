@@ -35,7 +35,7 @@
                       <div class="table-responsive">
                         <table id="order-listing" class="table">
                           <thead>
-                            <tr class="table-info">                               
+                            <tr class="bg-primary text-white" >                               
                               
                                 <th>Nom</th>
                                 <th>Prénom</th>
@@ -50,26 +50,33 @@
                                 <td>{{$user->name}} </td>
                                 <td>{{$user->prenom}}</td>
                                 <td>{{$user->date_n}}</td>
-                                 <td class="text-right">
+                                 <td class="text-center">
 
-                                                                                                                         
+                                       <div class="btn-group">                                                                                  
                                 @if(request()->has('trashed'))
-                                    <a href="{{ route('Admin-User.restore', $user->id) }}" class="btn btn-success">Restore</a>
+                                    <a href="{{ route('Admin-User.restore', $user->id) }}" class="btn btn-success mr-1"><i class="fa fa-reply"></i></a>
                                    
                                   <form method="POST" action="{{ route('Admin-User.supp', $user->id) }}">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                        <button type="submit" class="btn btn-danger delete " title='Delete'><i class="fa fa-times"></i></button>
+                                  
                                     </form>
-                                @else                                
+                                @else        
+                                <a href="{{ route('Admin-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}">
+                                      <button class="btn btn-success mr-1 ">
+                                        <i class="fa fa-edit"></i>
+                                      </button>
+                                    </a>                         
                                     <form method="POST" action="{{ route('Admin-User.destroy', $user->id) }}">
                                         @csrf
                                         {{method_field('delete')}}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                        <button type="submit" class="btn btn-danger delete " title='Delete'><i class="fa fa-trash"></i></button>
                                     </form>
-                                    <a href="{{ route('Admin-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a> 
                                     
-                                @endif                                  
+                                    
+                                @endif 
+                                </div>                                 
                                 </td>
                             </tr>
                       <div class="modal" id="user{{$user->id}}">
@@ -121,11 +128,11 @@
                         </table>
                  <div class="float-end">
                     @if(request()->has('trashed'))
-                        <a href="{{ route('Admin-User.index') }}" class="btn btn-info">View All Admin-User</a>
-                        <a href="{{ route('Admin-User.restoreAll') }}" class="btn btn-success">Restore All</a>
-                    @else
-                        <a href="{{ route('Admin-User.index', ['trashed' => 'user']) }}" class="btn btn-primary">View Deleted Admin-User</a>
-                    @endif
+<a href="{{ route('Admin-User.index') }}" class="btn btn-info"><i class="fa fa-eye "></i>Voir tout les admins</a>
+<a href="{{ route('Admin-User.restoreAll') }}" class="btn btn-success"><i class="fa fa-reply-all"> Restorer tout</i></a>
+@else
+<a href="{{ route('Admin-User.index', ['trashed' => 'user']) }}" class="btn btn-primary">Voir les admins supprimés</a>
+@endif
                 </div>
         </div>
         <!--pop up-->
@@ -135,7 +142,7 @@
        <script type="text/javascript">
             $(document).ready(function() {
                 $('.delete').click(function(e) {
-                    if(!confirm('Are you sure you want to delete this option?')) {
+                    if(!confirm('Are you sure you want to delete this user?')) {
                         e.preventDefault();
                     }
                 });
@@ -156,81 +163,123 @@
       </div>
       <!-- L'ajout -->
      <div class="modal" id="wnd">
-              <div class="modal-dialog modal-md">
-                <div class="modal-content">
+<div class="modal-dialog modal-md">
+<div class="modal-content">
 
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                 
-                    <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Remplir les informations </h3>
-                    <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
-                  </div>
-                  <!-- Modal body -->
-                  <div class="modal-body mx-auto">
-                    <div class="row align-items-center mb-3">
-                    
-                      
-                <form class="needs-validation" method="POST" action="{{ route('Admin.store') }}" novalidate>
-      @csrf
-        
-                     
-                       <div class="input-group-icon mb-3 "> 
-          <label class="form-label col-12" for="inputCategories">Nom</label>
-           <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{ old('name') }}" autocomplete="name" autofocus required />
-           <i class="fas fa-user input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i> 
-        </div>
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Prénom</label>
-           <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{ old('prenom') }}"  autocomplete="prenom" autofocus required>
-           <i class="fas fa-user input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-        </div>
 
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Date de naissance</label>
-        <input  type="date" class="form-control form-little-squirrel-control form-control-sm @error('date_n') is-invalid @enderror" name="date_n" required  autofocus>
-        <i class="fas fa-calendar input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-       </div>
-      
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Email</label>
-         <input id="email" type="email" class="form-control form-little-squirrel-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}"  autocomplete="email">
-         <i class="fas fa-envelope input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-        </div>
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Mot de passe</label>
-          <input id="password" type="password" class="form-control form-little-squirrel-control @error('password') is-invalid @enderror" placeholder="Mot de passe" name="password"  autocomplete="new-password" required>
-          <i class="fas fa-lock input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-        </div>
-                      <div class="input-group-icon ms-3 mb-3 mt-7">
-          <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
-          <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+
+<!-- Modal Header -->
+   <div class="modal-header">
+
+      <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Remplir les informations </h3>
+      <a class="close" data-bs-dismiss="modal"aria-label="Close">&times;</a>
+  </div>
+          <!-- Modal body -->
+        <div class="modal-body mx-auto">
+         <div class="row align-items-center mb-3">
+       <form class="needs-validation" method="POST" action="{{ route('Admin.store') }}" novalidate>
+        @csrf
+
+
+       <div class="input-group-icon mb-3 ">
+        <label for="exampleInputEmail" class="col-md-4 col-form-label text-md-end">Nom: </label>
+        <div class="input-group">
+         <div class="input-group-prepend bg-transparent">
+             <span class="input-group-text bg-transparent border-right-0">
+                <i class="fa fa-user text-primary"></i>
+             </span>
          </div>
-       
-      </form>
+        <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{ old('name') }}" autocomplete="name" autofocus required />
+       </div>
+      </div>
+        <div class="input-group-icon mb-3">
+          <label for="exampleInputEmail" class="col-md-4 col-form-label text-md-end">Prénom: </label>
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fa fa-user text-primary"></i>
+                </span>
+              </div>
+           <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{ old('prenom') }}" autocomplete="prenom" autofocus required>
 
-                      
+         </div>
+      </div>
+
+
+
+        <div class="input-group-icon mb-3">
+         <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
+           <div class="input-group">
+             <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fas fa-calendar text-primary"></i>
+                </span>
+            </div>
+            <input type="date" class="form-control form-little-squirrel-control form-control-sm @error('date_n') is-invalid @enderror" name="date_n" required autofocus>
+
+          </div>
+       </div>
+
+         <div class="input-group-icon mb-3">
+           <label class="form-label col-12" for="inputCategories">Email:</label>
+            <div class="input-group">
+           <div class="input-group-prepend bg-transparent">
+              <span class="input-group-text bg-transparent border-right-0">
+                <i class="fas fa-envelope text-primary"></i>
+              </span>
+          </div>
+        <input id="email" type="email" class="form-control form-little-squirrel-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="email">
+       </div>
+    </div>
+         <div class="input-group-icon mb-3">
+          <label class="form-label col-12" for="inputCategories">Mot de passe:</label>
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                     <i class="fas fa-lock text-primary"></i>
+                </span>
+              </div>
+           <input id="password" type="password" class="form-control form-little-squirrel-control @error('password') is-invalid @enderror" placeholder="Mot de passe" name="password" autocomplete="new-password" required>
+          </div>
+         </div>
+
+           <div class="input-group-icon ms-3 mb-3 mt-7">
+             <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
+            <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+
+
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+       </div>
+
+
+
+
+</form>
+
+
+
+
 
 
 </div>
-  </div>
+</div>
 
-                 
 
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
-                  </div>
 
-                </div>
-              </div>
-            </div>
-      
-                    
-                  
-                
-         
-        </div>
-      </div>
+
+
+<!-- Modal footer -->
+
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+</div>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>

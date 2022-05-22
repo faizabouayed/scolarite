@@ -13,6 +13,7 @@ use App\Models\Module;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\email;
+use Image;
 
 
 
@@ -75,6 +76,15 @@ class EnseignantController extends Controller
                  'password' => ['required'],
             ]);
         $User = new User();
+         if($request->hasFile('photo')){
+        $avatar=$request->file('photo');
+        $filename=time() . '.' . $avatar->getClientOriginalExtension();
+        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
+
+         $User->photo=$filename;
+
+
+             }
         $User->role = 'enseignant';
         //$User->photo = $request->input('photo');
         $User->name = $request->input('name');
@@ -122,6 +132,15 @@ class EnseignantController extends Controller
         return view('admin.listeEnseignants-User', ['users'=>$user]);
     }
     public function update(Request $request, $id){
+        if($request->hasFile('photo')){
+        $avatar=$request->file('photo');
+        $filename=time() . '.' . $avatar->getClientOriginalExtension();
+        Image::Make($avatar)->resize(300,300)->save(public_path('/telechargement/avatar/'. $filename));
+        $ser=User::find($id);
+        $ser->photo=$filename;
+        $ser->save();
+
+          }
         $User = User::find($id);
         $User->name = $request->input('name');
         $User->prenom = $request->input('prenom');

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Promotion;
 use App\Models\Etudiant;
+use App\Models\User;
+
 use Auth;
 
 
@@ -14,15 +16,6 @@ class ModuleController extends Controller
     //
     public function ListeModules($opt,$promo){
 
-
-
-
-
-/* vraiiiiii $f=DB::table('options')
-->join('modules','options.id_opt','=','modules.option')
-->join('promotions','options.id_opt','=','promotions.option')
-->where('promotions.libelle_pr','=',$v=$prom)
-->get(); */
 $f=DB::table('options')
 ->join('modules','options.id_opt','=','modules.option')
 ->join('promotions','options.id_opt','=','promotions.option')
@@ -30,36 +23,21 @@ $f=DB::table('options')
 ->where('modules.enseignant','=',Auth::user()->id)
 ->where('modules.option','=',$v=$opt)
 ->get();
-/* $f=DB::table('modules')
-->join('options','options.id_opt','=','modules.option')
-->join('promotions','options.id_opt','=','promotions.option')
-->where('promotions.libelle_pr','=',$v='1')
-->where('modules.enseignant','=',Auth::user()->id)
-->where('option','=',$v=$opt)
-->get();*/
-/* $f2=DB::table('promotions')
-->join('options','options.id_opt','=','promotions.option')
-->where('modules.option','=',$v=$opt)
-->get();*/
 
 $b = DB::table('users')
 ->where('id','=',Auth::user()->id)
 ->get();
 
-
-
 $current_year=date('Y');
 $m = DB::table('promotions')
-->join('options','options.id_opt','=','promotions.option')
+->join('options','promotions.option','=','options.id_opt')
 ->join('modules','options.id_opt','=','modules.option')
-->where('modules.enseignant',Auth::user()->id)
-->where('annee_debut',$y=$current_year)
-->orWhere('annee_fin',$x=$current_year)
-->orderBy('annee_debut','desc')
-->distinct('libelle_pr')
+->where('modules.enseignant',$p=$b)
+->where('promotions.annee_debut','=',$current_year)
+->orWhere('promotions.annee_fin','=',$current_year)
+->orderBy('promotions.annee_debut','desc')
+->distinct('modules.option')
 ->get();
-
-
 
 return view('modules',compact('f','b','m'));
 }
@@ -69,13 +47,12 @@ $b = DB::table('users')
 ->get();
 $current_year=date('Y');
 $m = DB::table('promotions')
-->join('options','options.id_opt','=','promotions.option')
-->join('modules','options.id_opt','=','modules.option')
+->join('modules','promotions.option','=','modules.option')
 ->where('modules.enseignant',Auth::user()->id)
-->where('annee_debut',$y=$current_year)
-->orWhere('annee_fin',$x=$current_year)
-->orderBy('annee_debut','desc')
-->distinct('libelle_pr')
+->where('promotions.annee_debut',$y=$current_year)
+->orWhere('promotions.annee_fin',$x=$current_year)
+->orderBy('promotions.annee_debut','desc')
+->distinct('modules.option')
 ->get();
 
 $promo = DB::table('promotions')
@@ -85,7 +62,6 @@ $promo = DB::table('promotions')
 ->where('annee_debut','!=',$current_year)
 ->Where('annee_fin','!=',$current_year)
 ->orderBy('annee_debut','desc')
-->distinct('modules.enseignant')
 ->get();
 return view('archives',compact('promo','b','m'));
 }

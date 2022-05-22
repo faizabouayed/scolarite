@@ -38,7 +38,7 @@ class NoteController extends Controller
         ->distinct('libelle_pr')
         ->get();
 
-       /* $f=DB::table('etudiants')
+       /*$f=DB::table('etudiants')
         ->join('notes','etudiants.id_etud','=','notes.etudiant')
         ->where('notes.module',$module)
         ->where('etudiants.promo',$v=$promotion)

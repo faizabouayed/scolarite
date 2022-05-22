@@ -307,13 +307,18 @@
                   Bonjour  {{$b->name}}
 
                 </p>
-                
+                @endforeach
                 <p class="designation">
                   {{$b->role}} {{$b->grade}}
                 </p>
               </div>
             </div>
           </li>
+        
+
+        
+
+
         
          <li class="nav-item">
             <a class="nav-link" href="/calendrier_en">
@@ -327,54 +332,37 @@
              <span class="menu-title">Lock screen</span> 
             </a>
           </li>
-          <li class="nav-item">
+         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
               <i class="fa fa-book menu-icon"></i>
               <span class="menu-title">Promotions</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="page-layouts">
-                <ul class="nav flex-column sub-menu">
-                  @foreach($m as $m)
-                   <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ URL::to('modules',[ $m->option,$m->id_pr]) }}">Promo {{$m->libelle_pr}} </a></li>
+              <ul class="nav flex-column sub-menu">
+                @foreach($m as $m)
+                <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ URL::to('modules',[ $m->option,$m->id_pr]) }}">Promo {{$m->libelle_pr}} </a></li>
 
-
-
-                  @endforeach
-
-                </ul>
-           </div>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="/archives">
-<i class="fa fa-list-alt menu-icon"></i>
-<span class="menu-title">Archives</span>
-</a>
-</li>
+            @endforeach
+                
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/archives">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Archives</span> 
+            </a>
+          </li>
 
           <!-----------------------------User-------------->
         
         </ul>
       </nav>
   
-@endforeach
+
     
-   <script src="vendors/js/vendor.bundle.base.js"></script>
-  <script src="vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/hoverable-collapse.js"></script>
-  <script src="js/misc.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/todolist.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="js/dashboard.js"></script>
-
-
+  
 
      <!-- partial -->
 
@@ -404,38 +392,25 @@
                         <table id="order-listing" class="table">
                           <thead>
                             <tr class="bg-primary text-white">
-                                <th>Module</th>
-                                <th>Option</th>
-                                <th>Code</th>
-                                <th>Semestre</th>
+                                <th>Promo</th>
                                 
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
-                             @foreach($f as $f)
+                             @foreach($promo as $p)
                             <tr>
-                                <td>{{$f->libelle}}</td>
-                                <td>{{$f->libelle_opt}}</td>
-                                <td>{{$f->code}}</td>
-                                <td>{{$f->semestre}}</td>
-                                <td>
-                                  <label class="badge badge-info">
-                                  <i class="fa fa-print btn-icon-append"></i>  
+                                <td>{{$p->libelle_pr}}</td>
+                                
 
-                                  Télécharger</label>
-                                </td>
                                 <td class="text-right">
-                                  <a href="{{ route('viewEtudient', $f->libelle_pr) }}"> <button class="btn btn-light">
+                                  <a href="{{ route('viewEtudient', $p->libelle_pr) }}"> <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>  Liste Etudiants
                                   </button>
                                 </a>
-                                 <!-- <button class="btn btn-light">
-                                    <i class="fa fa-times text-danger"></i>Supprimer
-                                  </button> -->
+                          
                                   
-                                    <a href="{{ URL::to('notes',[ $f->id_mod,$f->id_pr]) }}"><button class="btn btn-light">
+                                    <a href="{{ URL::to('notes',[ $p->id_mod,$p->id_pr]) }}"><button class="btn btn-light">
                                     <i class="fa fa-edit text-success"></i>  Notes
                                   </button> </a>
                                 
@@ -501,6 +476,13 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="../../js/data-table.js"></script>
+
+  
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/dashboard.js"></script>
+
+
   </body>
 
 

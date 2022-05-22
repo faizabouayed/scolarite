@@ -2,33 +2,7 @@
 @extends('layouts.MenuAdmin')
 @Section('content')
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
-
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
-  <script>
-    jQuery(document).ready(function($) {
-      $('#example').DataTable(
-        {
-        dom: 'Bfrtip',
-        buttons: [
-                    
-                    'excel',
-                    'csv',
-                    'pdf',
-                    'print'
-                ],
-              }
-      );
-     
-    } );
+  
     
     </script>
       <!-- partial -->
@@ -57,12 +31,12 @@
                       -->
                       <a class="btn btn-light "
                     data-bs-toggle="modal" data-bs-target="#wnd" aria-haspopup="true" aria-expanded="false" role="button"
-                     v-pre> <i class="fa fa-plus text-success"></i> Ajouter un enseignant</a>
+                     v-pre> <i class="fa fa-plus text-success"></i> Ajouter un etudiant</a>
                    </div>
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
-                        <table  id="example" class="table" >
+                        <table  id="order-listing" class="table" >
                           <thead>
                          
 
@@ -77,8 +51,9 @@
                                 <th class="not-export-col">Actions</th>
                             </tr>
                           </thead>
-                          @foreach($etudiants as $etudiant)
+                          
                           <tbody>
+                            @foreach($etudiants as $etudiant)
                             <tr>
                                 <td><img src="/telechargement/avatar/{{$etudiant->photo}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="300">
                                 </td>
@@ -118,7 +93,7 @@
                                 
                             </tr>
                             
-                          </tbody>
+                        
                           <div class="modal" id="etudiant{{$etudiant->id_etud}}">
                         <div class="modal-dialog modal-md">
                           <div class="modal-content">         
@@ -188,6 +163,7 @@
                         </div>
                       </div>
                           @endforeach
+                            </tbody>
                         </table>
                         <div class="float-end">
                 @if(request()->has('trashed'))
@@ -243,7 +219,7 @@
                     <div class="row align-items-center mb-3">
                     
                       
-                <form class="needs-validation" method="POST" action="{{ route('etudiants.store') }}" novalidate>
+                <form  enctype="multipart/form-data" class="needs-validation" method="POST" action="{{ route('etudiants.store') }}" novalidate>
       @csrf
         
                      
@@ -275,13 +251,13 @@
                                       @endforeach
                                       </select> 
                       </div>
-                      <div class="form-group"> 
+                      <div class="input-group-icon mb-3"> 
                                     <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
                                     <input id="photo" type="file" name="photo">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 
-                       </div> 
+                      </div> 
 
                       
                       <div class="input-group-icon ms-3 mb-3 mt-7">

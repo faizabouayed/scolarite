@@ -38,8 +38,8 @@
                                 <th>Photo</th>
                                 <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Date de naissance</th>
-                                <th>Date de recrutement</th>
+                                <th>Date naissance</th>
+                                <th>Date recrutement</th>
                                 <th>Grade</th>
                                 <th>Actions</th>
                             </tr>
@@ -57,26 +57,32 @@
                                 <td>
                                   <label class="badge badge-success">{{$user->grade}}</label>
                                 </td>
-                                <td class="text-right">
-
+                                <td class="text-center">
+                                   <div class="btn-group"> 
                                                                                                                
                                 @if(request()->has('trashed'))
-                                    <a href="{{ route('Enseignants-User.restore', $user->id) }}" class="btn btn-success">Restore</a>
+                                    <a href="{{ route('Enseignants-User.restore', $user->id) }}" class="btn btn-success"><i class="fa fa-reply"></i></a>
                                    
                                   <form method="POST" action="{{ route('Enseignants-User.supp', $user->id) }}">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'><i class="fa fa-times"></i></button>
                                     </form>
-                                @else                                
+                                @else       
+                                  <a data-bs-toggle="modal" data-bs-target="#use{{$user->id}}" href="" >
+                                      <button class="btn btn-light"><i class="fa fa-eye text-primary"></i></button></a>
+                                 <a href="{{ route('Enseignants-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><button class="btn btn-success  ">
+                                        <i class="fa fa-edit"></i>
+                                      </button></a>
+                         
                                     <form method="POST" action="{{ route('Enseignants-User.destroy', $user->id) }}">
                                         @csrf
                                         {{method_field('delete')}}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="btn btn-danger delete" title='Delete'>Delete</button>
+                                        <button type="submit" class="btn btn-danger delete" title='Delete'><i class="fa fa-trash"></i></button>
                                     </form>
-                                    <a href="{{ route('Enseignants-User.update',$user->id) }}" data-bs-toggle="modal" data-bs-target="#user{{$user->id}}"><i class="fa fa-edit text-success "></i></a>
-                                    <a data-bs-toggle="modal" data-bs-target="#use{{$user->id}}" href="" ><i class="fa fa-eye text-primary"></i></a>
-                                @endif                                  
+                                   
+                                @endif
+                                </div>                                  
                                 </td>
                             </tr>
 
@@ -86,7 +92,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-         <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> les modules qui enseigner par  {{$user->name}} {{$user->prenom}} </h3>
+         <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Les modules enseignés par : {{$user->name}} {{$user->prenom}} </h3>
            <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a>    
       </div>
 
@@ -97,14 +103,11 @@
           
                  @foreach($modules as $module)
                     @if($module->enseignant==$user->id)
-                    <br><br>
+                    
                       <li> 
                         Code: {{$module->code}}
-                        Libelle:     {{$module->libelle}}
-                        de l'option :{{$module->libelle_opt}}
-                      
-                      
-
+                        |    Libelle:  {{$module->libelle}}
+                        |    de l'option :{{$module->libelle_opt}}
                       </li>
 
                     @endif
@@ -132,7 +135,7 @@
                             <!-- Modal body -->
                             <div class="modal-body mx-auto">
                               <div class="row align-items-center mb-3">
-                                <form method="POST" action="{{ route('Enseignants-User.update',$user->id) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                <form  enctype="multipart/form-data" method="POST" action="{{ route('Enseignants-User.update',$user->id) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
                                   @csrf
                                   @method('PUT')
                                   <div class="input-group-icon mb-3 "> 
@@ -162,7 +165,16 @@
                                     <label class="form-label col-12" for="inputCategories">Date de recrutement:</label>
                                     <input id="date_recrutement" type="date" class="form-control form-little-squirrel-control @error('date_recrutement') is-invalid @enderror" placeholder="date_recrutement" name="date_recrutement" value="{{$user->date_recrutement}}"  autocomplete="date_recrutement"  style="border-radius:5px; box-shadow:1px 1px 2px #C0C0C0 inset"  autofocus>
                                   </div> 
+                                   </div> 
+                                   <div class="input-group-icon mb-3"> 
+                                    <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+                                    <input id="photo" type="file" name="photo">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+ 
+
+                                  </div>
                                      
+
                                   <div class="input-group-icon ms-3 mb-3 mt-7">                                 
                                   <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
                                   </div>
@@ -182,10 +194,10 @@
                         </table>
                  <div class="float-end">
                     @if(request()->has('trashed'))
-                        <a href="{{ route('Enseignant-User.index') }}" class="btn btn-info">View All Enseignant-User</a>
-                        <a href="{{ route('Enseignants-User.restoreAll') }}" class="btn btn-success">Restore All</a>
+                        <a href="{{ route('Enseignant-User.index') }}" class="btn btn-info">Voir tout les enseignants</a>
+                        <a href="{{ route('Enseignants-User.restoreAll') }}" class="btn btn-success"><i class="fa fa-reply-all"> Restorer tout</i></a>
                     @else
-                        <a href="{{ route('Enseignant-User.index', ['trashed' => 'user']) }}" class="btn btn-primary">View Deleted Admin-User</a>
+                        <a href="{{ route('Enseignant-User.index', ['trashed' => 'user']) }}" class="btn btn-primary">Voir les enseignants supprimés </a>
                     @endif
                 </div>
         </div>
@@ -215,82 +227,159 @@
         
         <!-- partial -->
       </div>
-     <div class="modal" id="wnd">
-        <div class="modal-dialog modal-md">
-          <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Remplir les informations </h3>
-                  <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
-              </div>
-        <!-- Modal body -->
-        <div class="modal-body mx-auto">
-          <div class="row align-items-center mb-3">
-                    
-                      
-      <form class="needs-validation" method="POST" action="{{ route('Enseignants.store') }}" novalidate>
-      @csrf
-        
-                     
-         <div class="input-group-icon mb-3 "> 
-          <label class="form-label col-12" for="inputCategories"><i class="fas fa-user input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>  Nom:</label>
-           <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{ old('name') }}" autocomplete="name" autofocus required />          
-        </div>
+      <div class="modal" id="wnd">
+<div class="modal-dialog modal-md">
+<div class="modal-content">
 
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Prénom</label>
-           <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{ old('prenom') }}"  autocomplete="prenom" autofocus required>
-           <i class="fas fa-user input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-        </div>
 
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Date de naissance;</label>
-        <input  type="date" class="form-control form-little-squirrel-control form-control-sm @error('date_n') is-invalid @enderror" name="date_n" required  autofocus>
-        <i class="fas fa-calendar input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-       </div>
 
-       <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Date de recurtement;</label>
-        <input  type="date" class="form-control form-little-squirrel-control form-control-sm @error('date_recrutement') is-invalid @enderror" name="date_n" required  autofocus>
-        <i class="fas fa-calendar input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-       </div>
-      
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories"> <i class="fas fa-envelope input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>Email :</label>
-         <input id="email" type="email" class="form-control form-little-squirrel-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}"  autocomplete="email">        
-        </div>
+<!-- Modal Header -->
+   <div class="modal-header">
 
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Mot de passe:</label>
-          <input id="password" type="password" class="form-control form-little-squirrel-control @error('password') is-invalid @enderror" placeholder="Mot de passe" name="password"  autocomplete="new-password" required>
-          <i class="fas fa-lock input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-        </div>
-
-        <div class="input-group-icon mb-3"> 
-          <label class="form-label col-12" for="inputCategories">Grade:</label>
-          <input id="grade" type="grade" class="form-control form-little-squirrel-control @error('grade') is-invalid @enderror" placeholder="grade" name="grade"  autocomplete="new-grade" required>
-          <i class="fas fa-lock input-box-icon mt-3" style="color:rgb(73, 73, 73)"></i>
-        </div>
-
-        <div class="input-group-icon ms-3 mb-3 mt-7">
-          <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
-          <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
-        </div>
-       
-      </form>
-    </div>
+      <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Remplir les informations </h3>
+      <a class="close" data-bs-dismiss="modal"aria-label="Close">&times;</a>
   </div>
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
-                  </div>
+          <!-- Modal body -->
+        <div class="modal-body mx-auto">
+         <div class="row align-items-center mb-3">
+        <form  enctype="multipart/form-data" class="needs-validation" method="POST" action="{{ route('Enseignants.store') }}" novalidate>
+        @csrf
 
-                </div>
+
+       <div class="input-group-icon mb-3 ">
+        <label for="exampleInputEmail" class="col-md-4 col-form-label text-md-end">Nom: </label>
+        <div class="input-group">
+         <div class="input-group-prepend bg-transparent">
+             <span class="input-group-text bg-transparent border-right-0">
+                <i class="fa fa-user text-primary"></i>
+             </span>
+         </div>
+        <input id="name" type="text" class="form-control form-little-squirrel-control @error('name') is-invalid @enderror" placeholder="Nom" name="name" value="{{ old('name') }}" autocomplete="name" autofocus required />
+       </div>
+      </div>
+        <div class="input-group-icon mb-3">
+          <label for="exampleInputEmail" class="col-md-4 col-form-label text-md-end">Prénom: </label>
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fa fa-user text-primary"></i>
+                </span>
               </div>
+           <input id="prenom" type="text" class="form-control form-little-squirrel-control @error('prenom') is-invalid @enderror" placeholder="Prenom" name="prenom" value="{{ old('prenom') }}" autocomplete="prenom" autofocus required>
+
+         </div>
+      </div>
+
+
+
+        <div class="input-group-icon mb-3">
+         <label class="form-label col-12" for="inputCategories">Date de naissance:</label>
+           <div class="input-group">
+             <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fas fa-calendar text-primary"></i>
+                </span>
             </div>
-      
-                    
+            <input type="date" class="form-control form-little-squirrel-control form-control-sm @error('date_n') is-invalid @enderror" name="date_n" required autofocus>
+
+          </div>
+       </div>
+       <div class="input-group-icon mb-3"> 
+          <label class="form-label col-12" for="inputCategories">Date de recurtement:</label>
+          <div class="input-group">
+             <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                  <i class="fas fa-calendar text-primary"></i>
+                </span>
+            </div>
+        <input  type="date" class="form-control form-little-squirrel-control form-control-sm @error('date_recrutement') is-invalid @enderror" name="date_recrutement" required  autofocus>
+       </div>
+</div>
+         <div class="input-group-icon mb-3">
+           <label class="form-label col-12" for="inputCategories">Email:</label>
+            <div class="input-group">
+           <div class="input-group-prepend bg-transparent">
+              <span class="input-group-text bg-transparent border-right-0">
+                <i class="fas fa-envelope text-primary"></i>
+              </span>
+          </div>
+        <input id="email" type="email" class="form-control form-little-squirrel-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="email">
+       </div>
+    </div>
+         <div class="input-group-icon mb-3">
+          <label class="form-label col-12" for="inputCategories">Mot de passe:</label>
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                     <i class="fas fa-lock text-primary"></i>
+                </span>
+              </div>
+           <input id="password" type="password" class="form-control form-little-squirrel-control @error('password') is-invalid @enderror" placeholder="Mot de passe" name="password" autocomplete="new-password" required>
+          </div>
+         </div>
+         <div class="input-group-icon mb-3"> 
+          <label class="form-label col-12" for="inputCategories">Grade:</label>
+          <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                     <i class="fas fa-briefcase text-primary"></i>
+                </span>
+              </div>
+          <input id="grade" type="grade" class="form-control form-little-squirrel-control @error('grade') is-invalid @enderror" placeholder="grade" name="grade"  autocomplete="new-grade" required>
+        </div>
+        </div>
+           <div class="input-group-icon mb-3"> 
+              <label class="form-label col-12" for="inputCategories">Insérer une nouvelle photo </label>
+              <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <span class="input-group-text bg-transparent border-right-0">
+                     <input id="photo" type="file" name="photo">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+ 
+                </span>
+              </div>
                   
+
+                       </div>
+         </div>
+           <div class="input-group-icon ms-3 mb-3 mt-7">
+             <button class="btn btn-primary form-little-squirrel-control" type="submit">Ajouter</button>
+            <i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+            
+
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+       </div>
+
+
+
+
+</form>
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+<!-- Modal footer -->
+
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+</div>
+     
                 
          
         
