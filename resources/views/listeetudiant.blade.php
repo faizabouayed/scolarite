@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 @foreach($b as $b)
-  <title>Melody Admin</title>
+  <title>Scolarité</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
@@ -38,7 +38,7 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index-2.html"><img src="/telechargement/univ.png"" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="index-2.html"><img src="/telechargement/logo.png" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/telechargement/avatar/{{ $b->photo }}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -341,7 +341,7 @@
         </li>-->
          <li class="nav-item">
             <a class="nav-link" href="/calendrier_en">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <i class="fa fa-calendar menu-icon"></i>
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
@@ -410,9 +410,8 @@
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Etudiant</li>
-                <li class="breadcrumb-item active" aria-current="page">Options</li>
-                <li class="breadcrumb-item active" aria-current="page">Promotions</li>
+                <li class="breadcrumb-item active" aria-current="page">Enseignant</li>
+               
                 <li class="breadcrumb-item"><a href="#">Liste des etudiants</a></li>
 
 
@@ -450,6 +449,7 @@
                                 <th>Prénom</th>
                                 <th>Date de naissance</th>
                                 <th>Date d'inscription</th>
+                                <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -461,6 +461,8 @@
                                 <td>{{$etudiant->prenom}}</td>
                                 <td>{{$etudiant->date_de_naissance}}</td>
                                 <td>{{$etudiant->date_inscription}}</td>
+                                <td><a href="{{url('Releverr',[$etudiant->id_etud,$etudiant->promo,$etudiant->option])}}">
+                                    <button class="btn btn-light mr-1"><i class="fa fa-eye text-primary"></i></button></a></td>
                  
                       </tr>
                       

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 @foreach($b as $b)
-  <title>Melody Admin</title>
+  <title>Scolarité</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
@@ -39,7 +39,7 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="#"><img src="telechargement/logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="#"><img src="{{URL::to('/')}}/telechargement/logo.png" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/telechargement/avatar/{{ $b->photo }}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -317,13 +317,13 @@
         
          <li class="nav-item">
             <a class="nav-link" href="/calendrier_en">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <i class="fa fa-calendar menu-icon"></i>
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Lockscreen">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <i class="fa fa-lock menu-icon"></i>
              <span class="menu-title">Lock screen</span> 
             </a>
           </li>
@@ -386,7 +386,7 @@
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Sample pages</a></li>
+                <li class="breadcrumb-item"><a href="#">Enseignant</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Modules</li>
               </ol>
             </nav>
@@ -409,7 +409,6 @@
                                 <th>Code</th>
                                 <th>Semestre</th>
                                 
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                           </thead>
@@ -420,12 +419,7 @@
                                 <td>{{$f->libelle_opt}}</td>
                                 <td>{{$f->code}}</td>
                                 <td>{{$f->semestre}}</td>
-                                <td>
-                                  <label class="badge badge-info">
-                                  <i class="fa fa-print btn-icon-append"></i>  
-
-                                  Télécharger</label>
-                                </td>
+                                
                                 <td class="text-right">
                                   <a href="{{ route('viewEtudient', $f->libelle_pr) }}"> <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>  Liste Etudiants
@@ -475,12 +469,7 @@
         
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="https://www.urbanui.com/" target="_blank">Urbanui</a>. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="far fa-heart text-danger"></i></span>
-          </div>
-        </footer>
+        
         <!-- partial -->
       </div>
       <!-- main-panel ends -->

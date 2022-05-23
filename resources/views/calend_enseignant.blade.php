@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 @foreach($b as $b)
-  <title>Melody Admin</title>
+  <title>Scolarite</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
@@ -40,7 +40,7 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="#"><img src="telechargement/logo.png" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/telechargement/avatar/{{ $b->photo }}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/telechargement/avatar/{{ $b->photo }}" alt="profile"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -298,7 +298,7 @@
           <li class="nav-item nav-profile">
             <div class="nav-link">
               <div class="profile-image">
-               <a href="/profile" ><img src="/telechargement/avatar/{{$b->photo}}" alt="image"/> </a>
+               <a href="/profile" ><img src="/telechargement/avatar/{{$b->photo}}" alt="profile"/> </a>
               </div>
               <div class="profile-name">
                 <p class="name">
@@ -318,13 +318,13 @@
 
           <li class="nav-item">
             <a class="nav-link" href="/calendrier_en">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <i class="fa fa-calendar menu-icon"></i>
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Lockscreen">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <a class="nav-link" href="{{ route('Lockscreen',$b->id) }}">
+            <i class="fa fa-lock menu-icon"></i>
              <span class="menu-title">Lock screen</span> 
             </a>
           </li>

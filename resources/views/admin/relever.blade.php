@@ -5,12 +5,12 @@
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Sortable table
+              Relevé
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Sortable table</li>
+                <li class="breadcrumb-item"><a href="#">Etudiant</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Relevé</li>
               </ol>
             </nav>
           </div>

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 @foreach($b as $b)
-  <title>Melody Admin</title>
+  <title>Scolarité</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
@@ -322,13 +322,13 @@
         
          <li class="nav-item">
             <a class="nav-link" href="/calendrier_en">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <i class="fa fa-calendar menu-icon"></i>
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Lockscreen">
-              <i class="fa fa-list-alt menu-icon"></i>
+              <i class="fa fa-lock menu-icon"></i>
              <span class="menu-title">Lock screen</span> 
             </a>
           </li>
@@ -370,12 +370,12 @@
         <div class="content-wrapper">
           <div class="page-header">
             <h3 class="page-title">
-              Modules
+             Archive
             </h3>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Sample pages</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Modules</li>
+                <li class="breadcrumb-item"><a href="#">Enseignant</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Promotions</li>
               </ol>
             </nav>
           </div>
@@ -383,7 +383,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Modules</h4>
+                  <h4 class="card-title">Promotions</h4>
                   
 
                   <div class="row">
@@ -400,19 +400,17 @@
                           <tbody>
                              @foreach($promo as $p)
                             <tr>
-                                <td>{{$p->libelle_pr}}</td>
+                                <td class="text-center">{{$p->libelle_pr}}</td>
                                 
 
-                                <td class="text-right">
+                                <td class="text-center">
                                   <a href="{{ route('viewEtudient', $p->libelle_pr) }}"> <button class="btn btn-light">
                                     <i class="fa fa-eye text-primary"></i>  Liste Etudiants
                                   </button>
                                 </a>
                           
                                   
-                                    <a href="{{ URL::to('notes',[ $p->id_mod,$p->id_pr]) }}"><button class="btn btn-light">
-                                    <i class="fa fa-edit text-success"></i>  Notes
-                                  </button> </a>
+                                   
                                 
                                 </td>
                             </tr>
@@ -450,12 +448,7 @@
         
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="https://www.urbanui.com/" target="_blank">Urbanui</a>. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="far fa-heart text-danger"></i></span>
-          </div>
-        </footer>
+       
         <!-- partial -->
       </div>
       <!-- main-panel ends -->

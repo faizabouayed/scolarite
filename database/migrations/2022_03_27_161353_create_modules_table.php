@@ -21,7 +21,7 @@ class CreateModulesTable extends Migration
             $table->boolean('controle')->default(1);
             $table->boolean('tp')->default(1);
             $table->boolean('examen')->default(1);
-            $table->enum('semestre',  ['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10']);
+            $table->enum('semestre',  ['S1','S2']);
             $table->unsignedBigInteger('enseignant')->nullable()->index();
             $table->unsignedBigInteger('option')->nullable()->index();
             $table->timestamp('deleted_at')->nullable()->useCurrentOnDelete();

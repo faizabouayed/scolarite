@@ -121,11 +121,13 @@ Route::get('/popup', function () {
 });*/
 
 
-Route::get('/Lockscreen', 'App\Http\Controllers\UserController@lockScreen')->name('Lockscreen');
+Route::get('/Lockscreen/{id}', 'App\Http\Controllers\UserController@lockScreen')->name('Lockscreen');
 Route::post('unlock', 'App\Http\Controllers\UserController@unlock')->name('unlock');
 
 /***lockscreen for admin */
-Route::get('/LockscreenA', 'App\Http\Controllers\AdminController@lockScreen')->name('LockscreenA');
+Route::get('/verrouiller', function(){
+    return view('verrouiller');
+});
 Route::post('unlockA', 'App\Http\Controllers\AdminController@unlock')->name('unlockA');
 
 /***********************Les options*********************/
@@ -268,6 +270,10 @@ Route::get('/etudiants/viewEtudient/{libelle_pr}', 'App\Http\Controllers\ModuleC
 
 /*archive des promos */
 Route::get('/archives', 'App\Http\Controllers\ModuleController@archive');
+
+/*relevé coté enseignant  */
+Route::get('Releverr/{id_etud}/{promo}/{option}', 'App\Http\Controllers\ModuleController@viewRelever')->name('relever');
+
 
     });
 

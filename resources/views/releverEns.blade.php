@@ -1,15 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <title>Scolarite</title>
+@foreach($b as $b)
+  <title>Scolarité</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
@@ -35,72 +32,14 @@
   <link rel="shortcut icon" type="text/css" href="{{URL::to('/')}}/www.urbanui.com">
 
   <!--<link rel="shortcut icon" href="http://www.urbanui.com/" />-->
-
-
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-            google.charts.load('current', {'packages':['corechart']});
-
-      google.charts.setOnLoadCallback(drawChart1);
-     
-
-
-      function drawChart1() {
-        var data = google.visualization.arrayToDataTable([
-          ['Année', 'Enseignants', 'Etudiants'],
-          ['2018', {{$s1}}, {{$se1}}],
-          ['2019', {{$s2}}, {{$se2}}],
-          ['2020', {{$s3}}, {{$se3}}],
-          ['2021',  {{$s4}}, {{$se4}}],
-          ['2022',  {{$s5}}, {{$se5}}]
-        ]);
-
-        var options = {
-          chart: {
-            
-            subtitle: 'Etudiants, Enseignants',
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-     
-  google.charts.setOnLoadCallback(drawChart2);
-       function drawChart2() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['SIC',    {{$etud_sic}}],
-          ['GL',      {{$etud_gl}}],
-          ['MID',   {{$etud_mid}}],
-          ['RSD',     {{$etud_rsd}}]
-        ]);
-
-        var options = {
-          title: 'nombre,%'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-
-
-
-
-    </script>
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <!--looogooooooooooo -->
-        <a class="navbar-brand brand-logo" href="#"><img src="telechargement/logo.png" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="index-2.html"><img src="/telechargement/logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/telechargement/avatar/{{ $b->photo }}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -156,7 +95,7 @@
      
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="/telechargement/avatar/admin.png" alt="profile"/>
+              <img src="/telechargement/avatar/{{ $b->photo }}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <!-- <a class="dropdown-item">
@@ -171,11 +110,6 @@
                 Déconnexion
               </a>
             </div>
-          </li>
-          <li class="nav-item nav-settings d-none d-lg-block">
-            <a class="nav-link" href="#">
-              <i class="fas fa-ellipsis-h"></i>
-            </a>
           </li>
           
         </ul>
@@ -355,6 +289,7 @@
           <!-- chat tab ends -->
         </div>
       </div>
+       
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
      <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -362,33 +297,36 @@
           <li class="nav-item nav-profile">
             <div class="nav-link">
               <div class="profile-image">
-                <img src="/telechargement/avatar/admin.png" alt="image"/>
+               <a href="/profile" ><img src="/telechargement/avatar/{{$b->photo}}" alt="image"/> </a>
               </div>
               <div class="profile-name">
                 <p class="name">
-                  Bonjour  Admin
+                    
+                          
+                  Bonjour  {{$b->name}}
+
                 </p>
+                @endforeach
                 <p class="designation">
-                  Super Admin
+                  {{$b->role}} {{$b->grade}}
                 </p>
               </div>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/index">
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{{url('index/')}}">
               <i class="fa fa-home menu-icon"></i>
-              <span class="menu-title">Tableau de bord</span>
+              <span class="menu-title">Dashboard</span>
             </a>
-          </li>       
-          <!-----------------------------User-------------->
+          </li>
+      
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
-              <!--<i class="fas fa-shopping-cart menu-icon"></i>-->
-              <i class="fas icon-sm fa fa-user  menu-icon"></i>
-              <span class="menu-title"> User</span>
+            <a class="nav-link" data-toggle="collapse" href="/modules" aria-expanded="false" aria-controls="e-commerce">
+              <i class="fas icon-sm fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Modules</span> 
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="e-commerce">
+             <div class="collapse" id="e-commerce">
               <ul class="nav flex-column sub-menu">
              
                 <li class="nav-item"> <a class="nav-link" href="/Admin-User"> Admin </a></li>
@@ -396,274 +334,232 @@
 
               </ul>
             </div>
-          </li>
-          <!----------------------------------------->
-          <!-----------------------------Etudiant-------------->
 
 
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
-              <i class="fa fa-book menu-icon"></i>
-              <span class="menu-title">Etudiant</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="page-layouts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/options">Options</a></li>
-                <li class="nav-item"> <a class="nav-link" href="/promotions">Promotions</a></li>
-                <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/liste-des-etudiants">Liste des etudiants</a></li>
-              </ul>
-            </div>
-          </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/module">
-              <i class="fa fa-list-alt menu-icon"></i>
-             <span class="menu-title">Modules</span> 
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="verrouiller">
-              <i class="fa fa-lock menu-icon"></i>
-             <span class="menu-title">Lock screen</span> 
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/calendrier">
-              <i class="fa fa-calendar menu-icon"></i>
+
+        </li>-->
+         <li class="nav-item">
+            <a class="nav-link" href="/calendrier_en">
+            <i class="fa fa-calendar menu-icon"></i>
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Lockscreen">
+              <i class="fa fa-list-alt menu-icon"></i>
+             <span class="menu-title">Lock screen</span> 
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+<a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
+<i class="fa fa-book menu-icon"></i>
+<span class="menu-title">Promotions</span>
+<i class="menu-arrow"></i>
+</a>
+<div class="collapse" id="page-layouts">
+<ul class="nav flex-column sub-menu">
+@foreach($m as $m)
+<li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{ URL::to('modules',[ $m->option,$m->id_pr]) }}">Promo {{$m->libelle_pr}} </a></li>
+
+
+
+@endforeach
+
+</ul>
+</div>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/archives">
+<i class="fa fa-list-alt menu-icon"></i>
+<span class="menu-title">Archives</span>
+</a>
+</li>
+          <!-----------------------------User-------------->
+        
         </ul>
       </nav>
-     
- 
   
 
-
-   
-
-
-
-
-      <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="page-header">
-            <h3 class="page-title">
-              Tableau de bord
-            </h3>
-          </div>
-          <div class="row grid-margin">
-            <div class="col-12">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                      <div class="statistics-item">
-                        <p>
-                          <i class="icon-sm fas fa-user-graduate mr-2" ></i>
-                          Etudiants
-                        </p>
-                        <h2>{{$etudiant}}</h2>
-                      </div>
-                      <div class="statistics-item">
-                        <p>
-                          <i class="icon-sm fa fa-user mr-2"></i>
-                         Enseignants
-                        </p>
-                        <h2>{{$enseignant}}</h2>
-                      </div>
-                      <div class="statistics-item">
-                        <p>
-                          <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
-                         Option
-                        </p>
-                        <h2>{{$option}}</h2>
-                      </div>
-                      <div class="statistics-item">
-                        <p>
-                          <i class="icon-sm fas fa-check-circle mr-2"></i>
-                          Promotions
-                        </p>
-                        <h2>{{$promotion}}</h2>
-                      </div>
-                      <div class="statistics-item">
-                        <p>
-                          <i class="icon-sm fas fa-chart-line mr-2"></i>
-                         Modules
-                        </p>
-                        <h2>{{$module}}</h2>
-                      </div>
-                     <!-- <div class="statistics-item">
-                        <p>
-                          <i class="icon-sm fas fa-circle-notch mr-2"></i>
-                          Pending
-                        </p>
-                        <h2>7500</h2>
-                        <label class="badge badge-outline-danger badge-pill">16% decrease</label>
-                      </div>-->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-            
-
-
-          <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">
-                     <i class="fas fa-chart-line"></i>
-                   Date Incription et Recrutement
-                  </h4>
-                 
-
-                         <div id="columnchart_material" style="width: 480px; height: 300px;"></div>
-                       
-
-                  <div id="orders-chart-legend" class="orders-chart-legend"></div>                  
-                </div>
-              </div>
-            </div>
-            
-         
-              <div class="col-md-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">
-                     <i class="fas fa-chart-pie"></i>
-                           Etudiants par option                  </h4>
-                                  <div id="piechart" style="width: 480px; height: 300px;"></div>
-
-                </div>
-              </div>
-            </div>
-            </div>
-          
-          <div class="row">
-           
-            <div class="col-md-4 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <i class="fas fa-calendar-alt"></i>
-                    Calendar
-                  </h4>
-                  <div id="inline-datepicker-example" class="datepicker"></div>
-                </div>
-              </div>
-            </div>
-         
-
-         
-            <div class="col-md-7 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <i class="fas fa-thumbtack"></i>
-                    Todo
-                  </h4>
-                  <div class="add-items d-flex">
-                    <input type="text" class="form-control todo-list-input"  placeholder="What do you need to do today?">
-                    <button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
-                  </div>
-                  <div class="list-wrapper">
-                    <ul class="d-flex flex-column-reverse todo-list">
-                      <li>
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox">
-                            Meeting with Alisa
-                          </label>
-                        </div>
-                        <i class="remove fa fa-times-circle"></i>
-                      </li>
-                      <li class="completed">
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox" checked>
-                            Call John
-                          </label>
-                        </div>
-                        <i class="remove fa fa-times-circle"></i>
-                      </li>
-                      <li>
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox">
-                            Create invoice
-                          </label>
-                        </div>
-                        <i class="remove fa fa-times-circle"></i>
-                      </li>
-                      <li>
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox">
-                            Print Statements
-                          </label>
-                        </div>
-                        <i class="remove fa fa-times-circle"></i>
-                      </li>
-                      <li class="completed">
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox" checked>
-                            Prepare for presentation
-                          </label>
-                        </div>
-                        <i class="remove fa fa-times-circle"></i>
-                      </li>
-                      <li>
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox">
-                            Pick up kids from school
-                          </label>
-                        </div>
-                        <i class="remove fa fa-times-circle"></i>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-         
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        
-        <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-
-  <!-- plugins:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
+    
+   <script src="vendors/js/vendor.bundle.base.js"></script>
   <script src="vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
- 
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/misc.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
-  <!-- End custom js for this page-->
-</body>
 
+   <!-- partial -->
+   <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              Relevé
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Enseignant</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Relevé</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" style="text-transform: uppercase;">Université Abou Bekr BelKaid -Tlemcen-</h4>
+                  <p class="page-description">Faculté : de Sciences</p>
+                  <p class="page-description">Departement : Informatique</p>
+                  <p class="page-description">Promo: {{$etudiant->libelle_pr}}</p>
 
-</html>
+                  <h4 class="card-title" style="text-align: center;">RELEVE DE NOTE</h4>
+                  <p class="page-description">Nom : {{$etudiant->nom}}  Prénom :{{$etudiant->prenom}}  Né (e) le :{{$etudiant->date_de_naissance}}  </p>
+                 
+                  <h5 class="card-title" style="text-align: center;">Premier Semestre <h6 style="text-align: right;">Niveau:{{$etudiant->niveau}}</h6></h5>
+                     <div class="col-lg-12 grid-margin stretch-card">              
+                       <table width="100%" border="2"cellpadding="5" id="sortable-table-2" class="table table-striped">
+                         <tr>
+                          <!--<th colspan="4" style="text-align: center">Unité d'Enseignement(U.E)</th>  -->               
+                          <th colspan="5" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</th>
+                          <th colspan="1">Résultats obtenus</th>
+                         </tr>
+                         <tr>                          
+                           
+                            <th style="width: 200.5px;">Code                            
+                            <th>Intitulé</th>
+                            <th>contole</th>                                                      
+                            <th >TPs</th>
+                            <th >Examan</th>
+                            <th >Note</th>
+                          </tr>
+                          <?php
+                          $somme1=0;
+                          $n1=$nbrMS1;
+                          ?>
+                           
+                          @foreach($var1 as $module)
+                          <tr>                           
+                         
+                            
+                             <td>{{$module->code}}</td>
+                             <td>{{$module->libelle}}</td>              
+                             <td>{{$module->note_cc}}</td>                           
+                             <td>{{$module->note_tp}}</td>
+                             <td>{{$module->note_ef}}</td>
+                             @if(($module->note_cc==NULL && $module->note_tp==NULL) )
+                             <td>{{(float)($module->note_ef)}}</td>
+                             <?php
+                             $somme1+=(float)($module->note_ef);
+                             ?>
 
+                             @elseif(($module->note_cc==NULL) )
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_ef)*2)/3,2)}}</td>
+                            <?php
+                            $somme1+=((float)($module->note_tp)+(float)($module->note_ef)*2)/3;
+                            ?>
+                             @elseif(($module->note_tp==NULL) )
+                             <td>{{number_format(((float)($module->note_cc)+(float)($module->note_ef)*2)/3,2)}}</td>
+                             <?php
+                             $somme1+=((float)($module->note_cc)+(float)($module->note_ef)*2)/3;
+                             ?>
+                             @else 
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4,2)}}</td>
+                             <?php
+                             $somme1+=((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4;
+                             ?>
+                             @endif
+                          </tr>                        
+                          @endforeach
+                          
+                          
+                          
+                       </table>
+                  </div>
+                  <h6 class="card-title" style="text-align: center">Deuxiéme Semestre</h6>
+                      <div class="col-lg-12 grid-margin stretch-card">
+                        <table width="100%" border="2"cellpadding="5" id="sortable-table-2" class="table table-striped">
+                         <tr>
+                                       
+                          <th colspan="5" style="text-align: center">Matiere(s) Contitutive de l'unité d'enseignement</th>
+                          <th colspan="1">Résultats obtenus</th>
+                         </tr>
+                         <tr>                          
+                           
+                            <th style="width: 200.5px;">Code                            
+                            <th>Intitulé</th>
+                            <th>contole</th>                                                      
+                            <th >TPs</th>
+                            <th>Examan</th>
+                            <th >Note</th>
+
+                            
+                          </tr>
+                          <?php
+                          $somme2=0;
+                          $n2=$nbrMS2;
+                          ?>
+                          @foreach($var2 as $module)
+                          <tr>                           
+                         
+                             <td>{{$module->code}}</td>
+                             <td>{{$module->libelle}}</td>              
+                             <td>{{$module->note_cc}}</td>                           
+                             <td>{{$module->note_tp}}</td>
+                             <td>{{$module->note_ef}}</td>
+                             @if(($module->note_cc==NULL && $module->note_tp==NULL) )
+                             <td>{{(float)($module->note_ef)}}</td>
+                             <?php
+                             $somme1+=(float)($module->note_ef);
+                             ?>
+
+                             @elseif(($module->note_cc==NULL) )
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_ef)*2)/3,2)}}</td>
+                            <?php
+                            $somme2+=((float)($module->note_tp)+(float)($module->note_ef)*2)/3;
+                            ?>
+                             @elseif(($module->note_tp==NULL) )
+                             <td>{{number_format(((float)($module->note_cc)+(float)($module->note_ef)*2)/3,2)}}</td>
+                             <?php
+                             $somme2+=((float)($module->note_cc)+(float)($module->note_ef)*2)/3;
+                             ?>
+                             @else 
+                             <td>{{number_format(((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4,2)}}</td>
+                             <?php
+                             $somme2+=((float)($module->note_tp)+(float)($module->note_cc)+(float)($module->note_ef)*2)/4;
+                             ?>
+                             @endif
+                          </tr>                        
+                          @endforeach
+                          
+                              
+                          
+                       </table>
+                               
+                      </div>
+                      @if($n1!=0 && $n2!=0)
+                      <p class="page-description">Moyenne génerale S1 : <?php $moy1=$somme1/$n1; $m1=number_format($moy1,2); echo "$m1";
+                    ?></p>
+                      <p class="page-description">Moyenne génerale S2  :<?php $moy2=$somme2/$n2; $m2=number_format($moy2,2); echo "$m2";
+                    ?> </p>
+                    <p class="page-description">Moyenne génerale   :<?php $moy=$moy1+$moy2; $m=$moy/2;
+                    $n=number_format($m,2); echo "$n";
+                    ?> </p>
+                    @endif
+                </div>
+              </div>
+            </div>
+
+           
+          </div>
+        </div>
+  

@@ -17,7 +17,10 @@ class CreateNotesTable extends Migration
             $table->id('id_nt');
             $table->timestamps();
             $table->string('type');
-            $table->string('note');
+            $table->string('note_tp');
+            $table->string('note_cc');
+            $table->string('note_ef');
+
             $table->unsignedBigInteger('module')->nullable()->index();
             $table->unsignedBigInteger('etudiant')->nullable()->index();
         });

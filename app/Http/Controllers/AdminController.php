@@ -88,15 +88,7 @@ class AdminController extends Controller
 
     public function lockScreen()
     {
-        /*if(!session('lock-expires-at'))
-        {
-            return redirect('home');
-        }
-
-        if(session('lock-expires-at') > now())
-        {
-            return redirect('home');
-        }*/
+        
         return view('LockScreenA');
     }
     

@@ -235,11 +235,18 @@
                     </div>
                        <div class="form-group">
                         <div class="form-group">                      
-                        <label for="firstname">controle:</label>           
-                        <input type="checkbox" value="1"  name="controle"/>
-
-                        <label for="firstname">tp:</label>
-                        <input type="checkbox" value="1" name="tp"/>
+                        <div class="form-check form-check-primary">
+<label class="form-check-label">
+<input type="checkbox" value="1" name="controle" />
+Controle:
+</label>
+</div>
+<div class="form-check form-check-primary">
+<label class="form-check-label">
+<input type="checkbox" value="1" name="tp" />
+TP:
+</label>
+</div>
 
              
                       </div>

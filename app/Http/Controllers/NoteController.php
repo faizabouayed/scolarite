@@ -32,9 +32,9 @@ class NoteController extends Controller
 
         $current_year=date('Y');
         $m = DB::table('promotions')
-        ->join('options','options.id_opt','=','promotions.option')
+        /*->join('options','options.id_opt','=','promotions.option')
         ->join('modules','options.id_opt','=','modules.option')
-        ->where('modules.enseignant',Auth::user()->id)
+        ->where('modules.enseignant',Auth::user()->id)*/
         ->where('annee_debut',$y=$current_year)
         ->orWhere('annee_fin',$x=$current_year)
         ->orderBy('annee_debut','desc')

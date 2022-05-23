@@ -21,16 +21,22 @@ class UserController extends Controller
     //
     public function afficherInfos()
     {
-          // echo"affichage du user".$id; 
-           //$b = User::where('id',$id)->get();
           
-          // return view('profile', ['info'=>$b]);
        $b=DB::table('users')
         ->where('id','=',Auth::user()->id)
         ->get();
 
-        $m=DB::table('promotions')
-        ->get();
+        $current_year=date('Y');
+$m = DB::table('promotions')
+/*->join('options','options.id_opt','=','promotions.option')
+->join('modules','options.id_opt','=','modules.option')
+->where('modules.enseignant',Auth::user()->id)*/
+->where('annee_debut',$y=$current_year)
+->orWhere('annee_fin',$x=$current_year)
+->orderBy('annee_debut','desc')
+->distinct('libelle_pr')
+->get();
+
            return view('profile', array('user'=>Auth::user(),'b'=>$b,'m'=>$m));
     }
     public function stat()
@@ -166,7 +172,15 @@ class UserController extends Controller
         ->where('id','=',Auth::user()->id)
         ->get();
 
-        $m=DB::table('promotions')
+        $current_year=date('Y');
+        $m = DB::table('promotions')
+        /*->join('options','options.id_opt','=','promotions.option')
+        ->join('modules','options.id_opt','=','modules.option')
+        ->where('modules.enseignant',Auth::user()->id)*/
+        ->where('annee_debut',$y=$current_year)
+        ->orWhere('annee_fin',$x=$current_year)
+        ->orderBy('annee_debut','desc')
+        ->distinct('libelle_pr')
         ->get();
            $b2 = User::where('id',$id)->get();
            return view('editprofil',compact('b2','b','m'));
@@ -174,7 +188,20 @@ class UserController extends Controller
     }
 
     public function update_photo(Request $request)
-    {
+    {$b=DB::table('users')
+        ->where('id','=',Auth::user()->id)
+        ->get();
+        $current_year=date('Y');
+$m = DB::table('promotions')
+/*->join('options','options.id_opt','=','promotions.option')
+->join('modules','options.id_opt','=','modules.option')
+->where('modules.enseignant',Auth::user()->id)*/
+->where('annee_debut',$y=$current_year)
+->orWhere('annee_fin',$x=$current_year)
+->orderBy('annee_debut','desc')
+->distinct('libelle_pr')
+->get();
+        
 
        if($request->hasFile('avatar')){
         $avatar=$request->file('avatar');
@@ -185,7 +212,7 @@ class UserController extends Controller
         $user->save();
                }   
 
-             return view('profile', array('user'=>Auth::user()));
+               return view('profile', array('user'=>Auth::user(),'b'=>$b,'m'=>$m));
    
     }
      public function update(Request $request, $id)
@@ -197,6 +224,7 @@ class UserController extends Controller
                 $r->name=$request->input('nom');
                         $r->email=$request->input('email');
                          $r->grade=$request->input('grade');
+                         $r->password = bcrypt($request->input('password')); 
 
 
 
@@ -220,15 +248,16 @@ class UserController extends Controller
         ->where('id','=',Auth::user()->id)
         ->get();
         $current_year=date('Y');
+        $current_year=date('Y');
         $m = DB::table('promotions')
-          ->join('options','options.id_opt','=','promotions.option')
-->join('modules','options.id_opt','=','modules.option')
-->where('modules.enseignant',Auth::user()->id)
-->where('annee_debut',$y=$current_year)
-->orWhere('annee_fin',$x=$current_year)
-->orderBy('annee_debut','desc')
-->distinct('libelle_pr')
-->get();
+        /*->join('options','options.id_opt','=','promotions.option')
+        ->join('modules','options.id_opt','=','modules.option')
+        ->where('modules.enseignant',Auth::user()->id)*/
+        ->where('annee_debut',$y=$current_year)
+        ->orWhere('annee_fin',$x=$current_year)
+        ->orderBy('annee_debut','desc')
+        ->distinct('libelle_pr')
+        ->get();
 
          return view('calend_enseignant',compact('b','m'));
       }
@@ -236,18 +265,12 @@ class UserController extends Controller
 
 
 
-      public function lockScreen()
+      public function lockScreen($id)
       {
-          /*if(!session('lock-expires-at'))
-          {
-              return redirect('home');
-          }
-  
-          if(session('lock-expires-at') > now())
-          {
-              return redirect('home');
-          }*/
-          return view('Lockscreen');
+        $ens=User::
+        where('id','=',$id)
+        ->get();
+          return view('Lockscreen',['ens' => $ens]);
       }
       
       // unlock screen
@@ -266,4 +289,8 @@ class UserController extends Controller
           session(['lock-expires-at' => now()->addMinutes($request->user())]);
           return redirect('calendrier_en');
       }
+
+
+
+      
 }

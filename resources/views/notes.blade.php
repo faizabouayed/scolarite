@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 @foreach($b as $b)
-  <title>Melody Admin</title>
+  <title>Scolarité</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
@@ -38,7 +38,7 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="#"><img src="telechargement/logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="#"><img src="{{URL::to('/')}}/telechargement/logo.png" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/telechargement/avatar/{{ $b->photo }}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -341,7 +341,7 @@
         </li>-->
          <li class="nav-item">
             <a class="nav-link" href="/calendrier_en">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <i class="fa fa-calendar menu-icon"></i>
              <span class="menu-title">Calendrier</span> 
             </a>
           </li>
@@ -447,14 +447,14 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Les Notes de la promo </h4>
+                  <h4 class="card-title">Liste des notes </h4>
 
                   <div class="row">
                     <div class="col-12"> 
                    
                       <div class="table-responsive">
                          @foreach($tab as $tab)
-                       @if(($tab->tp==0))
+                       @if(($tab->tp==0 && $tab->examen==1 && $tab->controle==1))
                         <table  id="example" class="table">
                           <thead>
                             <tr class="bg-primary text-white">
@@ -499,7 +499,7 @@
                                   @csrf
                                   @method('PUT')
                          
-                             
+                    <div class="input-group-icon mb-3 ">
                       <div class="form-group">
                         <label for="note_cc">controle:</label>
                         <input id="note_cc" class="form-control" name="note_cc" type="text" value="{{$F->note_cc}}" >
@@ -516,17 +516,22 @@
                               
                       
                               
-                                     
-                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
-                                  </div>
+                                     <br>
+                                     <div class="input-group-icon ms-3 mb-3 mt-7">
+<button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+<i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+
+
+
+<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+</div>
+
+                    </div>
                                 </form>          
                               </div>
                             </div>
                             <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
+                                     
                           </div>
                         </div>
                       </div>
@@ -535,7 +540,7 @@
                           
                           </tbody>
                         </table> 
-                        @elseif(($tab->controle==0))
+                        @elseif(($tab->controle==0 && $tab->tp==1 && $tab->examen==1))
                           <table  id="example" class="table">
                           <thead>
                             <tr class="bg-primary text-white">
@@ -584,6 +589,7 @@
                         <label for="note_cc">controle:</label>
                         <input id="note_cc" class="form-control" name="note_cc" type="text" value="{{$F->note_cc}}" >
                       </div>-->
+                      <div class="input-group-icon mb-3 ">
                         <div class="form-group">
 
                         <label for="firstname">TP:</label>
@@ -597,16 +603,18 @@
                       
                               
                                      
-                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
-                                  </div>
-                                </form>          
-                              </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
+                      <br>
+                                     <div class="input-group-icon ms-3 mb-3 mt-7">
+<button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+<i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+
+
+
+<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+</div>
+
+                    </div>
+                                </form>           
                           </div>
                         </div>
                       </div>
@@ -615,6 +623,107 @@
                           
                           </tbody>
                         </table> 
+
+
+                        @elseif(($tab->controle==0 && $tab->tp==0 && $tab->examen==1))
+                          <table  id="example" class="table">
+                           
+                          <thead>
+                            <tr class="bg-primary text-white">
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Date de Naissance</th>
+                                
+                                
+                                <th>EF</th>
+                                 <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($f as $F)
+                             <tr>
+                                <td>{{$F->nom}}</td>
+                                <td>{{$F->prenom}}</td>
+                                <td>{{$F->date_de_naissance}}</td>
+                                                                         
+                                                               
+                                <td class="text-right">
+                                  {{$F->note_ef}}
+                                </td>                              
+                                <td> 
+                                  <a href="{{ route('notes.update',$F->id_nt) }}" data-bs-toggle="modal" data-bs-target="#F{{$F->id_nt}}"><i class="fa fa-edit text-success "></i></a>
+
+                                </td>
+                            </tr> 
+                       <div class="modal" id="F{{$F->id_nt}}">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">         
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h3 class="font-sans-serif text-center fw-bold fs-1 text-dark mx-auto ms-8"> Modifier les Notes </h3>
+                                <a class="close"  data-bs-dismiss="modal"aria-label="Close">&times;</a> 
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body mx-auto">
+                              <div class="row align-items-center mb-3">
+                                <form method="POST" action="{{ route('notes.update',$F->id_nt) }}" class="sign-up-form" onsubmit="return userformcheck(this)">
+                                  @csrf
+                                  @method('PUT')
+                         
+                             
+                     <!-- <div class="form-group">
+                        <label for="note_cc">controle:</label>
+                        <input id="note_cc" class="form-control" name="note_cc" type="text" value="{{$F->note_cc}}" >
+                      </div>-->
+                      <div class="input-group-icon mb-3 ">
+                          
+                      <div class="form-group">
+                        <label for="firstname">Examen:</label>
+                        <input id="firstname" class="form-control" name="note_ef" type="text" value="{{$F->note_ef}}" >
+                      </div>
+                              
+                      
+                              
+                                     
+                      <br>
+                                     <div class="input-group-icon ms-3 mb-3 mt-7">
+<button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+<i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+
+
+
+<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+</div>
+
+                    </div>
+                                </form>           
+                          </div>
+                        </div>
+                      </div>
+                           @endforeach
+                           
+                          
+                          </tbody>
+                        </table> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         @else
                          <table  id="example" class="table">
@@ -679,16 +788,18 @@
                       
                               
                                      
-                                  <div class="input-group-icon ms-3 mb-3 mt-7">                                 
-                                  <button class="btn btn-primary form-little-squirrel-control"  type="submit" size="30" maxlength="10" style="border-radius:5px; position:absolute; " >Modifier</button>
-                                  </div>
-                                </form>          
-                              </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-                            </div>          
+                      <br>
+                                     <div class="input-group-icon ms-3 mb-3 mt-7">
+<button class="btn btn-primary form-little-squirrel-control" type="submit">Modifier</button>
+<i class="fas fa-user-plus amber-text input-box-icon" style="color:white"></i>
+
+
+
+<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Annuler</button>
+</div>
+
+                    </div>
+                                </form>           
                           </div>
                         </div>
                       </div>

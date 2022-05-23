@@ -1,4 +1,4 @@
-@extends('layouts.MenuEnseignant')
+@extends('layouts.MenuAdmin')
 @Section('content')
 <html>
 <head>

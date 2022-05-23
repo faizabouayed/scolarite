@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Melody Admin</title>
+  <title>Scolarité</title>
   <!-- plugins:css -->
   <!--<link href="{{ asset('css/vendors/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
@@ -44,7 +44,7 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <!--looogooooooooooo -->
-        <a class="navbar-brand brand-logo" href="#"><img src="telechargement/logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="#"><img src="{{URL::to('/')}}/telechargement/logo.png" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -368,9 +368,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Lockscreen">
-              <i class="fa fa-list-alt menu-icon"></i>
+            <a class="nav-link" href="/verrouiller">
+              <i class="fa fa-lock menu-icon"></i>
              <span class="menu-title">Lock screen</span> 
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/calendrier">
+              <i class="fa fa-calendar menu-icon"></i>
+             <span class="menu-title">Calendrier</span> 
             </a>
           </li>
         </ul>
